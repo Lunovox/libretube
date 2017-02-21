@@ -1,0 +1,41 @@
+/* Site rules */
+body {
+	/*
+	background: -webkit-linear-gradient(right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: -moz-linear-gradient(right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: -o-linear-gradient(right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: -ms-linear-gradient(right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: linear-gradient(right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	/**/
+	
+	font-family: Verdana, Colibri, Arial, 'Comic Sans', freesans, serif, sans-serif, arial, helvetica;
+   /*font-family: freesans, serif, sans-serif, arial, helvetica;/**/
+   /*font-family: serif, sans-serif, arial, helvetica;/**/
+	font-size: 14px;
+	/*line-height:100%; /**/
+	/*margin: 0px 10px; /* define margens superior e inferior de 40px e laterais 0 (zero)/**/
+	/*padding: 0px 0px; /* define margens superior e inferior de 40px e laterais 0 (zero)/**/
+}
+
+p {
+	margin: 5px; /* define margens superior e inferior de 0px e laterais 0px/**/
+}
+ul {
+	margin: 0px 5px; /* define margens superior e inferior de 0px e laterais 5px/**/
+}
+
+/* TinyMCE specific rules */
+body.mceContentBody {
+   background-color: #CCC;
+}
+
+a {
+	text-decoration:none;
+   color:#0000FF; 
+	font-weight: bold;
+	cursor: pointer;
+}
+a:hover {
+   color:#8888FF; 
+	font-weight: bold;
+}

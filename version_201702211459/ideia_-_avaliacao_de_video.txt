@@ -1,0 +1,7 @@
+O que vc acho do vídeo?
+[ ] Revoltante - Você não gostou que tivessem feito este vídeo
+[ ] Inconveniente - Você até gostou do vídeo, mas não da forma como ele foi feito.
+[ ] Indiferente - Você não tem [ou não quer dar] opinião sobre este vídeo.
+[ ] Útil - Ovídeo foi bem informativo, mas poderia ser apresentado de forma melhor.
+[ ] Divertido - Você gostou da forma do vídeo, mas ainda precisa de algo para ficar perfeito.
+[ ] Ótimo - Você não consegue imaginar como fazer este vídeode forma melhor do que a apresentada.

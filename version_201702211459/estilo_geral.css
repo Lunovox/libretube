@@ -1,0 +1,502 @@
+*{
+	margin:0px; padding:0px;
+
+	font-family: arial, verdana, calibri, freesans, serif, sans-serif, helvetica;/**/
+	/*font-family: serif, sans-serif, arial, helvetica;/**/
+	/*font-size: 14px;/**/
+}
+
+html { /*è necessário por causa do rodapé*/
+    position: relative;
+    min-height: 100%;
+}
+ 
+body{
+	/*font-family: Verdana, Colibri, Arial, 'Comic Sans', freesans, serif, sans-serif, arial, helvetica;/**/
+	/*font-family: freesans, serif, sans-serif, arial, helvetica;/**/
+	/*font-family: serif, sans-serif, arial, helvetica;/**/
+	/*font-size: 14px;/**/
+
+	text-align: left;
+	/*text-decoration: none;
+	text-transform: uppercase;/**/
+	text-shadow:1px 1px 0 #FFF;
+
+	background: -webkit-linear-gradient(right, #444444, #EEEEEE 20%, #EEEEEE 80%, #444444);
+	background: -moz-linear-gradient(right, #444444, #EEEEEE 20%, #EEEEEE 80%, #444444);
+	background: -o-linear-gradient(right, #444444, #EEEEEE 20%, #EEEEEE 80%, #444444);
+	background: -ms-linear-gradient(right, #444444, #EEEEEE 20%, #EEEEEE 80%, #444444);
+	background: linear-gradient(right, #444444, #EEEEEE 20%, #EEEEEE 80%, #444444);
+
+	/*background: url(imgs/backgrounds/blue-green-field-landscape-wallpaper-53115f2e2f557.jpg) no-repeat top center fixed; /**/
+	/*background: url(imgs/backgrounds/green-tree-lonely-in-green-field-wallpaper-545d9353cd902.jpg) no-repeat top center fixed; /**/
+	/*background: url(imgs/backgrounds/televisions_1280x854px.jpg) no-repeat top center fixed; /**/
+
+	background-size: cover;  /*<= Serve para a imagem de fund oser esticada conforma o tamanho da tela. /**/
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+}
+
+header{
+	background: -webkit-linear-gradient(right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: -moz-linear-gradient(right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: -o-linear-gradient(right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: -ms-linear-gradient(right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: linear-gradient(right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	text-shadow:1px 1px 0 #FFF;
+}
+
+header img {
+	max-width:400px; 
+	width:90%; 
+}
+
+session{
+	/*margin:0px; padding:0px; /**/
+	
+	width:100%;
+	/*height:500px;/**/
+	
+	/*font-family: sans-serif, serif, arial, helvetica;/**/
+	/*font-size: 12px;/**/
+
+	/*text-align: center;/**/
+	/*text-decoration: none;
+	text-transform: uppercase;/**/
+	text-shadow:1px 1px 0 #FFF;
+}
+
+session .FormSession{
+	max-width:760px; 
+	background:rgba(238,238,238,0.8);/**/
+	padding:15px;/**/
+}
+
+session #TitleSession{
+	background: -webkit-linear-gradient(right, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
+	background: -moz-linear-gradient(right, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
+	background: -o-linear-gradient(right, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
+	background: -ms-linear-gradient(right, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
+	background: linear-gradient(right, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
+
+	
+	
+	/*text-align: center;/**/
+	text-decoration: none;
+	text-transform: uppercase;
+	text-shadow:1px 1px 0 #FFF;
+
+	padding:15px;
+	
+	border-bottom:1px solid #c0c0c0;
+}
+
+session p{
+	/*font-family: freesans, serif, sans-serif, arial, helvetica;/**/
+	text-align: justify;
+	/*font-size: 12px;/**/
+	/*line-height:100%;/**/
+	margin: 5px;
+}
+session ul{
+	margin: 0px 25px;
+}
+
+uppercase{
+	vertical-align: text-top;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+session .VideoListDesc{
+	display:inline-block;/**/
+	vertical-align: text-top;
+	text-decoration: none;
+	/*text-transform: uppercase;/**/
+	margin:5px; 
+	padding:10px;/**/
+	max-width:260px; 
+	min-height:220px; /**/
+	background:rgba(255,255,255,0.3);/**/
+	cursor:pointer;
+	
+	border-radius: 10px;
+	border:1px solid rgba(0,0,0,0.3);
+	
+	font-size: 12px;/**/
+}
+
+session .VideoList{
+	display:inline-block;/**/
+	vertical-align: text-top;
+	text-decoration: none;
+	/*text-transform: uppercase;/**/
+	margin:5px; 
+	padding:10px;/**/
+	max-width:260px; 
+	min-height:220px; /**/
+	background:rgba(196,196,196,0.5);/**/
+	cursor:pointer;
+	
+	border-radius: 10px;
+	border:1px solid rgba(0,0,0,0.3);
+	
+	font-size: 12px;/**/
+}
+
+session .VideoList:hover{
+	display:inline-block;/**/
+	vertical-align: text-top;
+	text-decoration: none;
+	/*text-transform: uppercase;/**/
+	margin:5px; 
+	padding:10px;/**/
+	max-width:260px; 
+	min-height:220px; /**/
+	background:rgba(196,256,196,0.5);/**/
+	cursor:pointer;
+	border-radius: 10px;
+}
+
+session .VideoListOff{
+	display:inline-block;/**/
+	vertical-align: text-top;
+	text-decoration: none;
+	/*text-transform: uppercase;/**/
+	margin:5px; 
+	padding:10px;/**/
+	max-width:260px; 
+	min-height:220px; /**/
+	background:rgba(0,0,0,0.3);/**/
+	cursor:pointer;
+	
+	border-radius: 10px;
+	border:1px solid rgba(0,0,0,0.3);
+	
+	font-size: 12px;/**/
+}
+
+session .VideoListOff:hover{
+	display:inline-block;/**/
+	vertical-align: text-top;
+	text-decoration: none;
+	/*text-transform: uppercase;/**/
+	margin:5px; 
+	padding:10px;/**/
+	max-width:260px; 
+	min-height:220px; /**/
+
+	background:rgba(196,196,196,0.8);/**/
+	cursor:pointer;
+	border-radius: 10px;
+}
+
+session a {
+	text-decoration:none;
+   color:#000044; 
+	font-weight: bold;
+	cursor: pointer;
+	/*content: attr(title);/**/
+}
+
+session a:hover {
+	text-decoration: none;
+   color:#8888FF; 
+	font-weight: bold;
+}
+session #TitleThumbnails{
+	max-width:760px; 
+	width:100%; 
+}
+
+@media (max-width:380px) {
+	header img {
+		max-width:200px; 
+		width:95%; 
+	}
+	session #TitleThumbnails{
+		max-width:400px; 
+		width:100%; 
+	}
+	session #VideoPlayer{
+		max-width:380px; 
+		max-height:213px;  
+		width:100%; 
+		text-align: center center;
+	}
+	session .VideoList{
+		/*list-style:none;/**/
+		/*border:0px solid #000000; /**/
+		/*margin:10px; /**/
+		/*padding:10px;/**/
+	
+		/*max-width:380px; /**/
+		/*max-height:450px; /**/
+		/*background:rgba(256,256,256,0.6);/**/
+
+	}
+	
+	session .VideoListOff{
+		/*list-style:none;/**/
+		/*border:0px solid #000000; /**/
+		/*margin:10px; /**/
+		/*padding:10px;/**/
+	
+		/*max-width:380px; /**/
+		/*max-height:450px; /**/
+		/*background:rgba(64,64,64,0.8);/**/
+		/*background:rgba(64,64,64,0.8);/**/
+
+	}
+}
+
+footer{
+	/*position:relative; /**/
+	position:absolute; /* <= para funcionar precisa do estilo da tag HTML */
+	bottom:0;/**/
+	width:99.9%;/**/
+
+	color: #616165;
+	/*font-family: sans-serif, serif, arial, helvetica;/**/
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 25px;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	text-shadow:1px 1px 0 #FFF;
+	padding: 0px 0px;
+
+	background: -webkit-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	background: -moz-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	background: -o-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	background: -ms-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	background: linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	border: 1px solid #CCCCCE;
+
+	border-radius: 3px;
+	box-shadow: 0 3px 0 rgba(0, 0, 0, .3),
+				0 2px 7px rgba(0, 0, 0, 0.2);
+}
+
+footer a{
+	color:#333; 
+	text-decoration:none; 
+	padding:5px 10px; 
+}
+
+footer a:hover{
+	background: -webkit-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: -moz-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: -o-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: -ms-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+
+	color:#3FA952;
+	-moz-box-shadow:0 3px 10px 0 #CCC;
+	-webkit-box-shadow:0 3px 10px 0 #ccc;
+	text-shadow:0px 0px 5px #fff;
+}
+
+nav{
+	height:35px;/**/
+
+	background: -webkit-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	background: -moz-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	background: -o-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	background: -ms-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	background: linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	border: 1px solid #CCCCCE;
+	border-radius: 3px;
+	box-shadow: 0 3px 0 rgba(0, 0, 0, .3),
+				0 2px 7px rgba(0, 0, 0, 0.2);
+	color: #616165;
+	/*font-family: sans-serif, serif, arial, helvetica;/**/
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 25px;
+	text-align: center center;
+	text-decoration: none;
+	text-transform: uppercase;
+	text-shadow:1px 1px 0 #FFF;
+	padding: 0px 0px;
+
+
+}
+
+#mnuBuscar{
+	color:#333; 
+	text-decoration:none; 
+	display:block;
+}
+
+#mnuBuscador{
+	color:#333; 
+	text-decoration:none; 
+	padding:5px 10px; 
+	display:none;
+}
+
+#mnuBuscador button{
+	border-radius: 4px;
+	text-decoration: none;
+	text-transform: uppercase;
+	text-shadow:1px 1px 0 #FFF;
+}
+
+.menu{
+
+	/*border: 1px solid #000000;/**/
+	list-style:none;/**/ /*Desativa o Ponto (.) de Estilização da Lista*/
+	display:inline-block;
+}
+
+.menu li{
+	position:relative;/**/
+	float:left;/**/
+	border-right:1px solid #c0c0c0;
+	border-left:1px solid #c0c0c0;
+	text-decoration: none;
+}
+
+.menu li img{
+	/*padding: 7px 5px 0px 15px;/**/
+	padding: 7px 0px 0px 10px;
+	height: 18px;
+}
+
+.menu li a{
+	color:#333; 
+	text-decoration:none; 
+	padding:5px 10px; 
+	display:block;
+}
+ 
+.menu li a:hover{
+	background: -webkit-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: -moz-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: -o-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: -ms-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+
+	color:#3FA952;
+	-moz-box-shadow:0 3px 10px 0 #CCC;
+	-webkit-box-shadow:0 3px 10px 0 #ccc;
+	text-shadow:0px 0px 5px #fff;
+}
+
+.menu li ul{
+	position:absolute;
+	top:35px;
+	left:0;
+	background-color:#fff;
+	display:none;
+
+	min-width:150px;
+	white-space: nowrap;
+
+	background: -webkit-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	background: -moz-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	background: -o-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	background: -ms-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	background: linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	border: 1px solid #CCCCCE;
+	border-radius: 3px;
+	box-shadow: 0 3px 0 rgba(0, 0, 0, .3),
+				0 2px 7px rgba(0, 0, 0, 0.2);
+	color: #000000;
+	line-height: 25px;
+}   
+
+.menu li:hover ul, .menu li.over ul{display:block;}
+
+.menu li ul li{
+	border:1px solid #c0c0c0;
+	display:block;
+	width:100%;
+	line-height: 25px;/**/
+	/*margin:25px;/**/
+}
+
+.frmLicense{
+	width:100%; 
+}
+.frmLicense td{
+	background-color:#fff;
+	margin:0px; padding:5px;
+	border:1px solid; 
+}
+
+.frmLicense .cabecalho{
+	background: -webkit-linear-gradient(top, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
+	background: -moz-linear-gradient(top, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
+	background: -o-linear-gradient(top, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
+	background: -ms-linear-gradient(top, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
+	background: linear-gradient(top, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
+	
+	color:#000;
+	margin:0px; padding:5px;
+	border:1px solid; 
+}
+
+
+@media (max-aspect-ratio: 16/9) { /*Para quando o video estiver em fullscreen*/
+	session video { 
+		border-radius: 0px;
+		color: white;
+		text-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen;
+		/*text-shadow:0px 0px 5px #008800;;/**/
+	}
+}
+
+@media (min-aspect-ratio: 16/9) {
+	session video{
+		background-color:#fff;
+		width:100%; 
+		max-width:760px; 
+		max-height:428px; 
+		background:rgba(0,0,0,1);/**/
+		border-radius: 10px;
+		color: white;
+		text-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen;
+		/*text-shadow:0px 0px 5px #008800;;/**/
+		/*text-transform: uppercase;/**/
+	}
+	
+	::cue(.red){ color: red; }
+	::cue(.blue){ color: blue; }
+	::cue(.green){ color: green; }
+	::cue(.yellow){ color: yellow; }
+	::cue(.background-red){ background-color: red; }
+	::cue(.background-blue){ background-color: blue; }
+	::cue(.background-green){ background-color: green; }
+	::cue(.background-yellow){ background-color: yellow; }
+	/*FONTE: http://ronallo.com/blog/html5-video-caption-cue-settings-tester/*/
+
+}/**/
+
+#txtLogEmail, #txtLogPass, input[type='submit'] {
+	margin-top:10px;
+	font-size:24px;
+	border-radius:10px;
+	padding:5px;
+	max-width:80%;
+}
+
+
+
+#txtLogEmail {
+	padding-left:36px;
+	background: rgba(128,255,128,0.3) url(imgs/icons/sbl_cartas.png) no-repeat scroll 7px 7px;/**/
+}
+#txtLogPass {
+	padding-left:36px;
+	background: rgba(128,255,128,0.3) url(imgs/icons/sbl_cadeado.png) no-repeat scroll 7px 7px;/**/
+}
+
+
