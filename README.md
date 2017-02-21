@@ -5,4 +5,4 @@ Este projeto (OpenTube) está licenciada sob **GNU Lesser General Public License
 
  * Para mais informações, consulte a [licença completa (código legal)](http://www.gnu.org/licenses/lgpl-3.0.html).
 
-Como uma permissão adicional sob LGNU GPL versão 3 seção 7, você pode distribuir códigos objetos que não são a fonte (e.g., por estarem minimizados ou compacotados) sem a cópia da GNU GPL normalmente requerida pela seção 4, desde que você inclua esta notificação de licença e um URL pelo qual os recipientes/leitores possam acessar a Fonte Correspondente. 
+Como uma permissão adicional sob **GNU LGPL** versão 3 seção 7, você pode distribuir códigos objetos que não são a fonte (e.g., por estarem minimizados ou compacotados) sem a cópia da **GNU LGPL** normalmente requerida pela seção 4, desde que você inclua esta notificação de licença e um URL pelo qual os recipientes/leitores possam acessar a Fonte Correspondente. 
