@@ -22,11 +22,7 @@ body{
 	text-transform: uppercase;/**/
 	text-shadow:1px 1px 0 #FFF;
 
-	background: -webkit-linear-gradient(right, #444444, #EEEEEE 20%, #EEEEEE 80%, #444444);
-	background: -moz-linear-gradient(right, #444444, #EEEEEE 20%, #EEEEEE 80%, #444444);
-	background: -o-linear-gradient(right, #444444, #EEEEEE 20%, #EEEEEE 80%, #444444);
-	background: -ms-linear-gradient(right, #444444, #EEEEEE 20%, #EEEEEE 80%, #444444);
-	background: linear-gradient(right, #444444, #EEEEEE 20%, #EEEEEE 80%, #444444);
+	background: linear-gradient(to right, #444444, #EEEEEE 20%, #EEEEEE 80%, #444444);
 
 	/*background: url(imgs/backgrounds/blue-green-field-landscape-wallpaper-53115f2e2f557.jpg) no-repeat top center fixed; /**/
 	/*background: url(imgs/backgrounds/green-tree-lonely-in-green-field-wallpaper-545d9353cd902.jpg) no-repeat top center fixed; /**/
@@ -39,11 +35,7 @@ body{
 }
 
 header{
-	background: -webkit-linear-gradient(right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
-	background: -moz-linear-gradient(right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
-	background: -o-linear-gradient(right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
-	background: -ms-linear-gradient(right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
-	background: linear-gradient(right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: linear-gradient(to right, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
 
 	text-align: center;
 	text-decoration: none;
@@ -73,19 +65,13 @@ session{
 
 session .FormSession{
 	max-width:760px; 
-	background:rgba(238,238,238,0.8);/**/
+	background:rgba(255,255,255,0.7);/**/
 	padding:15px;/**/
 }
 
 session #TitleSession{
-	background: -webkit-linear-gradient(right, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
-	background: -moz-linear-gradient(right, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
-	background: -o-linear-gradient(right, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
-	background: -ms-linear-gradient(right, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
-	background: linear-gradient(right, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
+	background: linear-gradient(to top, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
 
-	
-	
 	/*text-align: center;/**/
 	text-decoration: none;
 	text-transform: uppercase;
@@ -272,11 +258,7 @@ footer{
 	text-shadow:1px 1px 0 #FFF;
 	padding: 0px 0px;
 
-	background: -webkit-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
-	background: -moz-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
-	background: -o-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
-	background: -ms-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
-	background: linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	background: linear-gradient(to bottom, #E0E0E0, #F9F9F9 70%);
 	border: 1px solid #CCCCCE;
 
 	border-radius: 3px;
@@ -291,11 +273,7 @@ footer a{
 }
 
 footer a:hover{
-	background: -webkit-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
-	background: -moz-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
-	background: -o-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
-	background: -ms-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
-	background: linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: linear-gradient(to bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
 
 	color:#3FA952;
 	-moz-box-shadow:0 3px 10px 0 #CCC;
@@ -306,11 +284,7 @@ footer a:hover{
 nav{
 	height:35px;/**/
 
-	background: -webkit-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
-	background: -moz-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
-	background: -o-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
-	background: -ms-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
-	background: linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	background: linear-gradient(to bottom, #E0E0E0, #F9F9F9 70%);
 	border: 1px solid #CCCCCE;
 	border-radius: 3px;
 	box-shadow: 0 3px 0 rgba(0, 0, 0, .3),
@@ -378,11 +352,7 @@ nav{
 }
  
 .menu li a:hover{
-	background: -webkit-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
-	background: -moz-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
-	background: -o-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
-	background: -ms-linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
-	background: linear-gradient(bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
+	background: linear-gradient(to bottom, #3FA952, #FFF 20%, #FFF 80%, #3FA952);
 
 	color:#3FA952;
 	-moz-box-shadow:0 3px 10px 0 #CCC;
@@ -400,11 +370,7 @@ nav{
 	min-width:150px;
 	white-space: nowrap;
 
-	background: -webkit-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
-	background: -moz-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
-	background: -o-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
-	background: -ms-linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
-	background: linear-gradient(bottom, #E0E0E0, #F9F9F9 70%);
+	background: linear-gradient(to bottom, #E0E0E0, #F9F9F9 70%);
 	border: 1px solid #CCCCCE;
 	border-radius: 3px;
 	box-shadow: 0 3px 0 rgba(0, 0, 0, .3),
@@ -433,11 +399,7 @@ nav{
 }
 
 .frmLicense .cabecalho{
-	background: -webkit-linear-gradient(top, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
-	background: -moz-linear-gradient(top, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
-	background: -o-linear-gradient(top, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
-	background: -ms-linear-gradient(top, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
-	background: linear-gradient(top, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
+	background: linear-gradient(to top, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
 	
 	color:#000;
 	margin:0px; padding:5px;

@@ -27,6 +27,13 @@
 		}
 		return $newstr;
 	}
+	function countUsers(){
+		$LunoMySQL = new LunoMySQL;
+		if($LunoMySQL->ifAllOk()){
+			$Users=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."users");
+			return count($Users);
+		}
+	}
 	function setLogin($Email="", $Senha=""){
 		$LunoMySQL = new LunoMySQL;
 		if($LunoMySQL->ifAllOk()){
@@ -36,9 +43,10 @@
 					$_SESSION["log-email"] = $Email;
 					$_SESSION["log-type"] = $Users[0]['NivelDeAcesso'];
 					$_SESSION["log-pass"] = md5($Senha);
-					$_SESSION["log-auth"] = md5("auth:".$_SESSION["log-email"].$_SESSION["log-pass"].$_SESSION["log-type"].date("yyyy-mm-dd"));
-
-					$Comando="UPDATE ".$LunoMySQL->getConectedPrefix()."users SET LastLogin = NOW()	WHERE Email='$Email'";
+					//$_SESSION["log-auth"] = md5("auth:".$_SESSION["log-email"].$_SESSION["log-pass"].$_SESSION["log-type"].date("yyyy-mm-dd"));
+					$_SESSION["log-auth"] = md5("auth:".$_SESSION["log-email"].":".$_SESSION["log-pass"].":".$_SESSION["log-type"].":".date("yyyy-mm-dd"));
+ 
+ 					$Comando="UPDATE ".$LunoMySQL->getConectedPrefix()."users SET LastLogin = NOW()	WHERE Email='$Email'";
 					//SQL_Consulta($Comando);
 					$LunoMySQL->getResult($Comando);
 					return true;
@@ -57,7 +65,7 @@
 	function isLoged(){
 		return (
 			isset($_SESSION["log-email"]) && isset($_SESSION["log-type"]) && isset($_SESSION["log-pass"]) && isset($_SESSION["log-auth"]) &&  
-			$_SESSION["log-auth"]==md5("auth:".$_SESSION["log-email"].$_SESSION["log-pass"].$_SESSION["log-type"].date("yyyy-mm-dd"))
+			$_SESSION["log-auth"]==md5("auth:".$_SESSION["log-email"].":".$_SESSION["log-pass"].":".$_SESSION["log-type"].":".date("yyyy-mm-dd"))
 		);
 	}
 	function getLogedType(){

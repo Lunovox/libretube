@@ -64,7 +64,7 @@
 				"\n## [".
 					$txtChannelTitle.' - '.$TitlePage.
 				"](".$urlLibretube.")\n\n".
-				"Hashtags: ".($Config['ChannelName']!=''?'#'.str_replace(" ","",$Config['ChannelName']).' ':'')." #Libretube"
+				"Hashtags: ".(@$Config['ChannelName']!=''?'#'.str_replace(" ","",@$Config['ChannelName']).' ':'')." #Libretube"
 			)."&markdown=true&jump=doclose";
 		;?>
 		Compartilhe: <img src="imgs/icons/sbl_diaspora.png"

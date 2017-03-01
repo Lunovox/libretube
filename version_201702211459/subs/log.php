@@ -17,8 +17,8 @@
 				
 				<input id="txtLogPass" name="LogPass" type="password" required="true" placeholder="Senha:"/><br/>
 				
-				<input disabled type="submit" formaction="?sub=log-on" value="Resgistrar"/>
-				<input type="submit" formaction="?sub=log-in" value="Entrar"/> 
+				<input type="submit" formaction="?sub=log-in" value="Entrar"/> <br/>
+				<input type="button" onclick="window.location='?sub=log-on';" value="Resgistrar"/>
 
 			</center>
 		</form>

@@ -21,6 +21,10 @@
 	for the JavaScript code in this page.
 */
 
+function getID(ObjetoName){
+	return document.getElementById(ObjetoName);
+}
+
 function openPopupCenter(url, title, w, h) { //Usado no subs/video.php
 	// Fixes dual-screen position                         Most browsers      Firefox
 	var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
@@ -75,4 +79,23 @@ function include2($jsFilePath, $objID) {
 	//document.body.appendChild(js);
 	var $obj = document.getElementById($objID);
 	$obj.appendChild(js);
+}
+
+function isEmailFormat($email) {
+	var usuario = $email.substring(0, $email.indexOf("@"));
+	var dominio = $email.substring($email.indexOf("@")+ 1, $email.length);
+
+	if ((usuario.length >=1) &&
+		(dominio.length >=3) && 
+		(usuario.search("@")==-1) && 
+		(dominio.search("@")==-1) &&
+		(usuario.search(" ")==-1) && 
+		(dominio.search(" ")==-1) &&
+		(dominio.search(".")!=-1) &&      
+		(dominio.indexOf(".") >=1)&& 
+		(dominio.lastIndexOf(".") < dominio.length - 1)
+	) {
+		return true;
+	}
+	return false;
 }
