@@ -157,28 +157,50 @@
 									?></txtdescription>
 								</td>
 							</tr>
+						</table>
 						
-							<tr>
-								<td><nobr><b>Espaço em disco:</b></nobr> </td>
-								<td style="width:100%">
-									<?=(number_format(disk_free_space("./"), 0, ',', '.')." Bytes (".number_format((disk_free_space("./")/(1024*1024*1024)), 1, ',', '.')." GBytes)");?>
-								</td> 
-							</tr>
-							<tr>
-								<td><nobr><b>Máximo de Upload de Arquivo:</b></nobr> </td>
-								<td style="width:100%">
-									<?=ini_get('upload_max_filesize'); ?> ('upload_max_filesize' configurado em 'php.ini')
-								</td> 
-							</tr>
-							<tr>
-								<td><nobr><b>Máximo de Upload de Post:</b></nobr> </td>
-								<td style="width:100%">
-									<?=ini_get('post_max_size'); ?> ('post_max_size' configurado em 'php.ini')
-								</td> 
-							</tr>
+						<details>
+							<summary style="cursor:pointer; color:green;"><b>Informações sobre o servidor...</b></summary>
+							<div style="background:rgba(0,128,0,0.1);; border:1px solid rgba(0,0,0,1.0); padding:5px;">
+								<table style="width:100%">
+									<tr>
+										<td align="right"><nobr><b>Espaço em disco:</b></nobr> </td>
+										<td style="width:100%; padding-left:10px;">
+											<?php 
+												echo (
+													number_format((disk_free_space("./")/(1024*1024*1024)), 1, ',', '.')." Giga Bytes"
+													." (".
+														number_format(disk_free_space("./"), 0, ',', '.')." Bytes"
+													.")"
+												);
+											?>
+										</td> 
+									</tr>
+									<tr>
+										<td align="right"><nobr><b>Máximo de Upload de Arquivo:</b></nobr> </td>
+										<td style="width:100%; padding-left:10px;">
+											<?=ini_get('upload_max_filesize'); ?> ('upload_max_filesize' configurado em 'php.ini')
+										</td> 
+									</tr>
+									<tr>
+										<td align="right"><nobr><b>Máximo de Upload de Post:</b></nobr> </td>
+										<td style="width:100%; padding-left:10px;">
+											<?=ini_get('post_max_size'); ?> ('post_max_size' configurado em 'php.ini')
+										</td> 
+									</tr>
+									<tr>
+										<td align="right"><nobr><b>Limite de Tempo de Upload:</b></nobr> </td>
+										<td style="width:100%; padding-left:10px;">
+											<?=ini_get('max_input_time'); ?> segundos ('max_input_time' configurado em 'php.ini')
+										</td> 
+									</tr>
+								</table>
+							</div>
+						</details> 
 
+						<table style="width:100%">
 							<tr><td colspan="2"><br/></td></tr>
-							
+
 							<tr>
 								<td><nobr><b>Tipo de Link do Vídeo:</b> </nobr></td>
 								<td style="width:100%"

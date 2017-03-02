@@ -154,7 +154,8 @@
 								if($urlPoster!=""){
 									$Consulta="INSERT INTO ".$LunoMySQL->getConectedPrefix()."videos ("
 										."ID, urlVideo, videoTypeLink, urlPoster, posterTypeLink, urlSubtitle, subtitleTypeLink, "
-										."Title, Description, timeRegistration, timeUpdate, timePublish, "
+										."Title, Description, "
+										."timeRegistration, timeUpdate, timePublish, "
 										."views, shared, shareIDs"
 									.") VALUES ("
 										."NULL, " //ID
@@ -174,11 +175,13 @@
 										."''"
 									.");";
 									$LunoMySQL->getResult($Consulta); ?>
+									<!-- -->
 									<script language="JavaScript">
-										//alert('aaaaaa');
 										window.location="?sub=video_list&order=recents";
-									</script><?php
-									 exit(1);
+									</script>
+									<!-- -->
+									<?php
+									 //exit(1);
 								}else{$aviso="Favor adicione o link poster!";}	
 							}else{$aviso="Favor adicione o link vídeo!";}	
 						}
@@ -187,24 +190,32 @@
 			}else{$aviso="Tipo de Link de Vídeo Inválido!";}
 		}else{$aviso="Favor digite o Título do Vídeo!";}
 	}else{$aviso="Você necessita de privilégio 'moderator' ou 'proprietário' para registrar novos vídeos!";}	
+	
+	if($aviso!=""){
+		/**/
+	?>
+		<!-- -->
+		<script language="JavaScript">
+			window.location="?sub=video_add"
+			+"&txtTitle=<?=urlencode($txtTitle);?>"
+			+"&txtDescription=<?=urlencode($txtDescription);?>"
+
+			+"&chkVideoTypeLink=<?=urlencode($chkVideoTypeLink);?>"
+			+"&urlVideoRemote=<?=urlencode($urlVideoRemote);?>"
+			+"&urlVideoRedirect=<?=urlencode($urlVideoRedirect);?>"
+
+			+"&chkPosterTypeLink=<?=urlencode($chkPosterTypeLink);?>"
+			+"&urlPosterRemote=<?=urlencode($urlPosterRemote);?>"
+
+			+"&chkSubtitleTypeLink=<?=urlencode($chkSubtitleTypeLink);?>"
+			+"&urlSubtitleRemote=<?=urlencode($urlSubtitleRemote);?>"
+
+			+"&chkPublicarVideo=<?=($chkPublicarVideo=='NOW()'?'true':'false');?>"
+
+			+"&aviso=<?=urlencode($aviso);?>"
+			+"";
+		</script>
+		<!-- --><?php 
+		/**/
+	} 
 ?>
-<script language="JavaScript">
-	window.location="?sub=video_add"
-	+"&txtTitle=<?=urlencode($txtTitle);?>"
-	+"&txtDescription=<?=urlencode($txtDescription);?>"
-
-	+"&chkVideoTypeLink=<?=urlencode($chkVideoTypeLink);?>"
-	+"&urlVideoRemote=<?=urlencode($urlVideoRemote);?>"
-	+"&urlVideoRedirect=<?=urlencode($urlVideoRedirect);?>"
-
-	+"&chkPosterTypeLink=<?=urlencode($chkPosterTypeLink);?>"
-	+"&urlPosterRemote=<?=urlencode($urlPosterRemote);?>"
-
-	+"&chkSubtitleTypeLink=<?=urlencode($chkSubtitleTypeLink);?>"
-	+"&urlSubtitleRemote=<?=urlencode($urlSubtitleRemote);?>"
-
-	+"&chkPublicarVideo=<?=($chkPublicarVideo=='NOW()'?'true':'false');?>"
-
-	+"&aviso=<?=urlencode($aviso);?>"
-	+"";
-</script>

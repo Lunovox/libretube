@@ -13,6 +13,11 @@
 	ini_set('post_max_size',"2G");
 	ini_set('max_input_time',"86400");
 	
+	/*	FONTE dos atributos alteráveis por ini_set(): 
+			* http://php.net/manual/en/ini.list.php
+			* http://php.net/manual/en/configuration.changes.modes.php
+	/**/
+	
 	
 	
 	header("content-type: text/html");

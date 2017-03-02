@@ -233,7 +233,7 @@
 								rawurlencode(
 									"![](".$urlLongPoster.")\n\n## [".(utf8_encode($Videos[$V]['Title']))."](".$shortlinkvideo.")\n\n"
 									.(utf8_encode($Videos[$V]['Description']))."\n_____\n\n Hashtags: ".
-									($Config['ChannelName']!=''?'#'.str_replace(" ","",$Config['ChannelName']).' ':'')
+									(@$Config['ChannelName']!=''?'#'.str_replace(" ","",@$Config['ChannelName']).' ':'')
 									." #Libretube"
 								)."&markdown=true&jump=doclose";
 							?>
