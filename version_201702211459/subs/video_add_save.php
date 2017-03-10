@@ -36,7 +36,7 @@
 		$urlVideoRedirect=Propriedade("urlVideoRedirect");
 		$urlVideoLocal=Propriedade("urlVideoLocal");
 		
-		$chkPosterTypeLink=Propriedade("chkPosterTypeLink")!=""?Propriedade("chkPosterTypeLink"):"local";
+		$chkPosterTypeLink=Propriedade("chkPosterTypeLink")!=""?Propriedade("chkPosterTypeLink"):"auto";
 		$urlPosterRemote=Propriedade("urlPosterRemote");
 		$urlPosterLocal=Propriedade("urlPosterLocal");
 		
@@ -51,7 +51,7 @@
 		
 		if($txtTitle!=""){
 			if($chkVideoTypeLink=="remote" || $chkVideoTypeLink=="redirect" || $chkVideoTypeLink=="local"){
-				if($chkPosterTypeLink=="remote" || $chkPosterTypeLink=="local"){
+				if($chkPosterTypeLink=="auto" || $chkPosterTypeLink=="remote" || $chkPosterTypeLink=="local"){
 					if($chkSubtitleTypeLink=="none" || $chkSubtitleTypeLink=="remote" || $chkSubtitleTypeLink=="local"){
 				
 						$urlVideo="";
@@ -63,8 +63,11 @@
 							$error=@$urlVideoLocal['error'];
 							$size=@$urlVideoLocal['size'];
 							$type=@$urlVideoLocal['type'];
-							//$url=$upload_dir.basename($urlVideoLocal['tmp_name'])."_vid";
-							$url=$upload_dir.md5($txtTitle)."_vid"."_".basename($urlVideoLocal['tmp_name']);
+							
+							//$url=$upload_dir.md5($txtTitle)."_vid"."_".basename($urlVideoLocal['tmp_name']);
+							//$url = $upload_dir.basename(str_replace("/", "-", str_replace(" ", "_", $txtTitle))).".vid";
+							$url=$upload_dir.md5($txtTitle).".vid";
+							
 							if($error==UPLOAD_ERR_INI_SIZE){
 								$aviso="[1] O tamanho o arquivo de vídeo é muito grande!";
 							}elseif($error==UPLOAD_ERR_FORM_SIZE){
@@ -87,7 +90,15 @@
 						}
 			
 						$urlPoster="";
-						if($chkPosterTypeLink=="remote" && $urlPosterRemote!=""){
+						if($chkPosterTypeLink=="auto"){
+							require_once("libs/libTreatVideo.php");
+							$TreatVideo = new TreatVideo($urlVideo);
+							//$urlPoster = $upload_dir.basename(str_replace("/", "-", str_replace(" ", "_", $txtTitle))).".img";
+							$urlPoster=$upload_dir.md5($txtTitle).".jpg";
+							//sleep(30); //Tem que esperar fazer o upload do vídeo para 
+							$resp=$TreatVideo->doGenerateThumbnail("00:00:05", $urlPoster);
+							//echo "\n==== [[".($resp==true?"true":$resp)."]] ====<br/>\n";
+						}elseif($chkPosterTypeLink=="remote" && $urlPosterRemote!=""){
 							$urlPoster=$urlPosterRemote;
 						}elseif($chkPosterTypeLink=="local" && $urlPosterLocal!=""){
 							//$urlPoster="arquivo por upload!!!!";
@@ -174,7 +185,9 @@
 										."'0', "
 										."''"
 									.");";
-									$LunoMySQL->getResult($Consulta); ?>
+									$LunoMySQL->getResult($Consulta); 
+									echo $Consulta;
+									?>
 									<!-- -->
 									<script language="JavaScript">
 										window.location="?sub=video_list&order=recents";

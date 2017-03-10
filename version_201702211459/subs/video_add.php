@@ -8,7 +8,7 @@
 		$urlVideoRedirect=Propriedade("urlVideoRedirect");
 		$urlVideoLocal=Propriedade("urlVideoLocal");
 
-		$chkPosterTypeLink=Propriedade("chkPosterTypeLink")!=""?Propriedade("chkPosterTypeLink"):"local";
+		$chkPosterTypeLink=Propriedade("chkPosterTypeLink")!=""?Propriedade("chkPosterTypeLink"):"auto";
 		$urlPosterRemote=Propriedade("urlPosterRemote");
 		$urlPosterLocal=Propriedade("urlPosterLocal");
 
@@ -248,6 +248,7 @@
 									onChange="doChangePosterTypeLink();"
 								>
 									<select id="chkPosterTypeLink" name="chkPosterTypeLink">
+										<option value="auto" <?php if($chkPosterTypeLink=="auto"){echo "selected";} ?>>Automático</option>
 										<option value="local" <?php if($chkPosterTypeLink=="local"){echo "selected";} ?>>Local</option>
 										<option value="remote" <?php if($chkPosterTypeLink=="remote"){echo "selected";} ?>>Remoto</option>
 									</select>
@@ -265,7 +266,7 @@
 							</tr>
 							<tr id="txtPosterLocal" style="width:100%; <?=$chkPosterTypeLink=="local"?"inline":"display:none"; ?>;">
 								<td colspan="2">
-									<input id="urlPosterLocal" name="urlPosterLocal" type="file" required="true" placeholder="Arquivo Local de Poster:" 
+									<input id="urlPosterLocal" name="urlPosterLocal" type="file" placeholder="Arquivo Local de Poster:" 
 										accept="image/png, image/jpeg, image/gif, image/*"
 										value="<?php if($chkPosterTypeLink=='local'){echo $urlPosterLocal;} ?>"
 										onchange="if(this.files[0].size>1073741824){alert('O poster está com um tamanho acima do tamanho permitido!');}"

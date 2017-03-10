@@ -223,7 +223,7 @@
 							<?php
 								$longlinkvideo = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 								$shortlinkvideo = 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php","",$_SERVER['SCRIPT_NAME']).'?video='.$Videos[$V]['ID'];
-								if($Videos[$V]['posterTypeLink']=="local"){
+								if($Videos[$V]['posterTypeLink']=="auto" || $Videos[$V]['posterTypeLink']=="local"){
 									$urlLongPoster = 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php","",$_SERVER['SCRIPT_NAME']).$Videos[$V]['urlPoster'];
 								}else if($Videos[$V]['posterTypeLink']=="remote"){
 									$urlLongPoster = $Videos[$V]['urlPoster'];

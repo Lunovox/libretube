@@ -6,7 +6,9 @@
 			$Video=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "ID = $ID");
 			if(count($Video)==1){
 				if($Video[0]['videoTypeLink']=="local"){@unlink($Video[0]['urlVideo']);}
-				if($Video[0]['posterTypeLink']=="local"){@unlink($Video[0]['urlPoster']);}
+				if($Video[0]['posterTypeLink']=="auto" || $Video[0]['posterTypeLink']=="local"){
+					@unlink($Video[0]['urlPoster']);
+				}
 				
 				$LunoMySQL->getResult("DELETE FROM ".$LunoMySQL->getConectedPrefix()."videos WHERE ID = $ID"); ?>
 				<script language="JavaScript">

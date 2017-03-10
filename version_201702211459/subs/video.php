@@ -10,7 +10,7 @@
 		
 		$longlinkvideo = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		$shortlinkvideo = 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php","",$_SERVER['SCRIPT_NAME']).'?video='.$ID;
-		if($Video[0]['posterTypeLink']=="local"){
+		if($Video[0]['posterTypeLink']=="auto" || $Video[0]['posterTypeLink']=="local"){
 			$urlLongPoster = 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php","",$_SERVER['SCRIPT_NAME']).$Video[0]['urlPoster'];
 		}else if($Video[0]['posterTypeLink']=="remote"){
 			$urlLongPoster = $Video[0]['urlPoster'];
