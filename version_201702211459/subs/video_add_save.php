@@ -137,7 +137,8 @@
 							$size=@$urlSubtitleLocal['size'];
 							$type=@$urlSubtitleLocal['type'];
 							//$url=$upload_dir.basename($urlSubtitleLocal['tmp_name'])."_img";
-							$url=$upload_dir.md5($txtTitle)."_sub"."_".basename($urlSubtitleLocal['tmp_name']);
+							//$url=$upload_dir.md5($txtTitle)."_sub"."_".basename($urlSubtitleLocal['tmp_name']);
+							$url=$upload_dir.md5($txtTitle).".vtt";
 							if($error==UPLOAD_ERR_INI_SIZE){
 								$aviso="[1] O tamanho o arquivo de Legenda é muito grande!";
 							}elseif($error==UPLOAD_ERR_FORM_SIZE){
