@@ -239,7 +239,7 @@
 							?>
 							onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 480, 550);"
 						>
-							<img src="imgs/icons/sbl_diaspora.png" align="absmiddle" /> Diáspora
+							<img src="imgs/icons/sbl_share_diaspora.png" align="absmiddle" /> Diáspora
 						</button>
 					</center>
 					<br/>
