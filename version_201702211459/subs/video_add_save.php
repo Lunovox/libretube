@@ -96,8 +96,7 @@
 							//$urlPoster = $upload_dir.basename(str_replace("/", "-", str_replace(" ", "_", $txtTitle))).".img";
 							$urlPoster=$upload_dir.md5($txtTitle).".jpg";
 							//sleep(30); //Tem que esperar fazer o upload do vídeo para 
-							$resp=$TreatVideo->doGenerateThumbnail("00:00:05", $urlPoster);
-							//echo "\n==== [[".($resp==true?"true":$resp)."]] ====<br/>\n";
+							$TreatVideo->doGenerateThumbnail("00:00:15", $urlPoster);
 						}elseif($chkPosterTypeLink=="remote" && $urlPosterRemote!=""){
 							$urlPoster=$urlPosterRemote;
 						}elseif($chkPosterTypeLink=="local" && $urlPosterLocal!=""){
@@ -187,7 +186,7 @@
 										."''"
 									.");";
 									$LunoMySQL->getResult($Consulta); 
-									echo $Consulta;
+									//echo $Consulta;
 									?>
 									<!-- -->
 									<script language="JavaScript">

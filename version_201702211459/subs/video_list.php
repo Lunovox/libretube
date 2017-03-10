@@ -67,7 +67,7 @@
 				"Hashtags: ".(@$Config['ChannelName']!=''?'#'.str_replace(" ","",@$Config['ChannelName']).' ':'')." #Libretube"
 			)."&markdown=true&jump=doclose";
 		;?>
-		Compartilhe: <img src="imgs/icons/sbl_diaspora.png"
+		Compartilhe: <img src="imgs/icons/sbl_share_diaspora.png"
 			style="cursor:pointer;" align="absmiddle"
 			title="Compartilhe em sua Rede Social Diáspora a lista de vídeos mais vistos deste canal!"
 			onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 480, 550);"
