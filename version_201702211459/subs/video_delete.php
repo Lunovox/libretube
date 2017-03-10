@@ -11,7 +11,7 @@
 				if($Video[0]['posterTypeLink']=="auto" || $Video[0]['posterTypeLink']=="local"){
 					@unlink($Video[0]['urlPoster']);
 				}
-				if($Video[0]['chkSubtitleTypeLink']=="local"){
+				if($Video[0]['subtitleTypeLink']=="local"){
 					@unlink($Video[0]['urlSubtitle']);
 				}
 				
