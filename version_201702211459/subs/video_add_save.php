@@ -1,29 +1,15 @@
+<script language="JavaScript">
 <?php 
-	/*
-	print_r($_GET);
-	print_r($_POST);
-	print_r($_FILES); 
-	/**/
-?>
-
-<?php 
-	/*
-	http://tuatec.ddns.net/apps/opentube/index.php?sub=video_edit_save
-	&id=20
-	&txtTitle=Sunya+%28feat.+AZU%29+-+To+You...+Mouichido[%3F%3F%3F%3F+%3D+mais+uma+vez]+%28PV%29
-	&mce_0=%3Cp+style%3D%22text-align%3A+center%3B%22%3E%3Cstrong%3Etryrt+yrty+r+trret%3C%2Fstrong%3E%3C%2Fp%3E%0D%0A%3Cp%3Er+tyrty%3Cbr+%2F%3Ertyr%3Cbr+%2F%3Etyr%3C%2Fp%3E%0D%0A%3Cp%3Ertur+tyuty%3C%2Fp%3E
-	&chkVideoTypeLink=remote
-	&urlVideoRemote=https%3A%2F%2Fcloud.openmailbox.org%2Findex.php%2Fs%2FXtt5eX3dcoI7KYq%2Fdownload
-	&urlVideoRedirect=
-	&urlVideoLocal=
-	&chkPosterTypeLink=remote
-	&urlVideoRemote=https%3A%2F%2Fcloud.openmailbox.org%2Findex.php%2Fs%2FlPnZxNogwVMIDeE%2Fdownload
-	&urlVideoRedirect=
-	&urlVideoLocal=
-	*/
-	$upload_dir="./vids/";
-	$upload_max_size=1073741824; //1*1024*1024*1024 = 1GB
 	if(getLogedType()=="owner" || getLogedType()=="moderator"){ 
+		/*
+		print_r($_GET);
+		print_r($_POST);
+		print_r($_FILES); 
+		/**/
+
+		$upload_dir="./vids/";
+		$upload_max_size=1073741824; //1*1024*1024*1024 = 1GB
+
 		//$txtTitle=str_replace("'", "&#039;", urldecode(Propriedade("txtTitle")));
 		//$txtDescription=str_replace("'", "&#039;", urldecode(Propriedade("mce_0")));
 		//$txtTitle=str_replace("'", "&#039;", utf8_decode(Propriedade("txtTitle")));
@@ -187,14 +173,9 @@
 									.");";
 									$LunoMySQL->getResult($Consulta); 
 									//echo $Consulta;
-									?>
-									<!-- -->
-									<script language="JavaScript">
-										window.location="?sub=video_list&order=recents";
-									</script>
-									<!-- -->
-									<?php
-									 //exit(1);
+									
+									echo "window.location='?".(Propriedade("redirect")!=""?Propriedade("redirect"):("sub=video_list&order=recents"))."';";
+									//exit(1);
 								}else{$aviso="Favor adicione o link poster!";}	
 							}else{$aviso="Favor adicione o link vídeo!";}	
 						}
@@ -202,13 +183,8 @@
 				}else{$aviso="Tipo de Link de Poster Inválido!";}	
 			}else{$aviso="Tipo de Link de Vídeo Inválido!";}
 		}else{$aviso="Favor digite o Título do Vídeo!";}
-	}else{$aviso="Você necessita de privilégio 'moderator' ou 'proprietário' para registrar novos vídeos!";}	
-	
-	if($aviso!=""){
-		/**/
-	?>
-		<!-- -->
-		<script language="JavaScript">
+		
+		if($aviso!=""){?>
 			window.location="?sub=video_add"
 			+"&txtTitle=<?=urlencode($txtTitle);?>"
 			+"&txtDescription=<?=urlencode($txtDescription);?>"
@@ -226,9 +202,8 @@
 			+"&chkPublicarVideo=<?=($chkPublicarVideo=='NOW()'?'true':'false');?>"
 
 			+"&aviso=<?=urlencode($aviso);?>"
-			+"";
-		</script>
-		<!-- --><?php 
-		/**/
-	} 
+			+"";<?php
+		}
+	}else{require_once "subs/forbidden.php";}		
 ?>
+</script>

@@ -1,7 +1,9 @@
+<script language="JavaScript">
 <?php 
 	$aviso="";
+	$ID=Propriedade("id");
+	$Redirect = Propriedade("redirect");
 	if(getLogedType()=="owner" || getLogedType()=="moderator"){ 
-		$ID=Propriedade("id");
 		if($ID!=""){
 			$Video=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "ID = $ID");
 			if(count($Video)==1){
@@ -15,19 +17,18 @@
 					@unlink($Video[0]['urlSubtitle']);
 				}
 				
-				$LunoMySQL->getResult("DELETE FROM ".$LunoMySQL->getConectedPrefix()."videos WHERE ID = $ID"); ?>
-				<script language="JavaScript">
-					window.location="?sub=video_list&order=recents";
-				</script><?php
-				 exit(1);
-			}else{$aviso="Não existe nenhum vídeo com '$ID!' no banco de dados!";}
+				$LunoMySQL->getResult("DELETE FROM ".$LunoMySQL->getConectedPrefix()."videos WHERE ID = $ID"); 
+				echo "window.location='?".($Redirect!=""?$Redirect:("sub=video_list&order=recents"))."';";
+				//exit(1);
+			}else{$aviso="Não existe nenhum vídeo nº '$ID!' no banco de dados!";}
 		}else{$aviso="Favor declare o número de identificação do vídeo!";}
-	}else{$aviso="Você não tem permissão de editar este vídeo!";}
+	}else{$aviso="Você necessita de privilégio 'moderator' ou 'proprietário' para apagar vídeos!";}
+	
+	if($aviso!=""){
+		echo "window.location='"
+		.($Redirect!=""?("&redirect=".$Redirect):("?sub=video&id=".$ID))
+		."&aviso=".urlencode($aviso)."';";
+	}
 ?>
-<script language="JavaScript">
-	window.location="?sub=video"
-	+"&id=<?=$ID;?>"
-	+"&aviso=<?=urlencode($aviso);?>"
-	+"";
 </script>		
 

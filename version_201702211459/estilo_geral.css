@@ -442,7 +442,7 @@ nav{
 
 }/**/
 
-#txtLogEmail, #txtLogPass, input[type='submit'] {
+#txtLogEmail, #txtLogPass, input[size='big'] {
 	margin-top:10px;
 	font-size:24px;
 	border-radius:10px;

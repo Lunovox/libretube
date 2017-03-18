@@ -27,6 +27,18 @@
 			<center>
 				<div class="FormSession" align="justify">
 	 				<center>
+	 				
+	 					<?php if(Propriedade("aviso")!=""){ ?>
+							<div align="center" style="background-color:#FFFF00; border-color:#000000; border-width:1px; border-style:dashed;">
+								<h2><?php
+									$Aviso=strip_tags(Propriedade("aviso"));
+									$Aviso=str_replace("[FORBIDDEN]", "<img width='200' src='imgs/modelos/sbl_forbidden.png'/><br/>" , $Aviso);
+									echo $Aviso
+								?></h2>
+							</div>
+							<br/>
+						<?php } ?>
+	 				
 	 					<video id="VideoPlayer" controls autoplay align="center" poster="<?php echo $Video[0]['urlPoster']; ?>" contextmenu="mnuVideo" oncontextmenu_="return false;">
 							<source src="<?=$Video[0]['urlVideo'];?>" type="video/ogg">
 							<track src="<?=$Video[0]['urlSubtitle'];?>" kind="subtitles" srclang="pt" label="Português" default />
@@ -42,11 +54,11 @@
 								></menuitem>
 								<menuitem 
 									label="Twitter" icon="imgs/icons/sbl_share_twitter.png"
-									onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=$shortlinkvideo;?>','_blank', 720, 450);"
+									onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($shortlinkvideo);?>','_blank', 720, 450);"
 								></menuitem>
 								<menuitem 
 									label="Facebook" icon="imgs/icons/sbl_share_facebook.png"
-									onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=$shortlinkvideo;?>','_blank', 360, 300);"
+									onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($shortlinkvideo);?>','_blank', 360, 300);"
 								></menuitem>
 							</menu>
 							<?php if(isLoged()){ ?>
@@ -230,8 +242,6 @@
 				</div>
 			</center>
 		<?php
-		}else{
-			require_once "subs/forbidden.php";
-		}
+		}else{require_once "subs/forbidden.php";}
 	}
 ?>

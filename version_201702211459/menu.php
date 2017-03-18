@@ -49,11 +49,13 @@
 						title="Vídeos mais assistidos pela comunidade em ordem descrescente de visualização."
 					>Mais Vistos</a></li>
 					<?php 
+					/*
 					if(isLoged()){ ?>
 						<li><a href="?sub=video_list&order=favorites"
 							title="Vídeos que você marcou como 'gostei' em ordem descrescente de data de apreciação."
 						>Aprecisados</a></li><?php 
 					} 
+					/**/
 					if(getLogedType()=="owner" || getLogedType()=="moderator"){ ?>
 						<li><a href="?sub=video_list&order=privates"
 							title="Vídeos que você ainda não publicou para o mundo."

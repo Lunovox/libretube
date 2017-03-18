@@ -25,6 +25,18 @@
 <div>
 	<br/>
 	<center>
+
+		<?php if(Propriedade("aviso")!=""){ ?>
+			<div align="center" style="background-color:#FFFF00; border-color:#000000; border-width:1px; border-style:dashed;">
+				<h2><?php
+					$Aviso=strip_tags(Propriedade("aviso"));
+					$Aviso=str_replace("[FORBIDDEN]", "<img width='200' src='imgs/modelos/sbl_forbidden.png'/><br/>" , $Aviso);
+					echo $Aviso
+				?></h2>
+			</div>
+			<br/>
+		<?php } ?>
+
 		<h1>VÍDEOS <?=$TitlePage;?></h1>
 		<div style="display:inline-block; padding:3px; background-color:rgba(128,128,128,0.8); border:1px solid #c0c0c0; border-radius:5px;">
 			<h2><?php 
@@ -48,30 +60,47 @@
 				} 
 			?></h2>
 		</div>
-		<br/><br/>
-		Assine: <a target="_blank" href="atom.php?order=<?=$order;?>"><img 
-			src="imgs/icons/sbl_file_rss.gif" 
-			title="Assine o 'Feed RSS' a lista de vídeos deste canal!"
-			align="absmiddle"
-		/></a> | 
-		<?php
-			//$LinkDispora = "https://diasporabrazil.org/bookmarklet?title=".
-			$LinkDispora = "http://sharetodiaspora.github.io/?title=".
-			rawurlencode(
-				"[".
-					"![".$txtChannelTitle.' - '.$TitlePage."](".$imgLogotipo.")".
-				"](".$urlLibretube.")".
-				"\n## [".
-					$txtChannelTitle.' - '.$TitlePage.
-				"](".$urlLibretube.")\n\n".
-				"Hashtags: ".(@$Config['ChannelName']!=''?'#'.str_replace(" ","",@$Config['ChannelName']).' ':'')." #Libretube"
-			)."&markdown=true&jump=doclose";
-		;?>
-		Compartilhe: <img src="imgs/icons/sbl_share_diaspora.png"
-			style="cursor:pointer;" align="absmiddle"
-			title="Compartilhe em sua Rede Social Diáspora a lista de vídeos mais vistos deste canal!"
-			onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 480, 550);"
-		/>
+		<?php if($order!="privates"){?>
+			<br/><br/>
+			<a target="_blank" href="atom.php?order=<?=$order;?>"><img 
+				src="imgs/icons/sbl_file_rss.gif" 
+				title="Assine o 'Feed RSS' a lista de vídeos deste canal!"
+				align="absmiddle"
+			/></a>  
+			<?php
+				$urlShare = $urlLibretube.'?sub=video_list&order='.$order;
+				//$LinkDispora = "https://diasporabrazil.org/bookmarklet?title=".
+				$LinkDispora = "http://sharetodiaspora.github.io/?title=".
+				rawurlencode(
+					"[".
+						"![".$txtChannelTitle.' - '.$TitlePage."](".$imgLogotipo.")".
+					"](".$urlShare.")".
+					"\n## [".
+						$txtChannelTitle.' - '.$TitlePage.
+					"](".$urlShare.")\n\n".
+					"Hashtags: ".(@$Config['ChannelName']!=''?'#'.str_replace(" ","",@$Config['ChannelName']).' ':'')." #Libretube"
+				)."&markdown=true&jump=doclose";
+			
+			;?>
+			<img src="imgs/icons/sbl_share_diaspora.png"
+				style="cursor:pointer;" align="absmiddle"
+				title="Compartilhe em sua Rede Social Diáspora a lista de vídeos mais vistos deste canal!"
+				onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 880, 600);"
+			/>
+		
+			<img src="imgs/icons/sbl_share_twitter.png"
+				style="cursor:pointer;" align="absmiddle"
+				title="Compartilhe em seu Twitter a lista de vídeos mais vistos deste canal!"
+				onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($urlShare);?>','_blank', 720, 450);"
+			/>
+
+			<img src="imgs/icons/sbl_share_facebook.png"
+				style="cursor:pointer;" align="absmiddle"
+				title="Compartilhe em seu Facebook a lista de vídeos mais vistos deste canal!"
+				onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($urlShare);?>','_blank', 360, 300);"
+			/>
+			<br/><br/>
+		<?php } ?>
 	</center>
 </div>
 
@@ -92,8 +121,13 @@
 		}
 	};
 ?>
+<script language="JavaScript">
+	function doDelete($ID,$Redirect){
+		if(confirm('Deseja realmente apagar este vídeo?')){
+			window.location='?sub=video_delete&id='+$ID+'&redirect='+$Redirect;
+		}
+	}
 
-<script>
 	function showStatus($Text){
 		//var status = instanceOfMozVoicemailEvent.status;
 		//status.value = $Text;
@@ -204,7 +238,7 @@
 								align="absmiddle"
 							/> Editar
 						</button>
-						<button onclick="if(confirm('Deseja realmente apagar este vídeo?')){window.location='?sub=video_delete&id=<?=$Videos[$V]['ID'];?>';}">
+						<button onclick="doDelete(<?=$Videos[$V]['ID'];?>,<?="'".urlencode($_SERVER['QUERY_STRING'])."'";?>)">
 							<img src="imgs/icons/sbl_negar.gif" align="absmiddle" />
 							Apagar
 						</button>

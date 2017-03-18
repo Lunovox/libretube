@@ -85,13 +85,17 @@
 						<input type="hidden" name="MAX_FILE_SIZE" value="1073741824"/>
 						<table style="width:100%">
 							<?php if(Propriedade("aviso")!=""){ ?>
-							<tr>
-								<td colspan="2" align="center" bgcolor="#FFFF00" 
-									style="border-width:1px; border-style:dashed; border-color:#000000"
-								>
-									<h2><?=Propriedade("aviso");?></h2>
-								</td>
-							</tr>
+								<tr>
+									<td colspan="2" align="center" bgcolor="#FFFF00" 
+										style="border-width:1px; border-style:dashed; border-color:#000000"
+									>
+										<h2><?php
+											$Aviso=strip_tags(Propriedade("aviso"));
+											$Aviso=str_replace("[FORBIDDEN]", "<img width='200' src='imgs/modelos/sbl_forbidden.png'/><br/>" , $Aviso);
+											echo $Aviso
+										?></h2>
+									</td>
+								</tr>
 							<?php } ?>
 							<tr><td colspan="2"><b>Título do Vídeo:</b></td></tr>
 							<tr>
@@ -334,7 +338,7 @@
 						
 							<tr style="width:100%;">
 								<td colspan="2">
-									<input type="submit" value="Subir Vídeo"/>
+									<input size='big' type="submit" value="Subir Vídeo"/>
 									<input type="button" onclick_="window.location='./?aviso=aaaaa';" value="Cancelar">
 								</td>
 							</tr>
@@ -343,5 +347,5 @@
 				</div>
 			<center>
 		<?php 
-	}
+	}else{require_once "subs/forbidden.php";}
 ?>

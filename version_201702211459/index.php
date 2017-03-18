@@ -33,7 +33,8 @@
 	
 	$txtChannelName = "";
 	$txtChannelTitle = "LIBRETUBE";
-	$imgLogotipo="imgs/banners/banner_libretube.png";
+	//$imgLogotipo="imgs/banners/banner_libretube.png";
+	$imgLogotipo = 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php","",$_SERVER['SCRIPT_NAME']).'imgs/banners/banner_libretube.png';
 	
 	$LunoMySQL = new LunoMySQL;
 
@@ -45,8 +46,10 @@
 
 		$txtChannelName = isset($Config['ChannelName'])?$Config['ChannelName']:'';
 		$txtChannelTitle=$txtChannelName!=""?$txtChannelName." - LIBRETUBE":"LIBRETUBE";
-		$urlLibretube=str_replace("index.php","",$_SERVER['SCRIPT_NAME']);
-		$imgLogotipo=(isset($Config['urlBanner']) && $Config['urlBanner']!="")?$Config['urlBanner']:($urlLibretube.'imgs/banners/banner_libretube.png');
+		//$urlLibretube=str_replace("index.php","",$_SERVER['SCRIPT_NAME']);
+		$urlLibretube = 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php","",$_SERVER['SCRIPT_NAME']);
+		//$imgLogotipo=(isset($Config['urlBanner']) && $Config['urlBanner']!="")?$Config['urlBanner']:($urlLibretube.'imgs/banners/banner_libretube.png');
+		$imgLogotipo=(isset($Config['urlBanner']) && $Config['urlBanner']!="")?$Config['urlBanner']:$imgLogotipo;
 		
 	}/**/
 	

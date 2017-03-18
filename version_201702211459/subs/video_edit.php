@@ -4,7 +4,9 @@
 		$Video=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "ID = $ID");
 		//$Video=ConteudoDeTabela("opentube_videos", "ID = $ID");
 		//print_r($Video);
-		if(count($Video)==1){ ?>
+		if(count($Video)==1){ 
+			$txtTitle = Propriedade("txtTitle")!=""?Propriedade("txtTitle"):($Video[0]['Title'] /*utf8_encode($Video[0]['Title'])/**/);
+			$txtDescription = Propriedade("txtDescription")!=""?Propriedade("txtDescription"):($Video[0]['Description']); ?>
 			<center>
 				<div class="FormSession" align="left">
 					<div id="TitleSession">
@@ -15,16 +17,29 @@
 						<input type="hidden" name="sub" value="video_edit_save"/>
 						<input type="hidden" name="id" value="<?=$ID;?>"/>
 						<table style="width:100%">
+							<?php if(Propriedade("aviso")!=""){ ?>
+								<tr>
+									<td colspan="2" align="center" bgcolor="#FFFF00" 
+										style="border-width:1px; border-style:dashed; border-color:#000000"
+									>
+										<h2><?php
+											$Aviso=strip_tags(Propriedade("aviso"));
+											$Aviso=str_replace("[FORBIDDEN]", "<img width='200' src='imgs/modelos/sbl_forbidden.png'/><br/>" , $Aviso);
+											echo $Aviso
+										?></h2>
+									</td>
+								</tr>
+							<?php } ?>
 							<tr><td colspan="2"><b>Título do Vídeo:</b></td></tr>
 							<tr>
 								<td colspan="2">
-									<input name="txtTitle" type="text" style="width:100%" value="<?=str_replace("\"", "&quot;", $Video[0]['Title'] /*utf8_encode($Video[0]['Title'])/**/ );?>" />
+									<input name="txtTitle" type="text" style="width:100%" value="<?=str_replace("\"", "&quot;", $txtTitle);?>" />
 								</td>
 							</tr>
-
+	
 							<tr><td colspan="2"><br/></td></tr>
-
-
+	
+	
 							<tr><td colspan="2"><b>Descrição do Vídeo:</b></td></tr>
 							<tr>
 								<td colspan="2">
@@ -52,15 +67,13 @@
 										});
 									</script>
 									<txtdescription name="txtDescription" style="width:100%"><?php 
-										//$Conteudo = CodigoParaHTML(Converter_CodigoCaracter(utf8_encode($Video[0]['Description'])));
-										//$Conteudo = utf8_encode($Video[0]['Description']);
-										$Conteudo = $Video[0]['Description'];
-
+										//$txtDescription = CodigoParaHTML(Converter_CodigoCaracter(utf8_encode($Video[0]['Description'])));
+										//$txtDescription = utf8_encode($Video[0]['Description']);
 									
 										/*
 										require_once 'libs/Michelf/MarkdownInterface.php';
 										require_once 'libs/Michelf/Markdown.php';
-										$Conteudo = \Michelf\Markdown::defaultTransform($Conteudo);
+										$txtDescription = \Michelf\Markdown::defaultTransform($txtDescription);
 										/**/
 						
 										/*
@@ -69,13 +82,13 @@
 										$parser->addCodeDefinitionSet(new JBBCode\DefaultCodeDefinitionSet());
 										$parser->addBBCode("quote", '<div class="quote">{param}</div>');
 										$parser->addBBCode("code", '<pre class="code">{param}</pre>', false, false, 1);
-										$parser->parse($Conteudo);
+										$parser->parse($txtDescription);
 										//print $parser->getAsText();
 										//print $parser->getAsHtml();
-										$Conteudo = $parser->getAsHtml();
+										$txtDescription = $parser->getAsHtml();
 										/**/
 						
-										echo $Conteudo;
+										echo $txtDescription;
 									?></txtdescription>
 								</td>
 							</tr>
@@ -102,7 +115,7 @@
 							</tr>
 							
 							<tr><td colspan="2"><br/></td></tr>
-
+	
 							<tr style="width:100%">
 								<td><nobr><b>Registro do Vídeo:</b> </nobr></td>
 								<td style="width:100%">
@@ -139,12 +152,12 @@
 									;?></spam>
 								</td>
 							</tr>
-
+	
 							<tr><td colspan="2"><br/></td></tr>
 						
 							<tr style="width:100%;">
 								<td colspan="2">
-									<input type="submit" value="Salvar Alteração"/>
+									<input size='big' type="submit" value="Salvar Alteração"/>
 									<input type="button" onclick="window.location='?sub=video&id=<?=$ID;?>';" value="Cancelar">
 								</td>
 							</tr>
@@ -152,6 +165,7 @@
 					</form>
 				</div>
 			<center>
-		<?php } 
-	}
+		<?php 
+		}
+	}else{require_once "subs/forbidden.php";} 
 ?>
