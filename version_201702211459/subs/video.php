@@ -69,8 +69,46 @@
 							<?php } ?>
 						</menu>
 						
-	 					<h2><?php echo $Video[0]['Title']; ?></h2>
 						<script>document.getElementsByTagName("title")[0].innerHTML = "<?="Assistindo '" . $Video[0]['Title'] ."' - " . $txtChannelTitle; ?>";</script>
+	 					<h2><?php echo $Video[0]['Title']; ?></h2>
+	 					<?php if($Video[0]['timePublish']!=''){?>
+							<br/>
+							<?php
+								$urlShare = $urlLibretube.'?video='.$ID;
+								//$LinkDispora = "https://diasporabrazil.org/bookmarklet?title=".
+								$LinkDispora = "http://sharetodiaspora.github.io/?title=".
+								rawurlencode(
+									"[".
+										"![".$Video[0]['Title']."](".
+											($Video[0]['posterTypeLink']=="remote"?$Video[0]['urlPoster']:$urlLibretube.$Video[0]['urlPoster'])
+										.")".
+									"](".$urlShare.")".
+									"\n## [".
+										$Video[0]['Title'].
+									"](".$urlShare.")\n\n".
+									"Hashtags: ".(@$Config['ChannelName']!=''?'#'.str_replace(" ","",@$Config['ChannelName']).' ':'')." #Libretube"
+								)."&markdown=true&jump=doclose";
+			
+							;?>
+							<img src="imgs/icons/sbl_share_diaspora.png"
+								style="cursor:pointer;" align="absmiddle"
+								title="Compartilhe em sua Rede Social Diáspora a lista de vídeos mais vistos deste canal!"
+								onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 880, 600);"
+							/>
+		
+							<img src="imgs/icons/sbl_share_twitter.png"
+								style="cursor:pointer;" align="absmiddle"
+								title="Compartilhe em seu Twitter a lista de vídeos mais vistos deste canal!"
+								onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($urlShare);?>','_blank', 720, 450);"
+							/>
+
+							<img src="imgs/icons/sbl_share_facebook.png"
+								style="cursor:pointer;" align="absmiddle"
+								title="Compartilhe em seu Facebook a lista de vídeos mais vistos deste canal!"
+								onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($urlShare);?>','_blank', 360, 300);"
+							/>
+							<br/><br/><hr/>
+						<?php } ?>
 	 				</center>
 	 				
 	 				<br/>
@@ -123,14 +161,46 @@
 					<img src="resource/smiles/10.gif" width="25px" height="25px" title="lol"/>
 					-->
 	
-					<br/><br/><hr/>
-	
-					<p align="right">
-						<nobr>Visualizações: <?=$Video[0]['views'];?></nobr> |
-						<nobr>Upload: <?= date("Y-m-d", strtotime($Video[0]['timeRegistration']));?></nobr> |
-						<nobr>Publicação: <?=($Video[0]['timePublish']!=""?date("Y-m-d", strtotime($Video[0]['timePublish'])):"<font color='#FF0000'><b>Vídeo Privado</b></font>");?></nobr> |
-						<nobr>Atualizado: <?=$Video[0]['timeUpdate'];?></nobr>
-					</p><br/>
+					<br/><br/><hr/><br/>
+					
+					<details>
+						<summary style="cursor:pointer; color:green;"><b>Informações sobre o vídeo...</b></summary>
+						<table>
+							<tr>
+								<td align="right"><b><nobr>Visualizações:</nobr></b><td>
+								<td>
+									<nobr>
+										<?=$Video[0]['views'];?> vezes
+									</nobr>
+								<td>
+							</tr>
+							<tr>
+								<td align="right"><b><nobr>Upload:</nobr></b><td>
+								<td>
+									<nobr>
+										<?=strftime('%A, %d de %B de %Y as %H:%H:%S', strtotime($Video[0]['timeRegistration']));?>
+									</nobr>
+								<td>
+							</tr>
+							<tr>
+								<td align="right"><b><nobr>Publicação:</nobr></b><td>
+								<td>
+									<nobr>
+										<?=($Video[0]['timePublish']!=""?strftime('%A, %d de %B de %Y as %H:%H:%S', strtotime($Video[0]['timePublish'])):"<font color='#FF0000'><b>Vídeo Privado</b></font>");?>
+									</nobr>
+								<td>
+							</tr>
+							<tr>
+								<td align="right"><b><nobr>Atualizado:</nobr></b><td>
+								<td>
+									<nobr>
+										<?=strftime('%A, %d de %B de %Y as %H:%H:%S', strtotime($Video[0]['timeUpdate']));?>
+									</nobr>
+								<td>
+							</tr>
+						</table>
+					</details>
+					<br/>
 					
 					<center>
 						<?php if(getLogedType()=="owner" || getLogedType()=="moderator"){ ?>

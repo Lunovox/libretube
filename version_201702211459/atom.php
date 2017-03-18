@@ -24,6 +24,7 @@
 	
 	$thisURL = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'];
 	$base=str_replace("atom.php", "", $thisURL);
+	//$urlLibretube = 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php","",$_SERVER['SCRIPT_NAME']);
 
 	require_once "libs/libMySQL2.php";
 	
@@ -39,16 +40,12 @@
 		}
 
 		$Configs=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."config");
-		if(count($Configs)==1){
-			$Config= $Configs[0];
-			
-			$txtTitleFeed = ((isset($Config['ChannelName']) && $Config['ChannelName']!="")?$Config['ChannelName']." ($Order) - ":"($Order) - ")."LIBRETUBE";
-			$imgBanner = (isset($Config['urlBanner']) && $Config['urlBanner']!="")?$Config['urlBanner']:$base.'imgs/banners/banner_libretube.png';
-			$imgIcon = $base.'imgs/icons/sbl_libretube.ico';
-			$imgDateTime = date("Y-m-d\TH:i:s\Z"); //2003-12-13T18:30:02Z
-		}
+		if(count($Configs)>=1){$Config= $Configs[0];}
 	}
-	
+	$txtTitleFeed = ((isset($Config['ChannelName']) && $Config['ChannelName']!="")?$Config['ChannelName']." ($Order) - ":"($Order) - ")."LIBRETUBE";
+	$imgBanner = (isset($Config['urlBanner']) && $Config['urlBanner']!="")?$Config['urlBanner']:$base.'imgs/banners/banner_libretube.png';
+	$imgIcon = $base.'imgs/icons/sbl_libretube.ico';
+	$imgDateTime = date("Y-m-d\TH:i:s\Z"); //2003-12-13T18:30:02Z
 	//print_r($Videos);
 ?>
 

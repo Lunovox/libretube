@@ -132,7 +132,7 @@
 							//ffmpeg -y -ss 00:00:05 -i "./susto_na_gordinha.webm" -vframes 1 "./video_thumbnails.jpg"
 							//$comandos="ffmpeg -y -i \"".$this->pathVideo."\" -t \"$timeOffset\" -vframes 1 \"$pathOutput\"";
 							$comandos="ffmpeg -y -ss $timeOffset -i \"".$this->pathVideo."\" -vframes 1 \"$pathOutput\"";
-							echo($comandos."<br/>\n");
+							//echo "//".$comandos."\n";
 							exec($comandos);
 							return true;
 						}else{

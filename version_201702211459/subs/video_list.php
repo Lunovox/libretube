@@ -230,7 +230,7 @@
 				<?php if(getLogedType()=="owner" || getLogedType()=="moderator"){ ?>
 					<center>
 						<button
-							title="Editar este video em seu Diáspora!"
+							title="Edita este video!"
 							onclick="window.location='?sub=video_edit&id=<?=$Videos[$V]['ID'];?>';"
 						>
 							<img 
