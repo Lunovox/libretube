@@ -130,8 +130,17 @@
 						$resp=$this->setPathThumbnail($pathOutput);
 						if($resp==true){
 							//ffmpeg -y -ss 00:00:05 -i "./susto_na_gordinha.webm" -vframes 1 "./video_thumbnails.jpg"
-							//$comandos="ffmpeg -y -i \"".$this->pathVideo."\" -t \"$timeOffset\" -vframes 1 \"$pathOutput\"";
-							$comandos="ffmpeg -y -ss $timeOffset -i \"".$this->pathVideo."\" -vframes 1 \"$pathOutput\"";
+							//avconv -i "./susto_na_gordinha.webm" -r 30 -ss 00:00:05 -t 00:00:10 -f "./video_thumbnails_%04d.png"
+							//avconv -i "./susto_na_gordinha.webm" -ss 00:00:05 -f "./video_thumbnails_%04d.png"
+							//avconv -i 'rtmp://s31pf2e6zgypct.cloudfront.net/cfx/st/1001/Conservation31814_850.mp4' -ss 00:10:00 -vsync 1 -qscale 1 -vframes 1 /snaps/1551.png
+							//avconv -ss 00:00:05 -i "./susto_na_gordinha.webm" -vsync 1 -qscale 1 -vframes 1 "./video_thumbnails_%04d.jpg"
+							
+							//########## FFMPEG ########################################################
+							//$comandos="ffmpeg -y -ss $timeOffset -i \"".$this->pathVideo."\" -vframes 1 \"$pathOutput\"";
+
+							//########## AVCONV ########################################################
+							$comandos="avconv -ss $timeOffset -i \"".$this->pathVideo."\" -vsync 1 -qscale 1 -vframes 1 \"$pathOutput\"";
+
 							//echo "//".$comandos."\n";
 							exec($comandos);
 							return true;
