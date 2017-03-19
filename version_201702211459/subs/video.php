@@ -69,7 +69,9 @@
 							<?php } ?>
 						</menu>
 						
-						<script>document.getElementsByTagName("title")[0].innerHTML = "<?="Assistindo '" . $Video[0]['Title'] ."' - " . $txtChannelTitle; ?>";</script>
+						<script>
+							document.getElementsByTagName("title")[0].innerHTML = "<?="Assistindo '" . $Video[0]['Title'] ."' - " . $txtChannelTitle; ?>";
+						</script>
 	 					<h2><?php echo $Video[0]['Title']; ?></h2>
 	 					<?php if($Video[0]['timePublish']!=''){?>
 							<br/>
@@ -122,7 +124,8 @@
 							
 							//$Conteudo = Converter_CodigoCaracter(utf8_encode($Video[0]['Description']));
 							//$Conteudo = utf8_encode($Video[0]['Description']);
-							$Conteudo = $Video[0]['Description'];
+							$Conteudo = trim($Video[0]['Description'])!=""?$Video[0]['Description']."<br/><br/><hr/><br/>":"";
+							
 							
 							/*
 							require_once 'libs/Michelf/MarkdownInterface.php';
@@ -161,43 +164,122 @@
 					<img src="resource/smiles/10.gif" width="25px" height="25px" title="lol"/>
 					-->
 	
-					<br/><br/><hr/><br/>
-					
 					<details>
 						<summary style="cursor:pointer; color:green;"><b>Informações sobre o vídeo...</b></summary>
 						<table>
 							<tr>
-								<td align="right"><b><nobr>Visualizações:</nobr></b><td>
-								<td>
+								<td align="right"><b><nobr>Visualizações:</nobr></b></td>
+								<td style="padding:3px; width:100%">
 									<nobr>
 										<?=$Video[0]['views'];?> vezes
 									</nobr>
-								<td>
+								</td>
 							</tr>
 							<tr>
-								<td align="right"><b><nobr>Upload:</nobr></b><td>
-								<td>
+								<td align="right"><b><nobr>Upload:</nobr></b></td>
+								<td style="padding:3px; width:100%">
 									<nobr>
 										<?=strftime('%A, %d de %B de %Y as %H:%H:%S', strtotime($Video[0]['timeRegistration']));?>
 									</nobr>
-								<td>
+								</td>
 							</tr>
 							<tr>
-								<td align="right"><b><nobr>Publicação:</nobr></b><td>
-								<td>
+								<td align="right"><b><nobr>Publicação:</nobr></b></td>
+								<td style="padding:3px; width:100%">
 									<nobr>
 										<?=($Video[0]['timePublish']!=""?strftime('%A, %d de %B de %Y as %H:%H:%S', strtotime($Video[0]['timePublish'])):"<font color='#FF0000'><b>Vídeo Privado</b></font>");?>
 									</nobr>
-								<td>
+								</td>
 							</tr>
 							<tr>
-								<td align="right"><b><nobr>Atualizado:</nobr></b><td>
-								<td>
+								<td align="right"><b><nobr>Atualizado:</nobr></b></td>
+								<td style="padding:3px; width:100%">
 									<nobr>
 										<?=strftime('%A, %d de %B de %Y as %H:%H:%S', strtotime($Video[0]['timeUpdate']));?>
 									</nobr>
-								<td>
+								</td>
 							</tr>
+							<tr>
+								<td align="right"><nobr><b>Vídeo (<?=$Video[0]['videoTypeLink'];?>):</b></nobr></td>
+								<td style="padding:3px; width:100%">
+									<?php
+										function getVideoUrl($V){
+											if($V['videoTypeLink']=="remote"){
+												return $V['urlVideo'];
+											}elseif($V['videoTypeLink']=="local"){
+												return "download.php?type=video&id=".$V['ID'];
+											}
+										};
+										function getVideoBase($V){
+											if($V['videoTypeLink']=="remote"){
+												return basename($V['urlVideo']);
+											}elseif($V['videoTypeLink']=="local"){
+												$file = $V['urlVideo'];
+												//$extension = explode("/", get_headers($file, 1)["Content-Type"])[1];
+												//print_r(pathinfo($file));
+												$extension = @pathinfo($file)['extension'];
+												//$txtNameVideo = basename($file).".".$extension;
+												return basename(str_replace(" ", "_", $V['Title'])).".".($extension!=""?$extension:"vid");
+											}
+										};
+									?>
+									<a target="_blank" <?="href='".getVideoUrl($Video[0])."'";?>><?=getVideoBase($Video[0]);?></a>
+								</td> 
+							</tr>
+							<tr>
+								<td align="right"><nobr><b>Poster (<?=$Video[0]['posterTypeLink'];?>):</b> </nobr></td>
+								<td style="padding:3px; width:100%">
+									<?php
+										function getPosterDownload($V){
+											if($V['posterTypeLink']=="remote"){
+												return $V['urlPoster'];
+											}elseif($V['posterTypeLink']=="auto" || $V['posterTypeLink']=="local"){
+												return "download.php?type=poster&id=".$V['ID'];
+											}
+										}
+										function getPosterBase($V){
+											if($V['videoTypeLink']=="remote"){
+												return basename($V['urlPoster']);
+											}elseif($V['videoTypeLink']=="auto" || $V['videoTypeLink']=="local"){
+												$file = $V['urlPoster'];
+												//$extension = explode("/", get_headers($file, 1)["Content-Type"])[1];
+												$extension = @pathinfo($file)['extension'];
+												//$txtNameVideo = basename($file).".".$extension;
+												return basename(str_replace(" ", "_", $V['Title'])).".".($extension!=""?$extension:"img");
+											}
+										}
+									?>
+									<a target="_blank" href="<?=getPosterDownload($Video[0]);?>"><?=getPosterBase($Video[0]); ?></a>
+								</td> 
+							</tr>
+							<?php if($Video[0]['subtitleTypeLink']!="none"){ ?>
+								<tr>
+									<td align="right"><nobr><b>Legenda (<?=$Video[0]['subtitleTypeLink'];?>):</b> </nobr></td>
+									<td style="padding:3px; width:100%">
+										<?php
+											function getSubtitleDownload($V){
+												if($V['subtitleTypeLink']=="remote"){
+													return $V['urlSubtitle'];
+												}elseif($V['subtitleTypeLink']=="local"){
+													return "download.php?type=subtitle&id=".$V['ID'];
+												}
+											}
+											function getSubtitleBase($V){
+												if($V['videoTypeLink']=="remote"){
+													return basename($V['urlSubtitle']);
+												}elseif($V['videoTypeLink']=="local"){
+													$file = $V['urlSubtitle'];
+													//$extension = explode("/", get_headers($file, 1)["Content-Type"])[1];
+													$extension = @pathinfo($file)['extension'];
+													//$txtNameVideo = basename($file).".".$extension;
+													return basename(str_replace(" ", "_", $V['Title'])).".".($extension!=""?$extension:"vtt");
+												}
+											}
+										?>
+										<a target="_blank" href="<?=getSubtitleDownload($Video[0]);?>"><?=getSubtitleBase($Video[0]); ?></a>
+									</td> 
+								</tr>
+							<?php } ?>
 						</table>
 					</details>
 					<br/>
@@ -228,7 +310,7 @@
 							</button>
 						<?php } ?> 
 	
-						<button
+						<!--button
 							title="Compartilhe este video em seu Diáspora!"
 							onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 480, 550);"
 						>
@@ -237,11 +319,8 @@
 						<button title="Baixe este vídeo para seu computador!" onclick="window.location='download.php?id=<?=$ID;?>';">
 							<img src="imgs/icons/sbl_download.gif" align="absmiddle"/> 
 							Download
-						</button>
+						</button-->
 						
-						<script>
-							
-						</script>
 						<button 
 							<?php if(!isLoged()){ ?>disabled<?php } ?>
 							title="Escreva um comentário" 
@@ -252,8 +331,8 @@
 								align="absmiddle"
 							/> Comentar
 						</button>
-						
 					</center>
+					
 					<div id="boxComentario" style="display:none">
 						<br/>
 						<script src="libs/tinymce_4.3.2/js/tinymce/tinymce.js"></script>

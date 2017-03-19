@@ -7,19 +7,38 @@
 	require_once "libs/libGeral.php";
 
 	$ID=Propriedade("id");
+	$Type=Propriedade("type");
 	if($ID!=""){
 		$LunoMySQL = new LunoMySQL;
 		if($LunoMySQL->ifAllOk()){
 			$Video=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "ID = $ID");
 			if(count($Video)==1){
-				$urlVideo = $Video[0]['urlVideo'];
-				$mimetype = get_headers($urlVideo, 1)["Content-Type"];;
-				//$extension = pathinfo($urlVideo)['extension'];
-				$extension = explode("/", $mimetype)[1];
-				//$txtNameVideo = basename($urlVideo).".".$extension;
-				$txtNameVideo = basename(str_replace(" ", "_", $Video[0]['Title'])).".".$extension;
+				$file="";
+				$extension="";
+				if($Type=="" || $Type=="video"){
+					$file = $Video[0]['urlVideo'];
+					$extension = pathinfo($file)['extension'];
+					$extension = ($extension!=""?$extension:"vid");
+				}elseif($Type=="poster"){
+					$file = $Video[0]['urlPoster'];
+					$extension = pathinfo($file)['extension'];
+					$extension = ($extension!=""?$extension:"img");
+				}elseif($Type=="subtitle"){
+					$file = $Video[0]['urlSubtitle'];
+					$extension = pathinfo($file)['extension'];
+					$extension = ($extension!=""?$extension:"vtt");
+				}
+				//$extension = explode("/", get_headers($file, 1)["Content-Type"])[1];
+				//$txtNameVideo = basename($file).".".$extension;
+
+				$title = $Video[0]['Title'];
+				$title = html_entity_decode($title);
+				$title = str_replace(" ", "_", $title);
+				$title = str_replace("'", "_", $title);
+				$title = str_replace("\"", "_", $title);
+				$txtNameVideo = basename($title).".".$extension;
 				
-				//$mimetype = mime_content_type($urlVideo);
+				//$mimetype = mime_content_type($file);
 				//$txtTitle = utf8_encode($Video[0]['Title']);
 				//$txtTitle = $Video[0]['Title'];
 				//$txtTitle = "aaaa";
@@ -27,19 +46,20 @@
 				//$txtTitle = $mimetype;
 				
 				
-				
+				/**/
 				header("Content-disposition: attachment; filename=".$txtNameVideo);
-				//header("Content-type: video/".$extension);
-				header("Content-type: ".$mimetype);
-				readfile($urlVideo);
+				header("Content-type: video/".$extension);
+				//header("Content-type: ".$mimetype);
+				readfile($file);
 				/**/
 				
 				/*
 				header("content-type: text/plain; charset=UTF-8");
-				echo $urlVideo."\n\n";
-				echo basename($urlVideo)."\n\n";
+				echo "Title=".$Video[0]['Title']."\n";
+				echo $txtNameVideo."\n\n";
+				echo basename($file)."\n\n";
 				echo $extension."\n\n";
-				echo get_headers($urlVideo, 1)["Content-Type"];
+				echo get_headers($file, 1)["Content-Type"];
 				/**/
 
 				

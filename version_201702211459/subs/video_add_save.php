@@ -52,7 +52,13 @@
 							
 							//$url=$upload_dir.md5($txtTitle)."_vid"."_".basename($urlVideoLocal['tmp_name']);
 							//$url = $upload_dir.basename(str_replace("/", "-", str_replace(" ", "_", $txtTitle))).".vid";
-							$url=$upload_dir.md5($txtTitle).".vid";
+							//$url=$upload_dir.md5($txtTitle).".vid";
+							//$extension = explode("/", get_headers($urlVideoLocal['tmp_name'], 1)["Content-Type"])[1];
+							//print_r(pathinfo($urlVideoLocal['tmp_name']));
+							//print_r($urlVideoLocal);
+							$extension = explode("/", @$urlVideoLocal["type"])[1];
+							//$extension = pathinfo($urlVideoLocal['tmp_name'])['extension'];
+							$url=$upload_dir.md5($txtTitle).".".$extension;
 							
 							if($error==UPLOAD_ERR_INI_SIZE){
 								$aviso="[1] O tamanho o arquivo de vídeo é muito grande!";
