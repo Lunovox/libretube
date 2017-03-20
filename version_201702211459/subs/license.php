@@ -48,7 +48,14 @@
 				<td><a href="/apps/opentube/libs/tinymce_4.3.2/js/tinymce/tinymce.js">tinymce.js</a></td>
 				<td><a href="http://www.gnu.org/licenses/lgpl-2.1.html">GNU Lesser General Public License, versão 2.1</a></td>
 			</tr>
-		</table><br/>
+			<tr>
+				<td><b>getID3<b></td>
+				<td><a href="/apps/opentube/libs/getID3-1.9.12/getid3/getid3.php">getid3.php</a></td>
+				<td><a href="/apps/opentube/libs/getID3-1.9.12/getid3/getid3.php">getid3.php</a></td>
+				<td><a href="http://www.gnu.org/licenses/lgpl-2.1.html">GNU Lesser General Public License, versão 2.1</a></td>
+			</tr>		
+		</table>
+		<br/>
 		
 	</div>
 <center>
