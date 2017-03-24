@@ -38,12 +38,152 @@
 							</div>
 							<br/>
 						<?php } ?>
-	 				
+	 					
+						<style>
+						
+							
+							/*
+							@media (max-width:380px) {
+								#divVideoTitle{
+									max-width:380px; 
+									max-height:213px;  
+									width:100%;
+								}
+							}
+							/**/
+							
+							#divVideoTitle{
+								//position:absolute;/**/
+								position:relative;/**/
+								/*display: inline-block;/**/
+								/*display: block;/**/
+								/*width:800px;/**/
+								width:100%;
+								max-width:759px; /**/
+								top:85px;
+
+								z-index:1;
+								margin:  0px 0px 0px 0px;
+								padding: 5px 0px 5px 0px;
+
+								color: rgb(255, 255, 255);
+								font-family: arial, helvetica, sans-serif, serif;/**/
+								font-size: 14px;
+								font-weight: bold;
+								line-height: 25px;
+								text-align: center;
+								/*text-decoration: none;
+								text-transform: uppercase;
+								/**/
+								text-shadow:1px 1px 0 #00000088;
+
+								/*background: linear-gradient(to bottom, #000000CC, #000000CC 80%, #00000033 100%);/**/
+								/*background: linear-gradient(to bottom, #FFFF00CC, #FFFF00CC 80%, #FFFF0033 100%);/**/
+								/*background: linear-gradient(to bottom, #00FF0033, #00880088 20%, #00880088 80%, #00880033 100%);/**/
+								/*background-color: rgba(0,0,0, 0.5);/**/
+								background: linear-gradient(to right, #3FA95288, #00000088 30%, #00000088 70%, #3FA95288);
+
+								border: 1px solid #CCCCCE;
+								/*
+								box-shadow: 0 3px 0 rgba(0, 0, 0, .3),
+											0 2px 7px rgba(0, 0, 0, 0.2);
+								border-radius: 3px;
+								/**/
+							
+							
+							}
+							img[rotate="180"]{
+								transform: scaleX(-1) scaleY(-1);
+							}
+							img[onclick]{
+								cursor:pointer;
+							}
+						</style>
+						<div id="divVideoTitle">
+							<big><b><?php echo $Video[0]['Title']; ?><b></big><br/>
+							<small>
+									<!--img width="12px" height="12px" src="./sbl_like.png"/> 
+									<img width="12px" height="12px" rotate="180" src="./sbl_like.png"/-->
+									
+									<img 
+										title="Compartilhe este vídeo em sua Rede Social Diáspora!"
+										src="imgs/icons/sbl_share_diaspora.png"
+										onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 480, 550);"
+									/>
+									<img 
+										title="Compartilhe este vídeo em seu Twitter!"
+										src="imgs/icons/sbl_share_twitter.png"
+										onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($shortlinkvideo);?>','_blank', 720, 450);"
+									/>
+									<img 
+										title="Compartilhe este vídeo em seu Facebook!"
+										src="imgs/icons/sbl_share_facebook.png"
+										onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($shortlinkvideo);?>','_blank', 360, 300);"
+									/>
+							</small>
+						</div>
 	 					<video id="VideoPlayer" controls autoplay align="center" poster="<?php echo $Video[0]['urlPoster']; ?>" contextmenu="mnuVideo" oncontextmenu_="return false;">
 							<source src="<?=$Video[0]['urlVideo'];?>" type="video/ogg">
 							<track src="<?=$Video[0]['urlSubtitle'];?>" kind="subtitles" srclang="pt" label="Português" default />
 							Infelizmente seu navegador não suporta a tag "VIDEO".
 						</video> 
+						
+						<script>
+							window.addEventListener('load',function(){
+								var VideoPlayer = document.getElementById('VideoPlayer');
+								var divVideoTitle = document.getElementById('divVideoTitle');
+
+								//divVideoTitle.offsetWidth = VideoPlayer.offsetWidth;
+								//divVideoTitle.style.width = VideoPlayer.style.width;
+								//divVideoTitle.width = VideoPlayer.width;
+								//alert("divVideoTitle.style.display="+divVideoTitle.style.display);
+								//alert("VideoPlayer.offsetWidth="+VideoPlayer.offsetWidth);
+	
+								//divVideoTitle.style.position = "absolute";
+								//divVideoTitle.style.display = "inline-block";
+
+								//var customMessageTop = VideoPlayer.offsetHeight / 2 - divVideoTitle.offsetHeight / 2;
+								//var customMessageLeft = VideoPlayer.offsetWidth / 2 - divVideoTitle.offsetWidth  / 2;
+								var customMessageTop = ((VideoPlayer.offsetHeight-divVideoTitle.offsetHeight)/2) + VideoPlayer.offsetTop;
+								var customMessageLeft = ((VideoPlayer.offsetWidth-divVideoTitle.offsetWidth)/2) + VideoPlayer.offsetLeft;
+								//alert("customMessageTop="+customMessageTop);
+								/*
+								divVideoTitle.style.left = customMessageLeft + 'px';
+								divVideoTitle.style.top = customMessageTop + 'px';
+								divVideoTitle.offsetLeft = customMessageLeft + 'px';
+								divVideoTitle.offsetTop = customMessageTop + 'px';
+								/**/
+				
+							},false);
+							document.getElementById('divVideoTitle').addEventListener('click',function(){
+								var VideoPlayer = document.getElementById('VideoPlayer');
+								if(VideoPlayer.ended){
+									VideoPlayer.currentTime = 0;
+									VideoPlayer.play();
+								}
+							},false);
+				
+							document.getElementById('VideoPlayer').addEventListener('ended',function(e){
+								if(!e) { e = window.event; }
+								var VideoPlayer = document.getElementById('VideoPlayer');
+								var divVideoTitle = document.getElementById('divVideoTitle');
+								VideoPlayer.currentTime = 0;
+								//divVideoTitle.style.display = "inline-block";
+								divVideoTitle.style.display = "";
+							},false);
+
+							document.getElementById('VideoPlayer').addEventListener('play',function(){
+								var divVideoTitle = document.getElementById('divVideoTitle');
+								divVideoTitle.style.display = "none";
+							},false);
+
+							document.getElementById('VideoPlayer').addEventListener('pause',function(){
+								var divVideoTitle = document.getElementById('divVideoTitle');
+								//divVideoTitle.style.display = "inline-block";
+								divVideoTitle.style.display = "";
+							},false);
+				
+						</script>
 						
 						<menu type="context" id="mnuVideo">
 							<menuitem label="Recarregar" onclick="window.location.reload();" icon="imgs/icons/sbl_reload.png"></menuitem>
