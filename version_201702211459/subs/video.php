@@ -163,8 +163,8 @@
 								<big><b><?php echo $Video[0]['Title']; ?><b></big>
 							</div>
 							<img src="imgs/icons/sbl_share.svg" size="16x16" onclick="doShowFormVideo('divVideoShare');"/>
-							<img src="imgs/icons/sbl_libretube.png" onclick="doShowFormVideo('divVideoTypePlay');"/>
-							<img src="imgs/icons/sbl_lampada.gif" onclick="doShowFormVideo('divVideoInformation');"/>
+							<img src="imgs/icons/sbl_catraca.png" onclick="doShowFormVideo('divVideoTypePlay');"/>
+							<img src="imgs/icons/sbl_informacao.gif" onclick="doShowFormVideo('divVideoInformation');"/>
 							
 							<div id="divVideoShare">
 								Compartilhe: 

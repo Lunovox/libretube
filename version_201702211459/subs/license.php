@@ -26,7 +26,7 @@
 
 		<p>
 			<ul>
-				<li><a target="_blank" href="http://tuatec.ddns.net"><b>TUATECnologia Coop. Ltda (by Lunovox)<b></a></li>
+				<li><a target="_blank" href="https://libreplanet.org/wiki/User:Lunovox"><b>Lunovox Heavenfinder<b></a></li>
 				<li><a target="_blank" href="https://libreplanet.org/wiki/User:Adfeno"><b>Adonay Felipe Nogueira<b></a></li>
 			</ul>
 		</p><br/><br/>
@@ -44,16 +44,16 @@
 			</tr>
 			<tr>
 				<td><b>TinyMCE<b></td>
-				<td><a href="/apps/opentube/libs/tinymce_4.3.2/js/tinymce/tinymce.min.js">tinymce.min.js</a></td>
-				<td><a href="/apps/opentube/libs/tinymce_4.3.2/js/tinymce/tinymce.js">tinymce.js</a></td>
+				<td><a href="libs/tinymce_4.3.2/js/tinymce/tinymce.min.js">tinymce.min.js</a></td>
+				<td><a href="libs/tinymce_4.3.2/js/tinymce/tinymce.js">tinymce.js</a></td>
 				<td><a href="http://www.gnu.org/licenses/lgpl-2.1.html">GNU Lesser General Public License, versão 2.1</a></td>
 			</tr>
-			<tr>
+			<!--tr>
 				<td><b>getID3<b></td>
-				<td><a href="/apps/opentube/libs/getID3-1.9.12/getid3/getid3.php">getid3.php</a></td>
-				<td><a href="/apps/opentube/libs/getID3-1.9.12/getid3/getid3.php">getid3.php</a></td>
+				<td><a href="libs/getID3-1.9.12/getid3/getid3.php">getid3.php</a></td>
+				<td><a href="libs/getID3-1.9.12/getid3/getid3.php">getid3.php</a></td>
 				<td><a href="http://www.gnu.org/licenses/lgpl-2.1.html">GNU Lesser General Public License, versão 2.1</a></td>
-			</tr>		
+			</tr-->		
 		</table>
 		<br/>
 		
