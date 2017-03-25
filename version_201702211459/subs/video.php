@@ -39,88 +39,303 @@
 							<br/>
 						<?php } ?>
 	 					
-						<style>
-						
-							
-							/*
-							@media (max-width:380px) {
-								#divVideoTitle{
-									max-width:380px; 
-									max-height:213px;  
-									width:100%;
-								}
-							}
-							/**/
-							
-							#divVideoTitle{
-								//position:absolute;/**/
-								position:relative;/**/
-								/*display: inline-block;/**/
-								/*display: block;/**/
-								/*width:800px;/**/
-								width:100%;
-								max-width:759px; /**/
-								top:85px;
+	 					<script>
+							function doAlignTitleVideo(){
+								var VideoPlayer = document.getElementById('VideoPlayer');
+								var divVideoControl = document.getElementById('divVideoControl');
 
-								z-index:1;
-								margin:  0px 0px 0px 0px;
-								padding: 5px 0px 5px 0px;
+								//divVideoControl.offsetWidth = VideoPlayer.offsetWidth;
+								//divVideoControl.style.width = VideoPlayer.style.width;
+								//divVideoControl.width = VideoPlayer.width;
+								//alert("divVideoControl.style.display="+divVideoControl.style.display);
+								//alert("VideoPlayer.offsetWidth="+VideoPlayer.offsetWidth);
 
-								color: rgb(255, 255, 255);
-								font-family: arial, helvetica, sans-serif, serif;/**/
-								font-size: 14px;
-								font-weight: bold;
-								line-height: 25px;
-								text-align: center;
-								/*text-decoration: none;
-								text-transform: uppercase;
-								/**/
-								text-shadow:1px 1px 0 #00000088;
+								//divVideoControl.style.position = "absolute";
+								//divVideoControl.style.display = "inline-block";
 
-								/*background: linear-gradient(to bottom, #000000CC, #000000CC 80%, #00000033 100%);/**/
-								/*background: linear-gradient(to bottom, #FFFF00CC, #FFFF00CC 80%, #FFFF0033 100%);/**/
-								/*background: linear-gradient(to bottom, #00FF0033, #00880088 20%, #00880088 80%, #00880033 100%);/**/
-								/*background-color: rgba(0,0,0, 0.5);/**/
-								background: linear-gradient(to right, #3FA95288, #00000088 30%, #00000088 70%, #3FA95288);
-
-								border: 1px solid #CCCCCE;
+								//var customMessageTop = VideoPlayer.offsetHeight / 2 - divVideoControl.offsetHeight / 2;
+								//var customMessageLeft = VideoPlayer.offsetWidth / 2 - divVideoControl.offsetWidth  / 2;
+								var customMessageTop = ((VideoPlayer.offsetHeight-divVideoControl.offsetHeight)/2) + VideoPlayer.offsetTop;
+								var customMessageLeft = ((VideoPlayer.offsetWidth-divVideoControl.offsetWidth)/2) + VideoPlayer.offsetLeft;
+								//alert("customMessageTop="+customMessageTop);
 								/*
-								box-shadow: 0 3px 0 rgba(0, 0, 0, .3),
-											0 2px 7px rgba(0, 0, 0, 0.2);
-								border-radius: 3px;
+								divVideoControl.style.left = customMessageLeft + 'px';
+								divVideoControl.style.top = customMessageTop + 'px';
+								divVideoControl.offsetLeft = customMessageLeft + 'px';
+								divVideoControl.offsetTop = customMessageTop + 'px';
 								/**/
+							}
+							window.addEventListener('load',function(){
+								doAlignTitleVideo();
+								
+								/**/
+								document.getElementById('divVideoControl').addEventListener('click',function(){
+									var VideoPlayer = document.getElementById('VideoPlayer');
+									if(VideoPlayer.ended){
+										VideoPlayer.currentTime = 0;
+										VideoPlayer.play();
+										
+										document.getElementById('divVideoControl').style.display = "none";
+										document.getElementById('divVideoShare').style.display = "none";
+										document.getElementById('divVideoTypePlay').style.display = "none";
+									}
+								},false);
+								/**/
+	
+								document.getElementById('VideoPlayer').addEventListener('ended',function(e){
+									if(!e) { e = window.event; }
+					
+									var VideoPlayer = document.getElementById('VideoPlayer');
+									var divVideoControl = document.getElementById('divVideoControl');
+									var chkTypePlays = document.getElementsByName('chkTypePlay');
+					
+									for (var i = 0, length = chkTypePlays.length; i < length; i++) {
+										//alert(chkTypePlays[i].value+" (="+i+")"); // do whatever you want with the checked radio
+										if(chkTypePlays[0].checked) { // 0 = repeat
+											VideoPlayer.currentTime = 0;
+											VideoPlayer.play();
+											break;// only one radio can be logically checked, don't check the rest
+										}else if(chkTypePlays[1].checked) { // 1 = forward
+											alert("Função avançar vídeo ainda não foi implantada. Desculpe!");
+											break;// only one radio can be logically checked, don't check the rest
+										}else{
+											VideoPlayer.currentTime = 0;
+											break;// only one radio can be logically checked, don't check the rest
+										}
+									}
+									//divVideoControl.style.display = "inline-block";
+									divVideoControl.style.display = "block";
+								},false);
+
+								document.getElementById('VideoPlayer').addEventListener('play',function(){
+									document.getElementById('divVideoControl').style.display = "none";
+									document.getElementById('divVideoShare').style.display = "none";
+									document.getElementById('divVideoTypePlay').style.display = "none";
+								},false);
+
+								document.getElementById('VideoPlayer').addEventListener('pause',function(){
+									document.getElementById('divVideoControl').style.display = "block";
+								},false);
+								
+								document.getElementById('divVideoControl').style.display = "none";
+								document.getElementById('divVideoShare').style.display = "none";
+								document.getElementById('divVideoTypePlay').style.display = "none";
+							},false);
+						</script>
+						<script>
+							function doHideAllFormsVideo(){
+								var divVideoControl = document.getElementById('divVideoControl');
+								var divVideoShare = document.getElementById('divVideoShare');
+								var divVideoTypePlay = document.getElementById('divVideoTypePlay');
+								var divVideoInformation = document.getElementById('divVideoInformation');
+
+								divVideoControl.style.display = "block";
+								divVideoShare.style.display = "none";
+								divVideoTypePlay.style.display = "none";
+								divVideoInformation.style.display = "none";
 							
-							
 							}
-							img[rotate="180"]{
-								transform: scaleX(-1) scaleY(-1);
-							}
-							img[onclick]{
-								cursor:pointer;
-							}
-						</style>
-						<div id="divVideoTitle">
-							<big><b><?php echo $Video[0]['Title']; ?><b></big><br/>
-							<small>
-									<!--img width="12px" height="12px" src="./sbl_like.png"/> 
-									<img width="12px" height="12px" rotate="180" src="./sbl_like.png"/-->
+							function doShowFormVideo($form){
+								var VideoPlayer = document.getElementById('VideoPlayer');
+								var divVideoControl = document.getElementById('divVideoControl');
+								var divVideoShare = document.getElementById('divVideoShare');
+								var divVideoTypePlay = document.getElementById('divVideoTypePlay');
+								var divVideoInformation = document.getElementById('divVideoInformation');
+								
+								doHideAllFormsVideo();
+								divVideoControl.style.display = "block";
+								
+								if($form=="divVideoShare"){
+									divVideoShare.style.position = "absolute";
+									//divVideoShare.style.display = "inline-block";
 									
-									<img 
-										title="Compartilhe este vídeo em sua Rede Social Diáspora!"
-										src="imgs/icons/sbl_share_diaspora.png"
-										onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 480, 550);"
-									/>
-									<img 
-										title="Compartilhe este vídeo em seu Twitter!"
-										src="imgs/icons/sbl_share_twitter.png"
-										onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($shortlinkvideo);?>','_blank', 720, 450);"
-									/>
-									<img 
-										title="Compartilhe este vídeo em seu Facebook!"
-										src="imgs/icons/sbl_share_facebook.png"
-										onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($shortlinkvideo);?>','_blank', 360, 300);"
-									/>
-							</small>
+									/*divVideoShare.offsetWidth = VideoPlayer.offsetWidth;/**/
+
+									divVideoShare.offsetLeft = (VideoPlayer.offsetWidth / 2 - divVideoShare.offsetWidth  / 2) + 'px';
+									divVideoShare.offsetTop = (VideoPlayer.offsetHeight / 2 - divVideoShare.offsetHeight / 2) + 'px';
+
+									divVideoShare.style.display = "block";
+								}else if($form=="divVideoTypePlay"){
+									divVideoTypePlay.style.position = "absolute";
+									//divVideoTypePlay.style.display = "inline-block";
+									
+									/*divVideoTypePlay.offsetWidth = VideoPlayer.offsetWidth;/**/
+
+									divVideoTypePlay.offsetLeft = (VideoPlayer.offsetWidth / 2 - divVideoTypePlay.offsetWidth  / 2) + 'px';
+									divVideoTypePlay.offsetTop = (VideoPlayer.offsetHeight / 2 - divVideoTypePlay.offsetHeight / 2) + 'px';
+
+									divVideoTypePlay.style.display = "block";
+								}else if($form=="divVideoInformation"){
+									divVideoInformation.style.position = "absolute";
+									//divVideoInformation.style.display = "inline-block";
+									
+									/*divVideoInformation.offsetWidth = VideoPlayer.offsetWidth;/**/
+
+									divVideoInformation.offsetLeft = (VideoPlayer.offsetWidth / 2 - divVideoInformation.offsetWidth  / 2) + 'px';
+									divVideoInformation.offsetTop = (VideoPlayer.offsetHeight / 2 - divVideoInformation.offsetHeight / 2) + 'px';
+
+									divVideoInformation.style.display = "block";
+								}
+								
+								doAlignTitleVideo();
+							}
+						</script>
+	 					
+						<div id="divVideoControl">
+							<div id="divVideoTitle">
+								<big><b><?php echo $Video[0]['Title']; ?><b></big>
+							</div>
+							<img src="imgs/icons/sbl_share.svg" size="16x16" onclick="doShowFormVideo('divVideoShare');"/>
+							<img src="imgs/icons/sbl_libretube.png" onclick="doShowFormVideo('divVideoTypePlay');"/>
+							<img src="imgs/icons/sbl_lampada.gif" onclick="doShowFormVideo('divVideoInformation');"/>
+							
+							<div id="divVideoShare">
+								Compartilhe: 
+								<img size="16x16"
+									title="Compartilhe este vídeo em sua Rede Social Diáspora!"
+									src="imgs/icons/sbl_share_diaspora.png"
+									onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 480, 550);"
+								/><img size="16x16"
+									title="Compartilhe este vídeo em seu Twitter!"
+									src="imgs/icons/sbl_share_twitter.png"
+									onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($shortlinkvideo);?>','_blank', 720, 450);"
+								/><img size="16x16"
+									title="Compartilhe este vídeo em seu Facebook!"
+									src="imgs/icons/sbl_share_facebook.png"
+									onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($shortlinkvideo);?>','_blank', 360, 300);"
+							/></div>
+							<div id="divVideoTypePlay">
+								Quando este vídeo terminar: 
+								<input id="chkVideoRepeat" type="radio" name="chkTypePlay" value="repeat" checked/> 
+								<label for="chkVideoRepeat">Repetir</label>
+								<input id="chkVideoForward" type="radio" name="chkTypePlay" value="forward"/> 
+								<label for="chkVideoForward">Progredir</label>
+								<input id="chkVideoStop" type="radio" name="chkTypePlay" value="stop"/> 
+								<label for="chkVideoStop">Parar</label>
+							</div>
+							<div id="divVideoInformation">
+								<center>
+									<table>
+										<tr>
+											<td align="right"><b><nobr>Visualizações:</nobr></b></td>
+											<td style="padding:0px 3px  0px  3px; text-align:left;">
+												<nobr>
+													<?=$Video[0]['views'];?> vezes
+												</nobr>
+											</td>
+										</tr>
+										<tr>
+											<td align="right"><b><nobr>Upload:</nobr></b></td>
+											<td style="padding:0px 3px  0px  3px; text-align:left;">
+												<nobr>
+													<?=strftime('%A, %d de %B de %Y as %H:%H:%S', strtotime($Video[0]['timeRegistration']));?>
+												</nobr>
+											</td>
+										</tr>
+										<tr>
+											<td align="right"><b><nobr>Publicação:</nobr></b></td>
+											<td style="padding:0px 3px  0px  3px; text-align:left;">
+												<nobr>
+													<?=($Video[0]['timePublish']!=""?strftime('%A, %d de %B de %Y as %H:%H:%S', strtotime($Video[0]['timePublish'])):"<font color='#FF0000'><b>Vídeo Privado</b></font>");?>
+												</nobr>
+											</td>
+										</tr>
+										<tr>
+											<td align="right"><b><nobr>Atualizado:</nobr></b></td>
+											<td style="padding:0px 3px  0px  3px; text-align:left;">
+												<nobr>
+													<?=strftime('%A, %d de %B de %Y as %H:%H:%S', strtotime($Video[0]['timeUpdate']));?>
+												</nobr>
+											</td>
+										</tr>
+										<tr>
+											<td align="right"><nobr><b>Vídeo (<?=$Video[0]['videoTypeLink'];?>):</b></nobr></td>
+											<td style="padding:0px 3px  0px  3px; text-align:left;">
+												<?php
+													function getVideoUrl($V){
+														if($V['videoTypeLink']=="remote"){
+															return $V['urlVideo'];
+														}elseif($V['videoTypeLink']=="local"){
+															return "download.php?type=video&id=".$V['ID'];
+														}
+													};
+													function getVideoBase($V){
+														if($V['videoTypeLink']=="remote"){
+															return basename($V['urlVideo']);
+														}elseif($V['videoTypeLink']=="local"){
+															$file = $V['urlVideo'];
+															//$extension = explode("/", get_headers($file, 1)["Content-Type"])[1];
+															//print_r(pathinfo($file));
+															$extension = @pathinfo($file)['extension'];
+															//$txtNameVideo = basename($file).".".$extension;
+															return basename(str_replace(" ", "_", $V['Title'])).".".($extension!=""?$extension:"vid");
+														}
+													};
+												?>
+												<a target="_blank" <?="href='".getVideoUrl($Video[0])."'";?>><?=getVideoBase($Video[0]);?></a>
+											</td> 
+										</tr>
+										<tr>
+											<td align="right"><nobr><b>Poster (<?=$Video[0]['posterTypeLink'];?>):</b> </nobr></td>
+											<td style="padding:0px 3px  0px  3px; text-align:left;">
+												<?php
+													function getPosterDownload($V){
+														if($V['posterTypeLink']=="remote"){
+															return $V['urlPoster'];
+														}elseif($V['posterTypeLink']=="auto" || $V['posterTypeLink']=="local"){
+															return "download.php?type=poster&id=".$V['ID'];
+														}
+													}
+													function getPosterBase($V){
+														if($V['videoTypeLink']=="remote"){
+															return basename($V['urlPoster']);
+														}elseif($V['videoTypeLink']=="auto" || $V['videoTypeLink']=="local"){
+															$file = $V['urlPoster'];
+															//$extension = explode("/", get_headers($file, 1)["Content-Type"])[1];
+															$extension = @pathinfo($file)['extension'];
+															//$txtNameVideo = basename($file).".".$extension;
+															return basename(str_replace(" ", "_", $V['Title'])).".".($extension!=""?$extension:"img");
+														}
+													}
+												?>
+												<a target="_blank" href="<?=getPosterDownload($Video[0]);?>"><?=getPosterBase($Video[0]); ?></a>
+											</td> 
+										</tr>
+										<?php if($Video[0]['subtitleTypeLink']!="none"){ ?>
+											<tr>
+												<td align="right"><nobr><b>Legenda (<?=$Video[0]['subtitleTypeLink'];?>):</b> </nobr></td>
+												<td style="padding:0px 3px  0px  3px; text-align:left;">
+													<?php
+														function getSubtitleDownload($V){
+															if($V['subtitleTypeLink']=="remote"){
+																return $V['urlSubtitle'];
+															}elseif($V['subtitleTypeLink']=="local"){
+																return "download.php?type=subtitle&id=".$V['ID'];
+															}
+														}
+														function getSubtitleBase($V){
+															if($V['videoTypeLink']=="remote"){
+																return basename($V['urlSubtitle']);
+															}elseif($V['videoTypeLink']=="local"){
+																$file = $V['urlSubtitle'];
+																//$extension = explode("/", get_headers($file, 1)["Content-Type"])[1];
+																$extension = @pathinfo($file)['extension'];
+																//$txtNameVideo = basename($file).".".$extension;
+																return basename(str_replace(" ", "_", $V['Title'])).".".($extension!=""?$extension:"vtt");
+															}
+														}
+													?>
+													<a target="_blank" href="<?=getSubtitleDownload($Video[0]);?>"><?=getSubtitleBase($Video[0]); ?></a>
+												</td> 
+											</tr>
+										<?php } ?>
+									</table>
+								</center>
+							</div>
+							<div id="divVideoEvaluate">
+								<img size="16x16" src="./sbl_like.png"/> 
+								<img size="16x16" rotate="180" src="./sbl_like.png">
+							</div>
 						</div>
 	 					<video id="VideoPlayer" controls autoplay align="center" poster="<?php echo $Video[0]['urlPoster']; ?>" contextmenu="mnuVideo" oncontextmenu_="return false;">
 							<source src="<?=$Video[0]['urlVideo'];?>" type="video/ogg">
@@ -128,62 +343,6 @@
 							Infelizmente seu navegador não suporta a tag "VIDEO".
 						</video> 
 						
-						<script>
-							window.addEventListener('load',function(){
-								var VideoPlayer = document.getElementById('VideoPlayer');
-								var divVideoTitle = document.getElementById('divVideoTitle');
-
-								//divVideoTitle.offsetWidth = VideoPlayer.offsetWidth;
-								//divVideoTitle.style.width = VideoPlayer.style.width;
-								//divVideoTitle.width = VideoPlayer.width;
-								//alert("divVideoTitle.style.display="+divVideoTitle.style.display);
-								//alert("VideoPlayer.offsetWidth="+VideoPlayer.offsetWidth);
-	
-								//divVideoTitle.style.position = "absolute";
-								//divVideoTitle.style.display = "inline-block";
-
-								//var customMessageTop = VideoPlayer.offsetHeight / 2 - divVideoTitle.offsetHeight / 2;
-								//var customMessageLeft = VideoPlayer.offsetWidth / 2 - divVideoTitle.offsetWidth  / 2;
-								var customMessageTop = ((VideoPlayer.offsetHeight-divVideoTitle.offsetHeight)/2) + VideoPlayer.offsetTop;
-								var customMessageLeft = ((VideoPlayer.offsetWidth-divVideoTitle.offsetWidth)/2) + VideoPlayer.offsetLeft;
-								//alert("customMessageTop="+customMessageTop);
-								/*
-								divVideoTitle.style.left = customMessageLeft + 'px';
-								divVideoTitle.style.top = customMessageTop + 'px';
-								divVideoTitle.offsetLeft = customMessageLeft + 'px';
-								divVideoTitle.offsetTop = customMessageTop + 'px';
-								/**/
-				
-							},false);
-							document.getElementById('divVideoTitle').addEventListener('click',function(){
-								var VideoPlayer = document.getElementById('VideoPlayer');
-								if(VideoPlayer.ended){
-									VideoPlayer.currentTime = 0;
-									VideoPlayer.play();
-								}
-							},false);
-				
-							document.getElementById('VideoPlayer').addEventListener('ended',function(e){
-								if(!e) { e = window.event; }
-								var VideoPlayer = document.getElementById('VideoPlayer');
-								var divVideoTitle = document.getElementById('divVideoTitle');
-								VideoPlayer.currentTime = 0;
-								//divVideoTitle.style.display = "inline-block";
-								divVideoTitle.style.display = "";
-							},false);
-
-							document.getElementById('VideoPlayer').addEventListener('play',function(){
-								var divVideoTitle = document.getElementById('divVideoTitle');
-								divVideoTitle.style.display = "none";
-							},false);
-
-							document.getElementById('VideoPlayer').addEventListener('pause',function(){
-								var divVideoTitle = document.getElementById('divVideoTitle');
-								//divVideoTitle.style.display = "inline-block";
-								divVideoTitle.style.display = "";
-							},false);
-				
-						</script>
 						
 						<menu type="context" id="mnuVideo">
 							<menuitem label="Recarregar" onclick="window.location.reload();" icon="imgs/icons/sbl_reload.png"></menuitem>
@@ -209,11 +368,7 @@
 							<?php } ?>
 						</menu>
 						
-						<script>
-							document.getElementsByTagName("title")[0].innerHTML = "<?="Assistindo '" . $Video[0]['Title'] ."' - " . $txtChannelTitle; ?>";
-						</script>
-	 					<h2><?php echo $Video[0]['Title']; ?></h2>
-	 					<?php if($Video[0]['timePublish']!=''){?>
+						<?php if($Video[0]['timePublish']!=''){?>
 							<br/>
 							<?php
 								$urlShare = $urlLibretube.'?video='.$ID;
@@ -230,14 +385,14 @@
 									"](".$urlShare.")\n\n".
 									"Hashtags: ".(@$Config['ChannelName']!=''?'#'.str_replace(" ","",@$Config['ChannelName']).' ':'')." #Libretube"
 								)."&markdown=true&jump=doclose";
-			
+
 							;?>
 							<img src="imgs/icons/sbl_share_diaspora.png"
 								style="cursor:pointer;" align="absmiddle"
 								title="Compartilhe em sua Rede Social Diáspora a lista de vídeos mais vistos deste canal!"
 								onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 880, 600);"
 							/>
-		
+
 							<img src="imgs/icons/sbl_share_twitter.png"
 								style="cursor:pointer;" align="absmiddle"
 								title="Compartilhe em seu Twitter a lista de vídeos mais vistos deste canal!"
@@ -249,46 +404,56 @@
 								title="Compartilhe em seu Facebook a lista de vídeos mais vistos deste canal!"
 								onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($urlShare);?>','_blank', 360, 300);"
 							/>
-							<br/><br/><hr/>
 						<?php } ?>
 	 				</center>
-	 				
-	 				<br/>
-	 				<br/>
-	
-					<div>
-					<!-- p align="justify" style="margin:10px" -->
-						<?php 
-							//$Conteudo = CodigoParaHTML(Converter_CodigoCaracter(utf8_encode($Video[0]['Description'])));
+
+
+					<details>
+						<br/>
+						<summary style="cursor:pointer; color:green;"><b>Informações sobre o vídeo...</b></summary>
+
+						<script>
+							document.getElementsByTagName("title")[0].innerHTML = "<?="Assistindo '" . $Video[0]['Title'] ."' - " . $txtChannelTitle; ?>";
+						</script>
+
+	 					<h2><?php echo $Video[0]['Title']; ?></h2>
+	 					
+						
+						<div>
+						<!-- p align="justify" style="margin:10px" -->
+							<?php 
+								//$Conteudo = CodigoParaHTML(Converter_CodigoCaracter(utf8_encode($Video[0]['Description'])));
 							
 							
-							//$Conteudo = Converter_CodigoCaracter(utf8_encode($Video[0]['Description']));
-							//$Conteudo = utf8_encode($Video[0]['Description']);
-							$Conteudo = trim($Video[0]['Description'])!=""?$Video[0]['Description']."<br/><br/><hr/><br/>":"";
+								//$Conteudo = Converter_CodigoCaracter(utf8_encode($Video[0]['Description']));
+								//$Conteudo = utf8_encode($Video[0]['Description']);
+								$Conteudo = trim($Video[0]['Description'])!=""?$Video[0]['Description']."<br/><br/><hr/><br/>":"";
 							
 							
-							/*
-							require_once 'libs/Michelf/MarkdownInterface.php';
-							require_once 'libs/Michelf/Markdown.php';
-							$Conteudo = \Michelf\Markdown::defaultTransform($Conteudo);
-							/**/
+								/*
+								require_once 'libs/Michelf/MarkdownInterface.php';
+								require_once 'libs/Michelf/Markdown.php';
+								$Conteudo = \Michelf\Markdown::defaultTransform($Conteudo);
+								/**/
 				
-							/*
-							require_once "libs/jbbcode/Parser.php";
-							$parser = new JBBCode\Parser();
-							$parser->addCodeDefinitionSet(new JBBCode\DefaultCodeDefinitionSet());
-							$parser->addBBCode("quote", '<div class="quote">{param}</div>');
-							$parser->addBBCode("code", '<pre class="code">{param}</pre>', false, false, 1);
-							$parser->parse($Conteudo);
-							//print $parser->getAsText();
-							//print $parser->getAsHtml();
-							$Conteudo = $parser->getAsHtml();
-							/**/
+								/*
+								require_once "libs/jbbcode/Parser.php";
+								$parser = new JBBCode\Parser();
+								$parser->addCodeDefinitionSet(new JBBCode\DefaultCodeDefinitionSet());
+								$parser->addBBCode("quote", '<div class="quote">{param}</div>');
+								$parser->addBBCode("code", '<pre class="code">{param}</pre>', false, false, 1);
+								$parser->parse($Conteudo);
+								//print $parser->getAsText();
+								//print $parser->getAsHtml();
+								$Conteudo = $parser->getAsHtml();
+								/**/
 				
-							echo $Conteudo;
-						?>
-					<!-- /p -->
-					</div>
+								echo $Conteudo;
+							?>
+						<!-- /p -->
+						</div>
+					</details>
+
 					
 					<!--
 					<img src="resource/smiles/00.gif" width="25px" height="25px" title="Ameaçador"/>
@@ -304,126 +469,7 @@
 					<img src="resource/smiles/10.gif" width="25px" height="25px" title="lol"/>
 					-->
 	
-					<details>
-						<summary style="cursor:pointer; color:green;"><b>Informações sobre o vídeo...</b></summary>
-						<table>
-							<tr>
-								<td align="right"><b><nobr>Visualizações:</nobr></b></td>
-								<td style="padding:3px; width:100%">
-									<nobr>
-										<?=$Video[0]['views'];?> vezes
-									</nobr>
-								</td>
-							</tr>
-							<tr>
-								<td align="right"><b><nobr>Upload:</nobr></b></td>
-								<td style="padding:3px; width:100%">
-									<nobr>
-										<?=strftime('%A, %d de %B de %Y as %H:%H:%S', strtotime($Video[0]['timeRegistration']));?>
-									</nobr>
-								</td>
-							</tr>
-							<tr>
-								<td align="right"><b><nobr>Publicação:</nobr></b></td>
-								<td style="padding:3px; width:100%">
-									<nobr>
-										<?=($Video[0]['timePublish']!=""?strftime('%A, %d de %B de %Y as %H:%H:%S', strtotime($Video[0]['timePublish'])):"<font color='#FF0000'><b>Vídeo Privado</b></font>");?>
-									</nobr>
-								</td>
-							</tr>
-							<tr>
-								<td align="right"><b><nobr>Atualizado:</nobr></b></td>
-								<td style="padding:3px; width:100%">
-									<nobr>
-										<?=strftime('%A, %d de %B de %Y as %H:%H:%S', strtotime($Video[0]['timeUpdate']));?>
-									</nobr>
-								</td>
-							</tr>
-							<tr>
-								<td align="right"><nobr><b>Vídeo (<?=$Video[0]['videoTypeLink'];?>):</b></nobr></td>
-								<td style="padding:3px; width:100%">
-									<?php
-										function getVideoUrl($V){
-											if($V['videoTypeLink']=="remote"){
-												return $V['urlVideo'];
-											}elseif($V['videoTypeLink']=="local"){
-												return "download.php?type=video&id=".$V['ID'];
-											}
-										};
-										function getVideoBase($V){
-											if($V['videoTypeLink']=="remote"){
-												return basename($V['urlVideo']);
-											}elseif($V['videoTypeLink']=="local"){
-												$file = $V['urlVideo'];
-												//$extension = explode("/", get_headers($file, 1)["Content-Type"])[1];
-												//print_r(pathinfo($file));
-												$extension = @pathinfo($file)['extension'];
-												//$txtNameVideo = basename($file).".".$extension;
-												return basename(str_replace(" ", "_", $V['Title'])).".".($extension!=""?$extension:"vid");
-											}
-										};
-									?>
-									<a target="_blank" <?="href='".getVideoUrl($Video[0])."'";?>><?=getVideoBase($Video[0]);?></a>
-								</td> 
-							</tr>
-							<tr>
-								<td align="right"><nobr><b>Poster (<?=$Video[0]['posterTypeLink'];?>):</b> </nobr></td>
-								<td style="padding:3px; width:100%">
-									<?php
-										function getPosterDownload($V){
-											if($V['posterTypeLink']=="remote"){
-												return $V['urlPoster'];
-											}elseif($V['posterTypeLink']=="auto" || $V['posterTypeLink']=="local"){
-												return "download.php?type=poster&id=".$V['ID'];
-											}
-										}
-										function getPosterBase($V){
-											if($V['videoTypeLink']=="remote"){
-												return basename($V['urlPoster']);
-											}elseif($V['videoTypeLink']=="auto" || $V['videoTypeLink']=="local"){
-												$file = $V['urlPoster'];
-												//$extension = explode("/", get_headers($file, 1)["Content-Type"])[1];
-												$extension = @pathinfo($file)['extension'];
-												//$txtNameVideo = basename($file).".".$extension;
-												return basename(str_replace(" ", "_", $V['Title'])).".".($extension!=""?$extension:"img");
-											}
-										}
-									?>
-									<a target="_blank" href="<?=getPosterDownload($Video[0]);?>"><?=getPosterBase($Video[0]); ?></a>
-								</td> 
-							</tr>
-							<?php if($Video[0]['subtitleTypeLink']!="none"){ ?>
-								<tr>
-									<td align="right"><nobr><b>Legenda (<?=$Video[0]['subtitleTypeLink'];?>):</b> </nobr></td>
-									<td style="padding:3px; width:100%">
-										<?php
-											function getSubtitleDownload($V){
-												if($V['subtitleTypeLink']=="remote"){
-													return $V['urlSubtitle'];
-												}elseif($V['subtitleTypeLink']=="local"){
-													return "download.php?type=subtitle&id=".$V['ID'];
-												}
-											}
-											function getSubtitleBase($V){
-												if($V['videoTypeLink']=="remote"){
-													return basename($V['urlSubtitle']);
-												}elseif($V['videoTypeLink']=="local"){
-													$file = $V['urlSubtitle'];
-													//$extension = explode("/", get_headers($file, 1)["Content-Type"])[1];
-													$extension = @pathinfo($file)['extension'];
-													//$txtNameVideo = basename($file).".".$extension;
-													return basename(str_replace(" ", "_", $V['Title'])).".".($extension!=""?$extension:"vtt");
-												}
-											}
-										?>
-										<a target="_blank" href="<?=getSubtitleDownload($Video[0]);?>"><?=getSubtitleBase($Video[0]); ?></a>
-									</td> 
-								</tr>
-							<?php } ?>
-						</table>
-					</details>
 					<br/>
-					
 					<center>
 						<?php if(getLogedType()=="owner" || getLogedType()=="moderator"){ ?>
 							<button

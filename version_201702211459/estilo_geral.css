@@ -406,13 +406,126 @@ nav{
 	border:1px solid; 
 }
 
+img[rotate="180"]{
+	transform: scaleX(-1) scaleY(-1);
+}
+
+
+img[onclick] {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	cursor:pointer;
+
+	border:1px solid rgba(0,128,0, 0); 
+	border-radius: 3px;
+
+	padding:3px;/**/
+	margin:0px;
+}
+
+img[onclick]:hover {
+	border:1px solid rgba(0,128,0, 1);  
+
+	/*background: linear-gradient(to top, #3FA952, #FFF 40%, #FFF 60%, #3FA952);/**/
+	background-color: rgba(255,255,255,0.8);/**/
+}
+
+
+img[size="16x16"]{
+	width:16px; 
+	height:16px; 
+	margin-left:5px;
+	vertical-align: middle;
+}
+input[type="radio"]{
+	/*margin-right: -5px;/**/
+	vertical-align: middle;
+}
+
+#divVideoShare, #divVideoTypePlay, #divVideoInformation, #divVideoEvaluate{
+	position:relative;/**/
+	top:65px;/**/
+
+	display:none;
+	width:100%;
+	/*max-width:757px; /**/
+	/*max-height:428px; /**/
+	
+
+	border:1px solid rgba(0,128,0, 0.5); 
+	background-color: rgba(0,0,0, 0.5);;
+	vertical-align: text-top;/**/
+	/*vertical-align: middle;/**/
+	margin:  0px 0px 0px 0px;/**/
+	padding: 10px 0px 10px 0px;/**/
+	/*height:85px;/**/
+	
+}
+
+#divVideoInformation a{
+	color: rgb(128, 255, 128);
+}
+#divVideoInformation a:hover{
+	color: rgb(192, 255, 192);
+}
+
+#divVideoControl{
+	color: rgb(255, 255, 255);
+	font-family: arial, helvetica, sans-serif, serif;/**/
+	font-size: 12px;
+	font-weight: normal;
+	/*/line-height: 25px;/**/
+	text-shadow:1px 1px 0 #00000088;
+	text-decoration: none;
+}
+#divVideoTitle{
+	/*display: none;/**/
+	margin:  0px 0px 0px 0px;
+	padding: 5px 0px 5px 0px;
+
+	color: rgb(255, 255, 255);
+	font-family: arial, helvetica, sans-serif, serif;/**/
+	font-size: 14px;
+	font-weight: bold;
+	/*/line-height: 25px;/**/
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	text-shadow:2px 2px 5 #00000088;/**/
+
+	/*background: linear-gradient(to bottom, #000000CC, #000000CC 80%, #00000033 100%);/**/
+	/*background: linear-gradient(to bottom, #FFFF00CC, #FFFF00CC 80%, #FFFF0033 100%);/**/
+	/*background: linear-gradient(to bottom, #00FF0033, #00880088 20%, #00880088 80%, #00880033 100%);/**/
+	/*background-color: rgba(0,0,0, 0.5);/**/
+	background: linear-gradient(to right, #3FA95288, #00000088 30%, #00000088 70%, #3FA95288);
+
+	border: 1px solid #CCCCCE;
+	/*
+	box-shadow: 0 3px 0 rgba(0, 0, 0, .3),
+				0 2px 7px rgba(0, 0, 0, 0.2);
+	border-radius: 3px;
+	/**/
+}
 
 @media (max-aspect-ratio: 16/9) { /*Para quando o video estiver em fullscreen*/
 	session video { 
+		position:relative/fixed/none;
 		border-radius: 0px;
-		color: white;
-		text-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen;
+		/*color: white;
+		text-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen;/**/
 		/*text-shadow:0px 0px 5px #008800;;/**/
+	}
+	
+	#divVideoControl{
+		//position:absolute;/**/
+		position:relative;/**/
+		/*display: inline-block;/**/
+		/*display: block;/**/
+		/*width:800px;/**/
+		width:100%;
+		top:85px;
+		z-index: 2147483647;
 	}
 }
 
@@ -420,16 +533,24 @@ nav{
 	session video{
 		background-color:#fff;
 		width:100%; 
-		max-width:760px; 
-		max-height:428px; 
+		max-width:760px; /**/
+		max-height:428px; /**/
 		background:rgba(0,0,0,1);/**/
 		border-radius: 10px;
-		color: white;
-		text-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen;
-		/*text-shadow:0px 0px 5px #008800;;/**/
-		/*text-transform: uppercase;/**/
+		/*color: white;
+		text-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen;/*/
+		z-index:1;
 	}
 	
+	#divVideoControl{
+		//position:absolute;/**/
+		position:relative;/**/
+		width:100%;
+		top:85px;
+		z-index:2;
+	}
+
+/*######## COR DE LEGENDA ##########################################################*/
 	::cue(.red){ color: red; }
 	::cue(.blue){ color: blue; }
 	::cue(.green){ color: green; }
@@ -439,7 +560,8 @@ nav{
 	::cue(.background-green){ background-color: green; }
 	::cue(.background-yellow){ background-color: yellow; }
 	/*FONTE: http://ronallo.com/blog/html5-video-caption-cue-settings-tester/*/
-
+/*##################################################################################*/
+	
 }/**/
 
 #txtLogEmail, #txtLogPass, input[size='big'] {
