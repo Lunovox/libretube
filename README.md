@@ -41,3 +41,5 @@ _____
 ![](https://raw.githubusercontent.com/Lunovox/libretube/master/version_201702211459/imgs/screenshots/Captura%20de%20tela%20de%202017-03-25%2013h53m18s.png)
 
 ![](https://raw.githubusercontent.com/Lunovox/libretube/master/version_201702211459/imgs/screenshots/Captura%20de%20tela%20de%202017-03-25%2013h56m05s.png)
+
+![](https://raw.githubusercontent.com/Lunovox/libretube/master/version_201702211459/imgs/screenshots/Captura%20de%20tela%20de%202017-03-25%2014h38m05s.png)
