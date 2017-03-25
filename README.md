@@ -1,8 +1,7 @@
 # LIBRETUBE
 via televido libera (LGPL3.0 - 2015-08-08)
 
-O Libretube é uma **plataforma federada de publicações de vídeo** sobre servidor Apache instalado no computador do USUÁRIO publicador de conteudo.
-O #Libretube é uma plataforma federada de publicações de vídeo sobre servidor Apache instalado no computador pessoal do usuário publicador de conteúdo (como um Raspberry Pi). Permitindo que o usuário produtor de vídeo possa seguir as regras e leis de publicação de conteúdo que acredita ser ético, sem depender da prévia permissão institucional. Igual ocorre quando alguém quer publicar um vídeo em um servidor de vídeos terceirizado como o youtube, twitter tv, facebook tv, vimeo, viki, Media Goblin e etc.
+O Libretube é uma **plataforma federada de publicações de vídeo** sobre servidor apache instalado no computador pessoal (como um Raspberry Pi) do usuário publicador de vídeo. Permitindo que o usuário produtor de vídeo possa seguir as regras e leis de publicação de conteúdo que acredita ser ético, sem depender da prévia permissão institucional. Igual ocorre quando alguém quer publicar um vídeo em um servidor de vídeos terceirizado como o youtube, twitter tv, facebook tv, vimeo, viki, Media Goblin e etc.
 
 ____
 
