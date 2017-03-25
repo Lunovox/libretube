@@ -40,6 +40,44 @@
 						<?php } ?>
 	 					
 	 					<script>
+							function doHideAllFormsVideo(){
+								var divVideoControl = document.getElementById('divVideoControl');
+								var divVideoShare = document.getElementById('divVideoShare');
+								var divVideoTypePlay = document.getElementById('divVideoTypePlay');
+								var divVideoInformation = document.getElementById('divVideoInformation');
+
+								divVideoControl.style.display = "none";
+								divVideoShare.style.display = "none";
+								divVideoTypePlay.style.display = "none";
+								divVideoInformation.style.display = "none";
+							}
+							function doShowFormVideo($form){
+								doHideAllFormsVideo();
+
+								var VideoPlayer = document.getElementById('VideoPlayer');
+								var divVideoControl = document.getElementById('divVideoControl');
+								if($form=="divVideoShare"){
+									var divVideoShare = document.getElementById('divVideoShare');
+									divVideoShare.style.position = "absolute";
+									divVideoShare.offsetLeft = (VideoPlayer.offsetWidth / 2 - divVideoShare.offsetWidth  / 2) + 'px';
+									divVideoShare.offsetTop = (VideoPlayer.offsetHeight / 2 - divVideoShare.offsetHeight / 2) + 'px';
+									divVideoShare.style.display = "block";
+								}else if($form=="divVideoTypePlay"){
+									var divVideoTypePlay = document.getElementById('divVideoTypePlay');
+									divVideoTypePlay.style.position = "absolute";
+									divVideoTypePlay.offsetLeft = (VideoPlayer.offsetWidth / 2 - divVideoTypePlay.offsetWidth  / 2) + 'px';
+									divVideoTypePlay.offsetTop = (VideoPlayer.offsetHeight / 2 - divVideoTypePlay.offsetHeight / 2) + 'px';
+									divVideoTypePlay.style.display = "block";
+								}else if($form=="divVideoInformation"){
+									var divVideoInformation = document.getElementById('divVideoInformation');
+									divVideoInformation.style.position = "absolute";
+									divVideoInformation.offsetLeft = (VideoPlayer.offsetWidth / 2 - divVideoInformation.offsetWidth  / 2) + 'px';
+									divVideoInformation.offsetTop = (VideoPlayer.offsetHeight / 2 - divVideoInformation.offsetHeight / 2) + 'px';
+									divVideoInformation.style.display = "block";
+								}
+								doAlignTitleVideo();
+								divVideoControl.style.display = "block";
+							}
 							function doAlignTitleVideo(){
 								var VideoPlayer = document.getElementById('VideoPlayer');
 								var divVideoControl = document.getElementById('divVideoControl');
@@ -84,6 +122,7 @@
 	
 								document.getElementById('VideoPlayer').addEventListener('ended',function(e){
 									if(!e) { e = window.event; }
+									doHideAllFormsVideo();
 					
 									var VideoPlayer = document.getElementById('VideoPlayer');
 									var divVideoControl = document.getElementById('divVideoControl');
@@ -108,77 +147,15 @@
 								},false);
 
 								document.getElementById('VideoPlayer').addEventListener('play',function(){
-									document.getElementById('divVideoControl').style.display = "none";
-									document.getElementById('divVideoShare').style.display = "none";
-									document.getElementById('divVideoTypePlay').style.display = "none";
+									doHideAllFormsVideo();
 								},false);
 
 								document.getElementById('VideoPlayer').addEventListener('pause',function(){
 									document.getElementById('divVideoControl').style.display = "block";
 								},false);
 								
-								document.getElementById('divVideoControl').style.display = "none";
-								document.getElementById('divVideoShare').style.display = "none";
-								document.getElementById('divVideoTypePlay').style.display = "none";
-							},false);
-						</script>
-						<script>
-							function doHideAllFormsVideo(){
-								var divVideoControl = document.getElementById('divVideoControl');
-								var divVideoShare = document.getElementById('divVideoShare');
-								var divVideoTypePlay = document.getElementById('divVideoTypePlay');
-								var divVideoInformation = document.getElementById('divVideoInformation');
-
-								divVideoControl.style.display = "block";
-								divVideoShare.style.display = "none";
-								divVideoTypePlay.style.display = "none";
-								divVideoInformation.style.display = "none";
-							
-							}
-							function doShowFormVideo($form){
-								var VideoPlayer = document.getElementById('VideoPlayer');
-								var divVideoControl = document.getElementById('divVideoControl');
-								var divVideoShare = document.getElementById('divVideoShare');
-								var divVideoTypePlay = document.getElementById('divVideoTypePlay');
-								var divVideoInformation = document.getElementById('divVideoInformation');
-								
 								doHideAllFormsVideo();
-								divVideoControl.style.display = "block";
-								
-								if($form=="divVideoShare"){
-									divVideoShare.style.position = "absolute";
-									//divVideoShare.style.display = "inline-block";
-									
-									/*divVideoShare.offsetWidth = VideoPlayer.offsetWidth;/**/
-
-									divVideoShare.offsetLeft = (VideoPlayer.offsetWidth / 2 - divVideoShare.offsetWidth  / 2) + 'px';
-									divVideoShare.offsetTop = (VideoPlayer.offsetHeight / 2 - divVideoShare.offsetHeight / 2) + 'px';
-
-									divVideoShare.style.display = "block";
-								}else if($form=="divVideoTypePlay"){
-									divVideoTypePlay.style.position = "absolute";
-									//divVideoTypePlay.style.display = "inline-block";
-									
-									/*divVideoTypePlay.offsetWidth = VideoPlayer.offsetWidth;/**/
-
-									divVideoTypePlay.offsetLeft = (VideoPlayer.offsetWidth / 2 - divVideoTypePlay.offsetWidth  / 2) + 'px';
-									divVideoTypePlay.offsetTop = (VideoPlayer.offsetHeight / 2 - divVideoTypePlay.offsetHeight / 2) + 'px';
-
-									divVideoTypePlay.style.display = "block";
-								}else if($form=="divVideoInformation"){
-									divVideoInformation.style.position = "absolute";
-									//divVideoInformation.style.display = "inline-block";
-									
-									/*divVideoInformation.offsetWidth = VideoPlayer.offsetWidth;/**/
-
-									divVideoInformation.offsetLeft = (VideoPlayer.offsetWidth / 2 - divVideoInformation.offsetWidth  / 2) + 'px';
-									divVideoInformation.offsetTop = (VideoPlayer.offsetHeight / 2 - divVideoInformation.offsetHeight / 2) + 'px';
-
-									divVideoInformation.style.display = "block";
-								}
-								
-								doAlignTitleVideo();
-							}
+							},false);
 						</script>
 	 					
 						<div id="divVideoControl">

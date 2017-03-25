@@ -80,7 +80,42 @@
 							}
 						}
 					</script>
-					<form method="POST" enctype="multipart/form-data" action="./?sub=video_add_save">
+					<script>
+						//onsubmit="doSubmit(event)"
+						function doSubmit(evt){
+							var condition = true;
+							if(
+								document.getElementById('chkVideoTypeLink').value!='local'
+								&& document.getElementById('chkPosterTypeLink').value=='auto'
+							){
+								alert(
+									"Não há suporte de poster automático para videos não locais.\n"
+									+"Favor inserir outro tipo de link de poster!"
+								);
+								condition = false;
+							}
+							
+							if(condition){ 
+								condition =  confirm(
+									'Os arquivos anexos não poderão ser alterados posteriormente.\n'
+									+'Deseja realmente enviar estes arquivos anexos como estão?'
+								); 
+							}
+
+							if(!condition) {
+								//alert("[ERRO]...");
+								if(evt.preventDefault){
+									//alert("[ERRO] evt.preventDefault()");
+									evt.preventDefault();
+								}else if(evt.returnValue){
+									//alert("[ERRO] evt.returnValue = false;");
+									evt.returnValue = false;
+								}
+								return condition;
+							}
+						}
+					</script>
+					<form method="POST" enctype="multipart/form-data" action="./?sub=video_add_save" onsubmit="return doSubmit(event);">
 						<input type="hidden" name="sub" value="video_add_save"/>
 						<input type="hidden" name="MAX_FILE_SIZE" value="1073741824"/>
 						<table style="width:100%">
@@ -100,7 +135,7 @@
 							<tr><td colspan="2"><b>Título do Vídeo:</b></td></tr>
 							<tr>
 								<td colspan="2">
-									<input name="txtTitle" type="text" style="width:100%" required="true" value="<?=$txtTitle;?>" />
+									<input id="txtTitle" name="txtTitle" type="text" style="width:100%" required="true" value="<?=$txtTitle;?>" />
 								</td>
 							</tr>
 
@@ -236,10 +271,20 @@
 							</tr>
 							<tr id="txtVideoLocal" style="width:100%; <?=$chkVideoTypeLink=="local"?"inline":"display:none"; ?>;">
 								<td colspan="2">
+									<script>
+										function onFileChange($obj){
+											if($obj.files[0].size>1073741824){
+												alert('O vídeo está com um tamanho acima do tamanho permitido!');
+											}else{
+												var txtTitle = document.getElementById('txtTitle');
+												txtTitle.value=$obj.files[0].name;
+											}
+										}
+									</script>
 									<input id="urlVideoLocal" name="urlVideoLocal" type="file" required="true" placeholder="Arquivo Local de Vídeo:" 
 										accept="video/webm,video/ogg,video/mp4,audio/ogg,application/ogg"
 										value="<?php if($chkVideoTypeLink=='local'){echo $urlVideoLocal;} ?>"
-										onchange="if(this.files[0].size>1073741824){alert('O vídeo está com um tamanho acima do tamanho permitido!');}"
+										onchange="onFileChange(this);"
 									/>
 								</td>
 							</tr>
