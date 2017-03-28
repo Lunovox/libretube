@@ -64,7 +64,20 @@ if(Propriedade("video")!=""){
 		<meta charset="UTF-8"/>
 		<title><?=$txtChannelTitle;?></title>
 		<LINK REL="shortcut icon" HREF="imgs/icons/sbl_libretube.png"/>
-		<link href="atom.php" type="application/atom+xml" rel="alternate" title="<?=$txtChannelTitle;?>" />
+		<link 
+			href="atom.php?order=recents" 
+			type="application/atom+xml" 
+			rel="alternate" 
+			title="<?=$txtChannelTitle;?> - Vídeos Recentes" 
+		/>
+		<link 
+			href="atom.php?order=mostviews" 
+			type="application/atom+xml" 
+			rel="alternate" 
+			title="<?=$txtChannelTitle;?> - Vídeos Mais Vistos" 
+		/>
+		
+		<link rel='shortlink' href="<?=$urlLibretube;?>" />
 		
 		<meta name="viewport" content="width=300"/>
 		<!-- link_ rel="stylesheet" href="estilo_mobile.css?update=<?=date('Y-m-d H:i:s');?>" media="(max-width:380px)" -->

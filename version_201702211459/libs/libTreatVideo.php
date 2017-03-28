@@ -22,6 +22,10 @@
 	for the JavaScript code in this page.
 	*/
 
+	ini_set('display_errors', 'On'); 
+	//error_reporting(E_ERROR | E_STRICT | E_WARNING | E_PARSE);
+	error_reporting(E_ALL | E_STRICT);
+
 	class TreatVideo{
 		//	Fonte:http://stackoverflow.com/questions/18534835/fastest-way-to-extract-a-specific-frame-from-a-video-php-ffmpeg-anything
 	

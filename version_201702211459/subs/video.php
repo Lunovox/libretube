@@ -9,6 +9,7 @@
 				$LunoMySQL->getResult("UPDATE ".$LunoMySQL->getConectedPrefix()."videos SET views='".(++$Video[0]['views'])."' WHERE ID=$ID");
 			}
 			
+			/*
 			$longlinkvideo = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 			$shortlinkvideo = 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php","",$_SERVER['SCRIPT_NAME']).'?video='.$ID;
 			if($Video[0]['posterTypeLink']=="auto" || $Video[0]['posterTypeLink']=="local"){
@@ -23,7 +24,16 @@
 				.(utf8_encode($Video[0]['Description']))."\n_____\n\n Hashtags: ".
 				(@$Config['ChannelName']!=''?'#'.str_replace(" ","",@$Config['ChannelName']).' ':'')
 				." #Libretube"
-			)."&markdown=true&jump=doclose";	?>
+			)."&markdown=true&jump=doclose"; 
+			/**/
+
+			require_once "libs/libDownloadLink.php";
+			$myLinks = new DownLoadLink($ID); 
+			//print_r($_SERVER);
+			//echo "aaa --> ".$myLinks->getRedirectShortLink();
+			//echo "aaa --> ".$myLinks->getID();
+			
+			?>
 			<center>
 				<div class="FormSession" align="justify">
 	 				<center>
@@ -162,27 +172,38 @@
 							<div id="divVideoTitle">
 								<big><b><?php echo $Video[0]['Title']; ?><b></big>
 							</div>
-							<img src="imgs/icons/sbl_share.svg" size="16x16" onclick="doShowFormVideo('divVideoShare');"/>
+							<?php if($Video[0]['timePublish']!=''){?>
+							<img src="imgs/icons/sbl_share.png" size="16x16" onclick="doShowFormVideo('divVideoShare');"/>
+							<?php } ?>
 							<img src="imgs/icons/sbl_catraca.png" onclick="doShowFormVideo('divVideoTypePlay');"/>
 							<img src="imgs/icons/sbl_informacao.gif" onclick="doShowFormVideo('divVideoInformation');"/>
 							
 							<div id="divVideoShare">
-								Compartilhe: 
+								<h2 style="color:white;">
+									<img src="imgs/icons/sbl_share.png" size="16x16"/>
+									COMPARTILHE ESTE VÍDEO
+								</h2>
+
+
 								<img size="16x16"
 									title="Compartilhe este vídeo em sua Rede Social Diáspora!"
 									src="imgs/icons/sbl_share_diaspora.png"
-									onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 480, 550);"
+									onclick="openPopupCenter('<?=$myLinks->getDiasporaLink();?>','_blank', 880, 600);"
 								/><img size="16x16"
 									title="Compartilhe este vídeo em seu Twitter!"
 									src="imgs/icons/sbl_share_twitter.png"
-									onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($shortlinkvideo);?>','_blank', 720, 450);"
+									onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 720, 450);"
 								/><img size="16x16"
 									title="Compartilhe este vídeo em seu Facebook!"
 									src="imgs/icons/sbl_share_facebook.png"
-									onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($shortlinkvideo);?>','_blank', 360, 300);"
+									onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 360, 300);"
 							/></div>
 							<div id="divVideoTypePlay">
-								Quando este vídeo terminar: 
+								<h2 style="color:white;">
+									<img src="imgs/icons/sbl_catraca.png" />
+									QUANDO FINALIZAR ESTE VÍDEO
+								</h2>
+								
 								<input id="chkVideoRepeat" type="radio" name="chkTypePlay" value="repeat" checked/> 
 								<label for="chkVideoRepeat">Repetir</label>
 								<input id="chkVideoForward" type="radio" name="chkTypePlay" value="forward"/> 
@@ -192,6 +213,11 @@
 							</div>
 							<div id="divVideoInformation">
 								<center>
+									<h2 style="color:white;">
+										<img src="imgs/icons/sbl_informacao.gif" /> 
+										SOBRE ESTE VÍDEO
+									</h2>
+									
 									<table>
 										<tr>
 											<td align="right"><b><nobr>Visualizações:</nobr></b></td>
@@ -228,81 +254,21 @@
 										<tr>
 											<td align="right"><nobr><b>Vídeo (<?=$Video[0]['videoTypeLink'];?>):</b></nobr></td>
 											<td style="padding:0px 3px  0px  3px; text-align:left;">
-												<?php
-													function getVideoUrl($V){
-														if($V['videoTypeLink']=="remote"){
-															return $V['urlVideo'];
-														}elseif($V['videoTypeLink']=="local"){
-															return "download.php?type=video&id=".$V['ID'];
-														}
-													};
-													function getVideoBase($V){
-														if($V['videoTypeLink']=="remote"){
-															return basename($V['urlVideo']);
-														}elseif($V['videoTypeLink']=="local"){
-															$file = $V['urlVideo'];
-															//$extension = explode("/", get_headers($file, 1)["Content-Type"])[1];
-															//print_r(pathinfo($file));
-															$extension = @pathinfo($file)['extension'];
-															//$txtNameVideo = basename($file).".".$extension;
-															return basename(str_replace(" ", "_", $V['Title'])).".".($extension!=""?$extension:"vid");
-														}
-													};
-												?>
-												<a target="_blank" <?="href='".getVideoUrl($Video[0])."'";?>><?=getVideoBase($Video[0]);?></a>
+												<a target="_blank" <?="href='".$myLinks->getVídeoLink()."'";?>><?=$myLinks->getVídeoBase();?></a>
+												
 											</td> 
 										</tr>
 										<tr>
 											<td align="right"><nobr><b>Poster (<?=$Video[0]['posterTypeLink'];?>):</b> </nobr></td>
 											<td style="padding:0px 3px  0px  3px; text-align:left;">
-												<?php
-													function getPosterDownload($V){
-														if($V['posterTypeLink']=="remote"){
-															return $V['urlPoster'];
-														}elseif($V['posterTypeLink']=="auto" || $V['posterTypeLink']=="local"){
-															return "download.php?type=poster&id=".$V['ID'];
-														}
-													}
-													function getPosterBase($V){
-														if($V['videoTypeLink']=="remote"){
-															return basename($V['urlPoster']);
-														}elseif($V['videoTypeLink']=="auto" || $V['videoTypeLink']=="local"){
-															$file = $V['urlPoster'];
-															//$extension = explode("/", get_headers($file, 1)["Content-Type"])[1];
-															$extension = @pathinfo($file)['extension'];
-															//$txtNameVideo = basename($file).".".$extension;
-															return basename(str_replace(" ", "_", $V['Title'])).".".($extension!=""?$extension:"img");
-														}
-													}
-												?>
-												<a target="_blank" href="<?=getPosterDownload($Video[0]);?>"><?=getPosterBase($Video[0]); ?></a>
+												<a target="_blank" href="<?=$myLinks->getPosterLink();?>"><?=$myLinks->getPosterBase();?></a>
 											</td> 
 										</tr>
 										<?php if($Video[0]['subtitleTypeLink']!="none"){ ?>
 											<tr>
 												<td align="right"><nobr><b>Legenda (<?=$Video[0]['subtitleTypeLink'];?>):</b> </nobr></td>
 												<td style="padding:0px 3px  0px  3px; text-align:left;">
-													<?php
-														function getSubtitleDownload($V){
-															if($V['subtitleTypeLink']=="remote"){
-																return $V['urlSubtitle'];
-															}elseif($V['subtitleTypeLink']=="local"){
-																return "download.php?type=subtitle&id=".$V['ID'];
-															}
-														}
-														function getSubtitleBase($V){
-															if($V['videoTypeLink']=="remote"){
-																return basename($V['urlSubtitle']);
-															}elseif($V['videoTypeLink']=="local"){
-																$file = $V['urlSubtitle'];
-																//$extension = explode("/", get_headers($file, 1)["Content-Type"])[1];
-																$extension = @pathinfo($file)['extension'];
-																//$txtNameVideo = basename($file).".".$extension;
-																return basename(str_replace(" ", "_", $V['Title'])).".".($extension!=""?$extension:"vtt");
-															}
-														}
-													?>
-													<a target="_blank" href="<?=getSubtitleDownload($Video[0]);?>"><?=getSubtitleBase($Video[0]); ?></a>
+													<a target="_blank" href="<?=$myLinks->getSubtitleLink();?>"><?=$myLinks->getSubtitleBase();?></a>
 												</td> 
 											</tr>
 										<?php } ?>
@@ -314,40 +280,59 @@
 								<img size="16x16" rotate="180" src="./sbl_like.png">
 							</div>
 						</div>
-	 					<video id="VideoPlayer" controls autoplay align="center" poster="<?php echo $Video[0]['urlPoster']; ?>" contextmenu="mnuVideo" oncontextmenu_="return false;">
-							<source src="<?=$Video[0]['urlVideo'];?>" type="video/ogg">
-							<track src="<?=$Video[0]['urlSubtitle'];?>" kind="subtitles" srclang="pt" label="Português" default />
+	 					<video 
+	 						id="VideoPlayer" 
+	 						controls="controls"
+						   autobuffer="autobuffer"
+						   preload="metadata"
+	 						autoplay 
+	 						align="center" 
+	 						poster="<?=$myLinks->getPosterLink();?>" 
+	 						contextmenu="mnuVideo" 
+	 						oncontextmenu_="return false;"
+	 					>
+							<source src='<?=$myLinks->getVídeoLink();?>' type="<?=$myLinks->getVídeoMimetype();?>">
+							<?php if($myLinks->getVídeoLink()!=""){
+								/*
+								<track src="<?=$Video[0]['urlSubtitle'];?>" kind="subtitles" srclang="pt" label="Português" default />	
+								/**/
+							?>
+							<track src="<?=$myLinks->getSubtitleLink();?>" kind="subtitles" default />
+							<?php } ?>
 							Infelizmente seu navegador não suporta a tag "VIDEO".
 						</video> 
 						
 						
 						<menu type="context" id="mnuVideo">
-							<menuitem label="Recarregar" onclick="window.location.reload();" icon="imgs/icons/sbl_reload.png"></menuitem>
-							<menu label="Compartilhar com..."  icon="imgs/icons/sbl_share.png">
+							<menuitem label="Recarregar" onclick="window.location.reload();" icon="imgs/icons/sbl_reload.png"></menuitem><?php 
+							if($Video[0]['timePublish']!=''){?>
+								<menu label="Compartilhar com..."  icon="imgs/icons/sbl_share.png">
+									<menuitem 
+										label="Diáspora" icon="imgs/icons/sbl_share_diaspora.png"
+										onclick="openPopupCenter('<?=$myLinks->getDiasporaLink();?>','_blank', 880, 600);"
+									></menuitem>
+									<menuitem 
+										label="Twitter" icon="imgs/icons/sbl_share_twitter.png"
+										onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 720, 450);"
+									></menuitem>
+									<menuitem 
+										label="Facebook" icon="imgs/icons/sbl_share_facebook.png"
+										onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 360, 300);"
+									></menuitem>
+								</menu><?php 
+							}
+							if(isLoged()){ ?>
 								<menuitem 
-									label="Diáspora" icon="imgs/icons/sbl_share_diaspora.png"
-									onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 480, 550);"
-								></menuitem>
-								<menuitem 
-									label="Twitter" icon="imgs/icons/sbl_share_twitter.png"
-									onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($shortlinkvideo);?>','_blank', 720, 450);"
-								></menuitem>
-								<menuitem 
-									label="Facebook" icon="imgs/icons/sbl_share_facebook.png"
-									onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($shortlinkvideo);?>','_blank', 360, 300);"
-								></menuitem>
-							</menu>
-							<?php if(isLoged()){ ?>
-							<menuitem 
-								label="Comentar" icon="imgs/icons/sbl_comentario.gif"
-								onclick="doWriteMessage();"
-							></menuitem>
-							<?php } ?>
+									label="Comentar" icon="imgs/icons/sbl_comentario.gif"
+									onclick="doWriteMessage();"
+								></menuitem><?php 
+							} ?>
 						</menu>
 						
 						<?php if($Video[0]['timePublish']!=''){?>
 							<br/>
 							<?php
+								/*
 								$urlShare = $urlLibretube.'?video='.$ID;
 								//$LinkDispora = "https://diasporabrazil.org/bookmarklet?title=".
 								$LinkDispora = "http://sharetodiaspora.github.io/?title=".
@@ -362,24 +347,24 @@
 									"](".$urlShare.")\n\n".
 									"Hashtags: ".(@$Config['ChannelName']!=''?'#'.str_replace(" ","",@$Config['ChannelName']).' ':'')." #Libretube"
 								)."&markdown=true&jump=doclose";
-
+								/**/
 							;?>
 							<img src="imgs/icons/sbl_share_diaspora.png"
 								style="cursor:pointer;" align="absmiddle"
 								title="Compartilhe em sua Rede Social Diáspora a lista de vídeos mais vistos deste canal!"
-								onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 880, 600);"
+								onclick="openPopupCenter('<?=$myLinks->getDiasporaLink();?>','_blank', 880, 600);"
 							/>
 
 							<img src="imgs/icons/sbl_share_twitter.png"
 								style="cursor:pointer;" align="absmiddle"
 								title="Compartilhe em seu Twitter a lista de vídeos mais vistos deste canal!"
-								onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($urlShare);?>','_blank', 720, 450);"
+								onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 720, 450);"
 							/>
 
 							<img src="imgs/icons/sbl_share_facebook.png"
 								style="cursor:pointer;" align="absmiddle"
 								title="Compartilhe em seu Facebook a lista de vídeos mais vistos deste canal!"
-								onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($urlShare);?>','_blank', 360, 300);"
+								onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 360, 300);"
 							/>
 						<?php } ?>
 	 				</center>
@@ -473,17 +458,6 @@
 							</button>
 						<?php } ?> 
 	
-						<!--button
-							title="Compartilhe este video em seu Diáspora!"
-							onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 480, 550);"
-						>
-							<img src="imgs/icons/sbl_share_diaspora.png" align="absmiddle" /> Diáspora
-						</button>
-						<button title="Baixe este vídeo para seu computador!" onclick="window.location='download.php?id=<?=$ID;?>';">
-							<img src="imgs/icons/sbl_download.gif" align="absmiddle"/> 
-							Download
-						</button-->
-						
 						<button 
 							<?php if(!isLoged()){ ?>disabled<?php } ?>
 							title="Escreva um comentário" 
