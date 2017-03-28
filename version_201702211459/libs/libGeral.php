@@ -41,6 +41,7 @@
 				$Users=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."users", "Email='$Email' AND Senha=PASSWORD('$Senha')");
 				if(count($Users)>=1){
 					$_SESSION["log-email"] = $Email;
+					$_SESSION["log-user-id"] = $Users[0]['ID'];
 					$_SESSION["log-type"] = $Users[0]['NivelDeAcesso'];
 					$_SESSION["log-pass"] = md5($Senha);
 					//$_SESSION["log-auth"] = md5("auth:".$_SESSION["log-email"].$_SESSION["log-pass"].$_SESSION["log-type"].date("yyyy-mm-dd"));
@@ -58,6 +59,7 @@
 	}
 	function setLogout(){
 		unset($_SESSION["log-email"]);
+		unset($_SESSION["log-user-id"]);
 		unset($_SESSION["log-type"]);
 		unset($_SESSION["log-pass"]);
 		unset($_SESSION["log-auth"]);
@@ -77,6 +79,12 @@
 	function getLogedEmail(){
 		if(isLoged()){
 			return $_SESSION["log-email"];
+		}
+		return "";
+	}
+	function getLogedUserID(){
+		if(isLoged()){
+			return $_SESSION["log-user-id"];
 		}
 		return "";
 	}

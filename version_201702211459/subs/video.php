@@ -27,7 +27,6 @@
 			)."&markdown=true&jump=doclose"; 
 			/**/
 
-			require_once "libs/libDownloadLink.php";
 			$myLinks = new DownLoadLink($ID); 
 			//print_r($_SERVER);
 			//echo "aaa --> ".$myLinks->getRedirectShortLink();
@@ -331,24 +330,6 @@
 						
 						<?php if($Video[0]['timePublish']!=''){?>
 							<br/>
-							<?php
-								/*
-								$urlShare = $urlLibretube.'?video='.$ID;
-								//$LinkDispora = "https://diasporabrazil.org/bookmarklet?title=".
-								$LinkDispora = "http://sharetodiaspora.github.io/?title=".
-								rawurlencode(
-									"[".
-										"![".$Video[0]['Title']."](".
-											($Video[0]['posterTypeLink']=="remote"?$Video[0]['urlPoster']:$urlLibretube.$Video[0]['urlPoster'])
-										.")".
-									"](".$urlShare.")".
-									"\n## [".
-										$Video[0]['Title'].
-									"](".$urlShare.")\n\n".
-									"Hashtags: ".(@$Config['ChannelName']!=''?'#'.str_replace(" ","",@$Config['ChannelName']).' ':'')." #Libretube"
-								)."&markdown=true&jump=doclose";
-								/**/
-							;?>
 							<img src="imgs/icons/sbl_share_diaspora.png"
 								style="cursor:pointer;" align="absmiddle"
 								title="Compartilhe em sua Rede Social Diáspora a lista de vídeos mais vistos deste canal!"
@@ -470,7 +451,7 @@
 						</button>
 					</center>
 					
-					<div id="boxComentario" style="display:none">
+					<div id="divTinyMCE" style="display:none">
 						<br/>
 						<script src="libs/tinymce_4.3.2/js/tinymce/tinymce.js"></script>
 						<script>
@@ -499,14 +480,14 @@
 							});
 							
 							function doWriteMessage(){
-								document.getElementById('boxComentario').style.display = 'inline';
+								document.getElementById('divTinyMCE').style.display = 'inline';
 								tinyMCE.activeEditor.focus();
 							}
 							function doWCancelMessage(){
 								if(tinyMCE.activeEditor.getContent()!=""){
 									if(!confirm("Deseja realmente descartar esta mensagem?")){return;}
 								}
-								document.getElementById('boxComentario').style.display = 'none';
+								document.getElementById('divTinyMCE').style.display = 'none';
 								tinyMCE.activeEditor.setContent("");
 							}
 							function getTxtcomentador(){
@@ -523,8 +504,54 @@
 							<input type="button" value="Postar" onclick="alert('Comentário=['+getTxtcomentador()+']');"/>
 							<input type="button" value="Cancelar" onclick="doWCancelMessage();"/>
 						</div>
-					</div>
-	
+					</div> <!-- Fim de divTinyMCE -->
+					<br/>
+					
+					<div id="divComments">
+						<?php
+							$Comments=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."comments", "VideoID = $ID",  "id DESC", null, 0, 30);
+							$NameUsers = [];
+							for($C=0; $C<count($Comments); $C++){
+								$CommentID = $Comments[$C]['ID'];
+								$UserID = $Comments[$C]['UserID'];
+								$Quando = $Comments[$C]['timePublish'];
+								$Comment = $Comments[$C]['Comment'];
+								if(!isset($NameUsers[$UserID])){
+									$Users=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."users", "ID = $UserID",  "id DESC", null, 0, 30);
+									if(count($Users)>=1){
+										$NameUsers[$UserID] = $Users[0]['Username'];
+									}
+								}?>
+								<div class="PostComment">
+									<username>
+										<?=$NameUsers[$UserID];?>
+									</username><br/>
+									<img size="16x16" src="imgs/icons/sbl_relogio.gif" /> 
+									<timeformat><?=strftime('%A, %d de %B de %Y as %H:%H:%S', strtotime($Quando	));?></timeformat>
+									<?php if(isLoged()){ ?>
+										<a href="?sub=pvmessage_send&to==<?=$UserID;?>">
+											<img 
+												size="16x16" src="imgs/icons/sbl_carta.png"
+												title="Envia uma emnsagem privada para <?=$NameUsers[$UserID];?>!"
+											/>
+										</a>
+									<?php } ?>
+									<?php if($UserID==getLogedUserID() || getLogedType()=="owner" || getLogedType()=="moderator"){ ?>
+										<a href="?sub=comment_delete&id==<?=$CommentID;?>">
+											<img 
+												size="16x16" src="imgs/icons/sbl_negar.gif"
+												title="Apage este comentário!"
+											/>
+										</a>
+									<?php } ?>
+									<br/><br/>
+									<code><?=$Comment;?></code>
+								</div>
+								<?php
+								//print_r($Comments[$C]);
+							}
+						?>
+					</div> <!-- Fim de divComments -->
 				</div>
 			</center>
 		<?php

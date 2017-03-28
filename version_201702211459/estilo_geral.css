@@ -99,6 +99,10 @@ uppercase{
 	text-transform: uppercase;
 }
 
+session div[onclick]{
+	cursor:pointer;
+}
+
 session .VideoListDesc{
 	display:inline-block;/**/
 	vertical-align: text-top;
@@ -109,7 +113,6 @@ session .VideoListDesc{
 	max-width:260px; 
 	min-height:220px; /**/
 	background:rgba(255,255,255,0.3);/**/
-	cursor:pointer;
 	
 	border-radius: 10px;
 	border:1px solid rgba(0,0,0,0.3);
@@ -127,7 +130,6 @@ session .VideoList{
 	max-width:260px; 
 	min-height:220px; /**/
 	background:rgba(196,196,196,0.5);/**/
-	cursor:pointer;
 	
 	border-radius: 10px;
 	border:1px solid rgba(0,0,0,0.3);
@@ -145,7 +147,6 @@ session .VideoList:hover{
 	max-width:260px; 
 	min-height:220px; /**/
 	background:rgba(196,256,196,0.5);/**/
-	cursor:pointer;
 	border-radius: 10px;
 }
 
@@ -159,7 +160,6 @@ session .VideoListOff{
 	max-width:260px; 
 	min-height:220px; /**/
 	background:rgba(0,0,0,0.3);/**/
-	cursor:pointer;
 	
 	border-radius: 10px;
 	border:1px solid rgba(0,0,0,0.3);
@@ -178,7 +178,6 @@ session .VideoListOff:hover{
 	min-height:220px; /**/
 
 	background:rgba(196,196,196,0.8);/**/
-	cursor:pointer;
 	border-radius: 10px;
 }
 
@@ -583,4 +582,37 @@ input[type="radio"]{
 	background: rgba(128,255,128,0.3) url(imgs/icons/sbl_cadeado.png) no-repeat scroll 7px 7px;/**/
 }
 
+div.PostComment{
+	text-decoration:none;
+   color:#000000; 
+	font-weight: normal;
+	border:1px solid #c0c0c0;
+	padding:10px;
+	background: rgba(0,255,0,0.1);/**/
+}
 
+div.PostComment timeformat{
+	text-decoration:none;
+   color:#888888; 
+	font-weight: normal;
+	/*font-family: arial, verdana, calibri, freesans, serif, sans-serif, helvetica;/**/
+	/*font-family: serif, sans-serif, arial, helvetica;/**/
+	font-size:small; 
+	/* 
+		font-size:medium|xx-small|x-small|small|large|x-large|xx-large|smaller|larger|length|initial|inherit;
+		https://www.w3schools.com/cssref/pr_font_font-size.asp 
+	*/
+}
+
+div.PostComment username{
+	color:#008800; 
+	font-weight: bold;
+	text-transform: uppercase;/**/
+	text-shadow:1px 1px 0 #FFF;
+	font-size:x-large; 
+	/* 
+		font-size:medium|xx-small|x-small|small|large|x-large|xx-large|smaller|larger|length|initial|inherit;
+		https://www.w3schools.com/cssref/pr_font_font-size.asp 
+	*/
+
+}

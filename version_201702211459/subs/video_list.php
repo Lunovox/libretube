@@ -180,12 +180,12 @@
 <center>
 	<?php
 		for($V=0; $V<count($Videos); $V++){ ?>
-			<div id="divFront<?=$Videos[$V]['ID'];?>" class="<?=(($Videos[$V]['videoTypeLink']!='redirect' && $Videos[$V]['timePublish']!='')?'VideoList':'VideoListOff');?>"
-				onclick="<?php printLink($Videos[$V]); ?>"
-				onmouseover="showBack('divFront<?=$Videos[$V]['ID'];?>', 'divBack<?=$Videos[$V]['ID'];?>');"
+			<div 
+				id="divFront<?=$Videos[$V]['ID'];?>" 
+				class="<?=(($Videos[$V]['videoTypeLink']!='redirect' && $Videos[$V]['timePublish']!='')?'VideoList':'VideoListOff');?>"
 			>
 				<div>
-					<div>
+					<div onclick="<?php printLink($Videos[$V]); ?>">
 						<!--
 						<video 
 							style="width:260px; height:168px"
@@ -200,34 +200,85 @@
 	 				</div>
 
 					<div>
-						<hr/>
 						<small>
+							<img size='16x16' src='imgs/icons/sbl_filme.gif'  title="Número do Vídeo!" /> nº<?=$Videos[$V]['ID'];?>
+							
+							<img size='16x16' src='imgs/icons/sbl_olho.png' title="Número de visualizações!" />
 							<?php
 								if($Videos[$V]['videoTypeLink']=="local" || $Videos[$V]['videoTypeLink']=="remote"){
 									if($Videos[$V]['views']<=1){
-										echo "Visualização: ".$Videos[$V]['views'];
+										echo " x".$Videos[$V]['views'];
 									}else{
-										echo "Visualizações: ".$Videos[$V]['views'];
-									}
+										echo " x".$Videos[$V]['views'];
+									} ?>
+							
+									<img size='16x16' src='imgs/icons/sbl_comentario.gif' title="Número de Comentários!" /> <?php
+									echo $LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."comments", "VideoID=".$Videos[$V]['ID'],  "timePublish DESC", "COUNT(*) AS QTD")[0]['QTD'];
 								}else{
 									echo "Vídeo Externo";
 								}
+							
 							?>
-							| nº<?=$Videos[$V]['ID'];?>
+							
+							<img 
+								size='16x16' src='imgs/icons/sbl_lupa.gif' 
+								title="Exibir descrição de vídeo!"
+								onclick="showBack('divFront<?=$Videos[$V]['ID'];?>', 'divBack<?=$Videos[$V]['ID'];?>');"
+							/>
+							
 						</small>
 					</div>
 				</div>
 			</div>
 			<div id="divBack<?=$Videos[$V]['ID'];?>"
 				class="VideoListDesc" style="display:none; overflow:auto; width:90%; height:200px; max-height:200px; text-align:justify;"
-				onmouseout="showFront('divBack<?=$Videos[$V]['ID'];?>', 'divFront<?=$Videos[$V]['ID'];?>');"
+				onmouseout_="showFront('divBack<?=$Videos[$V]['ID'];?>', 'divFront<?=$Videos[$V]['ID'];?>');"
 			>
 				<div onclick="<?php printLink($Videos[$V]); ?>">
-					<uppercase>
-						<b><?php echo $Videos[$V]['Title'];/**/ /*utf8_encode($Videos[$V]['Title']); /**/ ?></b>
-					</uppercase>
-				</div><br/>
+					<center>
+						<uppercase>
+							<b><?php echo $Videos[$V]['Title'];/**/ /*utf8_encode($Videos[$V]['Title']); /**/ ?></b>
+						</uppercase>
+					</center>
+				</div>
+				
+				
+				
+				
+				<?php if($Videos[$V]['timePublish']!=''){?>
+					<?php
+						$myLinks = new DownLoadLink($Videos[$V]['ID']); 
+					;?>
+					<hr/>
+					<center>
+						<img src="imgs/icons/sbl_share_diaspora.png"
+							style="cursor:pointer;" align="absmiddle"
+							title="Compartilhe em sua Rede Social Diáspora a lista de vídeos mais vistos deste canal!"
+							onclick="openPopupCenter('<?=$myLinks->getDiasporaLink();?>','_blank', 880, 600);"
+						/>
+
+						<img src="imgs/icons/sbl_share_twitter.png"
+							style="cursor:pointer;" align="absmiddle"
+							title="Compartilhe em seu Twitter a lista de vídeos mais vistos deste canal!"
+							onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 720, 450);"
+						/>
+
+						<img src="imgs/icons/sbl_share_facebook.png"
+							style="cursor:pointer;" align="absmiddle"
+							title="Compartilhe em seu Facebook a lista de vídeos mais vistos deste canal!"
+							onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 360, 300);"
+						/>
+					</center>
+				<?php } ?>
+				
+				<hr/>
+				<div onclick="<?php printLink($Videos[$V]); ?>">
+					<?=$Videos[$V]['Description'];?>
+				</div>
+				
+				
 				<?php if(getLogedType()=="owner" || getLogedType()=="moderator"){ ?>
+					<br/><br/>
 					<center>
 						<button
 							title="Edita este video!"
@@ -278,10 +329,6 @@
 					</center>
 					<br/>
 				<?php } ?> 
-				<hr/>
-				<div onclick="<?php printLink($Videos[$V]); ?>">
-					<?=$Videos[$V]['Description'];?>
-				</div>
 
 			</div>
 			

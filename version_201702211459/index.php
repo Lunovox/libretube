@@ -30,6 +30,8 @@
 	require_once "libs/libMySQL2.php";
 	require_once "libs/libConversao.php";
 	require_once "libs/libGeral.php";
+	require_once "libs/libDownloadLink.php";
+
 	
 	
 	$txtChannelName = "";
