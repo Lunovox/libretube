@@ -26,7 +26,7 @@ _____
 
 ### Pendentes
 * **Avcov** → Usado para gerar os Thumbnails (posters de vídeos)
-  * ````sudo apt-get install avconv````
+  * ````sudo apt-get update & sudo apt-get install libav-tools````
 
 ### Inclusas neste repositório
  * **TinyMCE** → Usado como editor QWERTY para comentários de vídeos.
