@@ -25,8 +25,10 @@ _____
 ## DEPENDÊNCIAS
 
 ### Pendentes
-* **Avcov** → Usado para gerar os Thumbnails (posters de vídeos)
+* **Avcov** → Usado para gerar os Thumbnails (posters de vídeos).
   * ````sudo apt-get update & sudo apt-get install libav-tools````
+* **SQLite3** → Usado para geranciar banco de dados.
+  * ````sudo apt-get update &  sudo apt-get install php5-sqlite````
 
 ### Inclusas neste repositório
  * **TinyMCE** → Usado como editor QWERTY para comentários de vídeos.

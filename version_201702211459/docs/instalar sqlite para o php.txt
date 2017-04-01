@@ -1,0 +1,14 @@
+
+# dica de instalar sqlite para o php
+
+$ sudo apt-get install php5-sqlite
+$ cat /etc/php5/apache2/conf.d/20-sqlite3.ini
+
+	sudo /etc/init.d/apache2 restart
+	; configuration for php SQLite module
+	; priority=20
+	extension=sqlite3.so
+
+$ sudo /etc/init.d/apache2 restart
+
+# http://stackoverflow.com/questions/948899/how-to-enable-sqlite3-for-php
