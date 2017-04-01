@@ -48,15 +48,39 @@
 							<br/>
 						<?php } ?>
 	 					
+	 					<video 
+	 						id="VideoPlayer" 
+	 						controls="controls"
+						   autobuffer="autobuffer"
+						   preload="metadata"
+	 						autoplay 
+	 						align="center" 
+	 						poster="<?=$myLinks->getPosterLink();?>" 
+	 						contextmenu="mnuVideo" 
+	 						oncontextmenu_="return false;"
+	 					>
+							<source src='<?=$myLinks->getVídeoLink();?>' type="<?=$myLinks->getVídeoMimetype();?>">
+							<?php if($myLinks->getVídeoLink()!=""){
+								/*
+								<track src="<?=$Video[0]['urlSubtitle'];?>" kind="subtitles" srclang="pt" label="Português" default />	
+								/**/
+							?>
+							<track src="<?=$myLinks->getSubtitleLink();?>" kind="subtitles" default />
+							<?php } ?>
+							Infelizmente seu navegador não suporta a tag "VIDEO".
+						</video> 
+
 	 					<script>
 							function doHideAllFormsVideo(){
 								var divVideoControl = document.getElementById('divVideoControl');
 								var divVideoShare = document.getElementById('divVideoShare');
+								var divFeedReader = document.getElementById('divFeedReader');
 								var divVideoTypePlay = document.getElementById('divVideoTypePlay');
 								var divVideoInformation = document.getElementById('divVideoInformation');
-
+								
 								divVideoControl.style.display = "none";
 								divVideoShare.style.display = "none";
+								divFeedReader.style.display = "none";
 								divVideoTypePlay.style.display = "none";
 								divVideoInformation.style.display = "none";
 							}
@@ -67,55 +91,24 @@
 								var divVideoControl = document.getElementById('divVideoControl');
 								if($form=="divVideoShare"){
 									var divVideoShare = document.getElementById('divVideoShare');
-									divVideoShare.style.position = "absolute";
-									divVideoShare.offsetLeft = (VideoPlayer.offsetWidth / 2 - divVideoShare.offsetWidth  / 2) + 'px';
-									divVideoShare.offsetTop = (VideoPlayer.offsetHeight / 2 - divVideoShare.offsetHeight / 2) + 'px';
 									divVideoShare.style.display = "block";
+								}else if($form=="divFeedReader"){
+									var divFeedReader = document.getElementById('divFeedReader');
+									divFeedReader.style.display = "block";
 								}else if($form=="divVideoTypePlay"){
 									var divVideoTypePlay = document.getElementById('divVideoTypePlay');
-									divVideoTypePlay.style.position = "absolute";
-									divVideoTypePlay.offsetLeft = (VideoPlayer.offsetWidth / 2 - divVideoTypePlay.offsetWidth  / 2) + 'px';
-									divVideoTypePlay.offsetTop = (VideoPlayer.offsetHeight / 2 - divVideoTypePlay.offsetHeight / 2) + 'px';
 									divVideoTypePlay.style.display = "block";
 								}else if($form=="divVideoInformation"){
 									var divVideoInformation = document.getElementById('divVideoInformation');
-									divVideoInformation.style.position = "absolute";
-									divVideoInformation.offsetLeft = (VideoPlayer.offsetWidth / 2 - divVideoInformation.offsetWidth  / 2) + 'px';
-									divVideoInformation.offsetTop = (VideoPlayer.offsetHeight / 2 - divVideoInformation.offsetHeight / 2) + 'px';
 									divVideoInformation.style.display = "block";
 								}
-								doAlignTitleVideo();
+								//divVideoControl.style.position = "absolute";
+								//divVideoControl.offsetLeft = (VideoPlayer.offsetWidth / 2 - divVideoControl.offsetWidth  / 2) + 'px';
+								//divVideoControl.offsetTop = (VideoPlayer.offsetHeight / 2 - divVideoControl.offsetHeight / 2) + 'px';
+								divVideoControl.offsetWidth = VideoPlayer.offsetWidth;
 								divVideoControl.style.display = "block";
 							}
-							function doAlignTitleVideo(){
-								var VideoPlayer = document.getElementById('VideoPlayer');
-								var divVideoControl = document.getElementById('divVideoControl');
-
-								//divVideoControl.offsetWidth = VideoPlayer.offsetWidth;
-								//divVideoControl.style.width = VideoPlayer.style.width;
-								//divVideoControl.width = VideoPlayer.width;
-								//alert("divVideoControl.style.display="+divVideoControl.style.display);
-								//alert("VideoPlayer.offsetWidth="+VideoPlayer.offsetWidth);
-
-								//divVideoControl.style.position = "absolute";
-								//divVideoControl.style.display = "inline-block";
-
-								//var customMessageTop = VideoPlayer.offsetHeight / 2 - divVideoControl.offsetHeight / 2;
-								//var customMessageLeft = VideoPlayer.offsetWidth / 2 - divVideoControl.offsetWidth  / 2;
-								var customMessageTop = ((VideoPlayer.offsetHeight-divVideoControl.offsetHeight)/2) + VideoPlayer.offsetTop;
-								var customMessageLeft = ((VideoPlayer.offsetWidth-divVideoControl.offsetWidth)/2) + VideoPlayer.offsetLeft;
-								//alert("customMessageTop="+customMessageTop);
-								/*
-								divVideoControl.style.left = customMessageLeft + 'px';
-								divVideoControl.style.top = customMessageTop + 'px';
-								divVideoControl.offsetLeft = customMessageLeft + 'px';
-								divVideoControl.offsetTop = customMessageTop + 'px';
-								/**/
-							}
 							window.addEventListener('load',function(){
-								doAlignTitleVideo();
-								
-								/**/
 								document.getElementById('divVideoControl').addEventListener('click',function(){
 									var VideoPlayer = document.getElementById('VideoPlayer');
 									if(VideoPlayer.ended){
@@ -127,7 +120,6 @@
 										document.getElementById('divVideoTypePlay').style.display = "none";
 									}
 								},false);
-								/**/
 	
 								document.getElementById('VideoPlayer').addEventListener('ended',function(e){
 									if(!e) { e = window.event; }
@@ -151,7 +143,6 @@
 											break;// only one radio can be logically checked, don't check the rest
 										}
 									}
-									//divVideoControl.style.display = "inline-block";
 									divVideoControl.style.display = "block";
 								},false);
 
@@ -162,23 +153,43 @@
 								document.getElementById('VideoPlayer').addEventListener('pause',function(){
 									document.getElementById('divVideoControl').style.display = "block";
 								},false);
-								
-								doHideAllFormsVideo();
 							},false);
 						</script>
 	 					
 						<div id="divVideoControl">
-							<div id="divVideoTitle">
-								<big><b><?php echo $Video[0]['Title']; ?><b></big>
+							<div id="divVideoTitle" 
+								title="<?=$myLinks->getRedirectShortLink();?>"
+								onclick="window.open('<?=$myLinks->getRedirectShortLink();?>');"
+							>
+								<big><b><?php echo $Video[0]['Title']; ?></b></big>
 							</div>
-							<?php if($Video[0]['timePublish']!=''){?>
-							<img src="imgs/icons/sbl_share.png" size="16x16" onclick="doShowFormVideo('divVideoShare');"/>
+
+							<?php if($Video[0]['timePublish']!=''){ ?>
+							<img 
+								src="imgs/icons/sbl_share.png" size="16x16" 
+								title="Compartilhe este Vídeo!"
+								onclick="doShowFormVideo('divVideoShare');"
+							/>
 							<?php } ?>
-							<img src="imgs/icons/sbl_catraca.png" onclick="doShowFormVideo('divVideoTypePlay');"/>
-							<img src="imgs/icons/sbl_informacao.gif" onclick="doShowFormVideo('divVideoInformation');"/>
+							<img 
+								src="imgs/icons/sbl_file_rss.gif" size="16x16" 
+								title="Assine o Canal!"
+								onclick="doShowFormVideo('divFeedReader');"
+							/>
+							<img 
+								src="imgs/icons/sbl_catraca.png" 
+								title="Configurações de Vídeo"
+								onclick="doShowFormVideo('divVideoTypePlay');"
+							/>
+							<img 
+								src="imgs/icons/sbl_informacao.gif" 
+								title="Informações sobre este Vídeo"
+								onclick="doShowFormVideo('divVideoInformation');"
+							/>
+							<br/><br/>
 							
 							<div id="divVideoShare">
-								<h2 style="color:white;">
+								<h2>
 									<img src="imgs/icons/sbl_share.png" size="16x16"/>
 									COMPARTILHE ESTE VÍDEO
 								</h2>
@@ -197,22 +208,48 @@
 									src="imgs/icons/sbl_share_facebook.png"
 									onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 360, 300);"
 							/></div>
+							<div id="divFeedReader">
+								<h2>
+									<img src="imgs/icons/sbl_file_rss.gif" size="16x16"/>
+									ASSINE E RECEBA NOTÍCIAS DESTE CANAL
+								</h2>
+								<img src="imgs/selos/sbl_add2feedreader_nextcloud.png"
+									title="Assine e Receba notícias periódicas deste canal no NextCloud do Disroot!"
+									onclick="window.open('https://cloud.disroot.org/apps/news/?subscribe_to=<?=rawurlencode(getAtomLink('xml'));?>');"
+								/>
+								<img src="imgs/selos/sbl_add2feedreader_theoldreader.png"
+									title="Assine e Receba notícias periódicas deste canal no TheOldReader!"
+									onclick="window.open('http://theoldreader.com/feeds/subscribe?url=<?=rawurlencode(getAtomLink('xml'));?>');"
+								/>
+								<img src="imgs/selos/sbl_add2feedreader_anybrowser.png" 
+									title="Assine e Receba notícias periódicas deste canal em diversos outros agregadores!"
+									onclick="openPopupCenter('https://www.subtome.com/#/subscribe?feeds=<?=rawurlencode(getAtomLink('xml'));?>','_blank', 500, 370);"
+								/><br/>
+
+								<code><?=getAtomLink('xml');?></code><br/>
+
+								<img src="imgs/selos/sbl_feed_atom.png"
+									title="Assine e Receba notícias periódicas deste canal no seu Navegador!"
+									onclick="window.open('<?=getAtomLink('xml');?>');"
+								/>
+							</div>
 							<div id="divVideoTypePlay">
-								<h2 style="color:white;">
+								<h2>
 									<img src="imgs/icons/sbl_catraca.png" />
 									QUANDO FINALIZAR ESTE VÍDEO
-								</h2>
-								
+								</h2><br/>
 								<input id="chkVideoRepeat" type="radio" name="chkTypePlay" value="repeat" checked/> 
-								<label for="chkVideoRepeat">Repetir</label>
+								<label for="chkVideoRepeat">Repetir</label> 
+								
 								<input id="chkVideoForward" type="radio" name="chkTypePlay" value="forward"/> 
-								<label for="chkVideoForward">Progredir</label>
+								<label for="chkVideoForward">Progredir</label> 
+								
 								<input id="chkVideoStop" type="radio" name="chkTypePlay" value="stop"/> 
 								<label for="chkVideoStop">Parar</label>
 							</div>
 							<div id="divVideoInformation">
 								<center>
-									<h2 style="color:white;">
+									<h2>
 										<img src="imgs/icons/sbl_informacao.gif" /> 
 										SOBRE ESTE VÍDEO
 									</h2>
@@ -274,33 +311,11 @@
 									</table>
 								</center>
 							</div>
-							<div id="divVideoEvaluate">
+							<div id="divVideoEvaluate"> <!-- Para avaliação de vídeo -->
 								<img size="16x16" src="./sbl_like.png"/> 
 								<img size="16x16" rotate="180" src="./sbl_like.png">
 							</div>
-						</div>
-	 					<video 
-	 						id="VideoPlayer" 
-	 						controls="controls"
-						   autobuffer="autobuffer"
-						   preload="metadata"
-	 						autoplay 
-	 						align="center" 
-	 						poster="<?=$myLinks->getPosterLink();?>" 
-	 						contextmenu="mnuVideo" 
-	 						oncontextmenu_="return false;"
-	 					>
-							<source src='<?=$myLinks->getVídeoLink();?>' type="<?=$myLinks->getVídeoMimetype();?>">
-							<?php if($myLinks->getVídeoLink()!=""){
-								/*
-								<track src="<?=$Video[0]['urlSubtitle'];?>" kind="subtitles" srclang="pt" label="Português" default />	
-								/**/
-							?>
-							<track src="<?=$myLinks->getSubtitleLink();?>" kind="subtitles" default />
-							<?php } ?>
-							Infelizmente seu navegador não suporta a tag "VIDEO".
-						</video> 
-						
+						</div><!-- Fim de divVideoControl-->
 						
 						<menu type="context" id="mnuVideo">
 							<menuitem label="Recarregar" onclick="window.location.reload();" icon="imgs/icons/sbl_reload.png"></menuitem><?php 
@@ -328,74 +343,70 @@
 							} ?>
 						</menu>
 						
-						<?php if($Video[0]['timePublish']!=''){?>
-							<br/>
-							<img src="imgs/icons/sbl_share_diaspora.png"
-								style="cursor:pointer;" align="absmiddle"
-								title="Compartilhe em sua Rede Social Diáspora a lista de vídeos mais vistos deste canal!"
-								onclick="openPopupCenter('<?=$myLinks->getDiasporaLink();?>','_blank', 880, 600);"
-							/>
+						<?php 
+							/*
+							if($Video[0]['timePublish']!=''){?>
+								<br/>
+								<img src="imgs/icons/sbl_share_diaspora.png"
+									style="cursor:pointer;" align="absmiddle"
+									title="Compartilhe em sua Rede Social Diáspora a lista de vídeos mais vistos deste canal!"
+									onclick="openPopupCenter('<?=$myLinks->getDiasporaLink();?>','_blank', 880, 600);"
+								/>
 
-							<img src="imgs/icons/sbl_share_twitter.png"
-								style="cursor:pointer;" align="absmiddle"
-								title="Compartilhe em seu Twitter a lista de vídeos mais vistos deste canal!"
-								onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 720, 450);"
-							/>
+								<img src="imgs/icons/sbl_share_twitter.png"
+									style="cursor:pointer;" align="absmiddle"
+									title="Compartilhe em seu Twitter a lista de vídeos mais vistos deste canal!"
+									onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 720, 450);"
+								/>
 
-							<img src="imgs/icons/sbl_share_facebook.png"
-								style="cursor:pointer;" align="absmiddle"
-								title="Compartilhe em seu Facebook a lista de vídeos mais vistos deste canal!"
-								onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 360, 300);"
-							/>
-						<?php } ?>
+								<img src="imgs/icons/sbl_share_facebook.png"
+									style="cursor:pointer;" align="absmiddle"
+									title="Compartilhe em seu Facebook a lista de vídeos mais vistos deste canal!"
+									onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 360, 300);"
+								/><?php 
+							} 
+							/**/
+						?>
 	 				</center>
 
+					<script> document.getElementsByTagName("title")[0].innerHTML = "<?="Assistindo '" . $Video[0]['Title'] ."' - " . $txtChannelTitle; ?>"; </script>
+ 					<h2><?php echo $Video[0]['Title']; ?></h2>
 
-					<details>
-						<br/>
-						<summary style="cursor:pointer; color:green;"><b>Informações sobre o vídeo...</b></summary>
 
-						<script>
-							document.getElementsByTagName("title")[0].innerHTML = "<?="Assistindo '" . $Video[0]['Title'] ."' - " . $txtChannelTitle; ?>";
-						</script>
-
-	 					<h2><?php echo $Video[0]['Title']; ?></h2>
-	 					
-						
-						<div>
-						<!-- p align="justify" style="margin:10px" -->
-							<?php 
-								//$Conteudo = CodigoParaHTML(Converter_CodigoCaracter(utf8_encode($Video[0]['Description'])));
-							
-							
-								//$Conteudo = Converter_CodigoCaracter(utf8_encode($Video[0]['Description']));
-								//$Conteudo = utf8_encode($Video[0]['Description']);
-								$Conteudo = trim($Video[0]['Description'])!=""?$Video[0]['Description']."<br/><br/><hr/><br/>":"";
-							
-							
-								/*
-								require_once 'libs/Michelf/MarkdownInterface.php';
-								require_once 'libs/Michelf/Markdown.php';
-								$Conteudo = \Michelf\Markdown::defaultTransform($Conteudo);
-								/**/
-				
-								/*
-								require_once "libs/jbbcode/Parser.php";
-								$parser = new JBBCode\Parser();
-								$parser->addCodeDefinitionSet(new JBBCode\DefaultCodeDefinitionSet());
-								$parser->addBBCode("quote", '<div class="quote">{param}</div>');
-								$parser->addBBCode("code", '<pre class="code">{param}</pre>', false, false, 1);
-								$parser->parse($Conteudo);
-								//print $parser->getAsText();
-								//print $parser->getAsHtml();
-								$Conteudo = $parser->getAsHtml();
-								/**/
-				
-								echo $Conteudo;
-							?>
-						<!-- /p -->
-						</div>
-					</details>
+					<?php 
+						//$Conteudo = CodigoParaHTML(Converter_CodigoCaracter(utf8_encode($Video[0]['Description'])));
+					
+					
+						//$Conteudo = Converter_CodigoCaracter(utf8_encode($Video[0]['Description']));
+						//$Conteudo = utf8_encode($Video[0]['Description']);
+						//$Conteudo = trim($Video[0]['Description'])!=""?$Video[0]['Description']."<br/><br/><hr/><br/>":"";
+						$Conteudo = trim($Video[0]['Description']);
+					
+					
+						/*
+						require_once 'libs/Michelf/MarkdownInterface.php';
+						require_once 'libs/Michelf/Markdown.php';
+						$Conteudo = \Michelf\Markdown::defaultTransform($Conteudo);
+						/**/
+		
+						/*
+						require_once "libs/jbbcode/Parser.php";
+						$parser = new JBBCode\Parser();
+						$parser->addCodeDefinitionSet(new JBBCode\DefaultCodeDefinitionSet());
+						$parser->addBBCode("quote", '<div class="quote">{param}</div>');
+						$parser->addBBCode("code", '<pre class="code">{param}</pre>', false, false, 1);
+						$parser->parse($Conteudo);
+						//print $parser->getAsText();
+						//print $parser->getAsHtml();
+						$Conteudo = $parser->getAsHtml();
+						/**/
+					?>
+					<?php if($Conteudo!=""){ ?>
+						<details>
+							<summary style="cursor:pointer; color:green;"><b>Descrição do vídeo...</b></summary>
+							<div><?=$Conteudo;?></div>
+						</details>
+					<?php } ?>
 
 					
 					<!--

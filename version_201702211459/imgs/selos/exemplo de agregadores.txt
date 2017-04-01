@@ -1,0 +1,23 @@
+
+http://www.podnova.com/img_chicklet_podnova.gif
+http://www.podnova.com/add.srf?url={feed}
+
+https://s3.feedly.com/feedburner/feedly.png
+https://feedly.com/#subscription/feed/{feed}
+
+https://www.netvibes.com/img/add2netvibes.gif
+https://www.netvibes.com/subscribe.php?url={feed}
+
+https://sp.yimg.com/j/assets/ipt/addtomyyahoo.gif
+https://add.my.yahoo.com/rss?url={feed}
+
+https://www.subtome.com/subtome-feedburner.png
+https://www.subtome.com/#/subscribe?feeds={feed}
+https://www.subtome.com/#/subscribe?feeds=http://localhost/tuatec/apps/libretube/atom.php
+
+#### Outros agregadores ##############################################################33
+https://cloud.disroot.org/apps/news/?subscribe_to={feed}
+http://theoldreader.com/feeds/subscribe?url={feed}
+https://wordpress.com/following/edit/?follow={feed}
+
+

@@ -62,11 +62,11 @@
 		</div>
 		<?php if($order!="privates"){?>
 			<br/><br/>
-			<a target="_blank" href="atom.php?order=<?=$order;?>"><img 
-				src="imgs/icons/sbl_file_rss.gif" 
+			<img src="imgs/icons/sbl_file_rss.gif"
+				style="cursor:pointer;" align="absmiddle"
 				title="Assine o 'Feed RSS' a lista de vídeos deste canal!"
-				align="absmiddle"
-			/></a>  
+				onclick="openPopupCenter('https://www.subtome.com/#/subscribe?feeds=<?=rawurlencode(getAtomLink('xml',$order));?>','_blank', 500, 370);"
+			/>  
 			<?php
 				$urlShare = $urlLibretube.'?sub=video_list&order='.$order;
 				//$LinkDispora = "https://diasporabrazil.org/bookmarklet?title=".
@@ -201,31 +201,35 @@
 
 					<div>
 						<small>
-							<img size='16x16' src='imgs/icons/sbl_filme.gif'  title="Número do Vídeo!" /> nº<?=$Videos[$V]['ID'];?>
-							
-							<img size='16x16' src='imgs/icons/sbl_olho.png' title="Número de visualizações!" />
 							<?php
+								if(getLogedType()=="owner" || getLogedType()=="moderator"){ ?>
+									<img size='16x16' src='imgs/icons/sbl_filme.gif'  title="Número do Vídeo!" /> nº<?=$Videos[$V]['ID'];?> <?php
+								}
+								
 								if($Videos[$V]['videoTypeLink']=="local" || $Videos[$V]['videoTypeLink']=="remote"){
-									if($Videos[$V]['views']<=1){
-										echo " x".$Videos[$V]['views'];
-									}else{
-										echo " x".$Videos[$V]['views'];
-									} ?>
-							
-									<img size='16x16' src='imgs/icons/sbl_comentario.gif' title="Número de Comentários!" /> <?php
-									echo $LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."comments", "VideoID=".$Videos[$V]['ID'],  "timePublish DESC", "COUNT(*) AS QTD")[0]['QTD'];
-								}else{
+									if($Videos[$V]['views']>=1){ ?>
+										<img size='16x16' src='imgs/icons/sbl_olho.png' title="Número de visualizações!" /> <?php
+										echo " x".sprintf("%03d",$Videos[$V]['views']);
+									} 
+									
+									$qtdComments = $LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."comments", "VideoID=".$Videos[$V]['ID'],  "timePublish DESC", "COUNT(*) AS QTD")[0]['QTD'];
+									if($qtdComments>=1){ ?>
+										<img size='16x16' src='imgs/icons/sbl_comentario.gif' title="Número de Comentários!" /> <?php
+										echo $qtdComments;
+									}
+								}else{ ?>
+									<img size='16x16' src='imgs/icons/sbl_olho.png' title="Número de visualizações!" /> <?php
 									echo "Vídeo Externo";
 								}
 							
 							?>
-							
+							<?php if($Videos[$V]['Description']!=""){ ?>
 							<img 
 								size='16x16' src='imgs/icons/sbl_lupa.gif' 
 								title="Exibir descrição de vídeo!"
 								onclick="showBack('divFront<?=$Videos[$V]['ID'];?>', 'divBack<?=$Videos[$V]['ID'];?>');"
 							/>
-							
+							<?php } ?>
 						</small>
 					</div>
 				</div>

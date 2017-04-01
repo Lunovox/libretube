@@ -18,9 +18,9 @@ body{
 	/*font-size: 14px;/**/
 
 	text-align: left;
-	/*text-decoration: none;
-	text-transform: uppercase;/**/
-	text-shadow:1px 1px 0 #FFF;
+	/*text-decoration: none;/**/
+	/*text-transform: uppercase;/**/
+	/*text-shadow:1px 1px 0 #000;/**/
 
 	background: linear-gradient(to right, #444444, #EEEEEE 20%, #EEEEEE 80%, #444444);
 
@@ -40,7 +40,7 @@ header{
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
-	text-shadow:1px 1px 0 #FFF;
+	/*text-shadow:1px 1px 0 #FFF;/**/
 }
 
 header img {
@@ -54,13 +54,24 @@ session{
 	width:100%;
 	/*height:500px;/**/
 	
+	font-family: arial, verdana, helvetica, sans-serif, serif;/**/
 	/*font-family: sans-serif, serif, arial, helvetica;/**/
 	/*font-size: 12px;/**/
 
 	/*text-align: center;/**/
 	/*text-decoration: none;
 	text-transform: uppercase;/**/
-	text-shadow:1px 1px 0 #FFF;
+}
+
+session h2{
+	color: black;
+	font-family: arial, helvetica, sans-serif, serif;/**/
+	font-size: 18px;
+	font-weight: bold;/**/
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	text-shadow:1px 1px 0 #00880088;/**/
 }
 
 session .FormSession{
@@ -213,6 +224,7 @@ session #TitleThumbnails{
 		max-height:213px;  
 		width:100%; 
 		text-align: center center;
+
 	}
 	session .VideoList{
 		/*list-style:none;/**/
@@ -244,7 +256,7 @@ footer{
 	/*position:relative; /**/
 	position:absolute; /* <= para funcionar precisa do estilo da tag HTML */
 	bottom:0;/**/
-	width:99.9%;/**/
+	width:99.5%;/**/
 
 	color: #616165;
 	/*font-family: sans-serif, serif, arial, helvetica;/**/
@@ -323,7 +335,6 @@ nav{
 }
 
 .menu{
-
 	/*border: 1px solid #000000;/**/
 	list-style:none;/**/ /*Desativa o Ponto (.) de Estilização da Lista*/
 	display:inline-block;
@@ -376,6 +387,7 @@ nav{
 				0 2px 7px rgba(0, 0, 0, 0.2);
 	color: #000000;
 	line-height: 25px;
+	z-index: 99;
 }   
 
 .menu li:hover ul, .menu li.over ul{display:block;}
@@ -409,10 +421,9 @@ img[rotate="180"]{
 	transform: scaleX(-1) scaleY(-1);
 }
 
-
 img[onclick] {
-	position: relative;
-	display: inline-block;
+	/*position: relative;
+	display: inline-block;/**/
 	vertical-align: middle;
 	cursor:pointer;
 
@@ -442,24 +453,18 @@ input[type="radio"]{
 	vertical-align: middle;
 }
 
-#divVideoShare, #divVideoTypePlay, #divVideoInformation, #divVideoEvaluate{
-	position:relative;/**/
-	top:65px;/**/
+code{
+	font-family: monospace;
+}
 
+#divFeedReader, #divVideoShare, #divVideoTypePlay, #divVideoInformation, #divVideoEvaluate{
 	display:none;
-	width:100%;
-	/*max-width:757px; /**/
-	/*max-height:428px; /**/
-	
-
 	border:1px solid rgba(0,128,0, 0.5); 
 	background-color: rgba(0,0,0, 0.5);;
 	vertical-align: text-top;/**/
-	/*vertical-align: middle;/**/
 	margin:  0px 0px 0px 0px;/**/
 	padding: 10px 0px 10px 0px;/**/
-	/*height:85px;/**/
-	
+	margin-bottom:10px;
 }
 
 #divVideoInformation a{
@@ -470,14 +475,25 @@ input[type="radio"]{
 }
 
 #divVideoControl{
+	position:absolute; top:215px; min-width:760px;/**/
+	
+	/*vertical-align: text-top;/**/
+	display: none;/**/
+
 	color: rgb(255, 255, 255);
 	font-family: arial, helvetica, sans-serif, serif;/**/
 	font-size: 12px;
 	font-weight: normal;
 	/*/line-height: 25px;/**/
+	text-align: center;
 	text-shadow:1px 1px 0 #00000088;
 	text-decoration: none;
 }
+
+#divVideoControl h2{
+	color: white;
+}
+
 #divVideoTitle{
 	/*display: none;/**/
 	margin:  0px 0px 0px 0px;
@@ -491,7 +507,8 @@ input[type="radio"]{
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
-	text-shadow:2px 2px 5 #00000088;/**/
+	/*text-shadow:2px 2px 5 #00000088;/**/
+	text-shadow:1px 1px 0 #00880088;/**/
 
 	/*background: linear-gradient(to bottom, #000000CC, #000000CC 80%, #00000033 100%);/**/
 	/*background: linear-gradient(to bottom, #FFFF00CC, #FFFF00CC 80%, #FFFF0033 100%);/**/
@@ -507,6 +524,16 @@ input[type="radio"]{
 	/**/
 }
 
+@media (max-width: 760px) { /*Para quando a tela for menor que 760px*/
+	#divVideoControl{
+		width:100%;/**/
+		min-width:0%;
+		max-width:94%;/**/
+		position:absolute; /* <= para funcionar precisa do estilo da tag HTML */
+		width:99.5%;/**/
+	}
+}
+
 @media (max-aspect-ratio: 16/9) { /*Para quando o video estiver em fullscreen*/
 	session video { 
 		position:relative/fixed/none;
@@ -516,16 +543,6 @@ input[type="radio"]{
 		/*text-shadow:0px 0px 5px #008800;;/**/
 	}
 	
-	#divVideoControl{
-		//position:absolute;/**/
-		position:relative;/**/
-		/*display: inline-block;/**/
-		/*display: block;/**/
-		/*width:800px;/**/
-		width:100%;
-		top:85px;
-		z-index: 2147483647;
-	}
 }
 
 @media (min-aspect-ratio: 16/9) {
@@ -538,16 +555,11 @@ input[type="radio"]{
 		border-radius: 10px;
 		/*color: white;
 		text-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen;/*/
-		z-index:1;
+		text-shadow:1px 1px 0 #00880088;/**/
+		/*z-index:1;/**/
 	}
+
 	
-	#divVideoControl{
-		//position:absolute;/**/
-		position:relative;/**/
-		width:100%;
-		top:85px;
-		z-index:2;
-	}
 
 /*######## COR DE LEGENDA ##########################################################*/
 	::cue(.red){ color: red; }

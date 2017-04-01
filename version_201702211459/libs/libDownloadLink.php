@@ -30,6 +30,14 @@
 	require_once "libs/libMySQL2.php";
 	//require_once "libs/libGeral.php";
 
+	function getAtomLink($format='xml', $order='recents'){
+		if(!isset($order) || $order=="mostviews"){
+			return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", $_SERVER['SCRIPT_NAME'])."atom.php?order=$order".($format=='xml'?"":"&format=$format");
+		}else{
+			return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", $_SERVER['SCRIPT_NAME'])."atom.php".($format=='xml'?"":"?format=$format");
+		}
+	}
+
 	class DownLoadLink{
 		var $id=0; //Id do vídeo do banco de dados MySQL
 		var $video; //Informações sobre link de arquivos, como: video, poster, subtitle(legendas)
@@ -187,7 +195,6 @@
 			)."&markdown=true&jump=doclose"; 
 			return $LinkDispora;
 		}
-		
 	}
 
 ?>

@@ -21,18 +21,17 @@
 	for the JavaScript code in this page.
 */
 
-function window.onerror(evt) {
+window.onerror = function(evt){
 //window.onerror = function(msg, url, linenumber) {
 	//alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
 
 	console.log("jQuery error event:", evt);
 	var e = evt.originalEvent; // get the javascript event
 	console.log("original event:", e);
-	if(e.message) { 
+	if(e.message){ 
 		alert("Error:\n\t" + e.message + "\nLine:\n\t" + e.lineno + "\nFile:\n\t" + e.filename);
-	} else {
+	}else{
 		alert("Error:\n\t" + e.type + "\nElement:\n\t" + (e.srcElement || e.target));
 	}
 	return true;
 }
-

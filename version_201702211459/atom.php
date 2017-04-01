@@ -13,8 +13,8 @@
 	
 	require_once "libs/libGeral.php";
 	
-	$format = Propriedade("form");
-	if($format=="text"){
+	$format = Propriedade("format");
+	if($format=="txt" || $format=="text"){
 		header('Content-type: text/plain; charset=utf-8');
 	}elseif($format=="xml"){
 		header('Content-Type: text/xml; charset=utf-8');
