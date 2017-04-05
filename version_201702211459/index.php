@@ -1,6 +1,8 @@
 <?php 
 	//session_cache_limiter('private'); 	/* Define o limitador de cache para 'private' */
 	session_cache_expire(360); /* Define o limite de tempo do cache em 6 horas (360 minutos) */
+	// Allow script to work long enough to upload big files (in seconds, 2 days by default)
+	@set_time_limit(172800);
 	session_start("tuatec-home");
 
 	ini_set('display_errors', 'On'); 

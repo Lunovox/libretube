@@ -11,6 +11,13 @@
 			if(isset($Conteudo)){return $Conteudo;}
 		}
 	}
+	function getHashtags($Texto){
+		preg_match_all('/#([^\s]+)/', strip_tags($Texto), $matches);
+		$hashtags = @$matches[1];
+		if(count($hashtags)>=1){
+			return $hashtags;
+		}
+	}
 	function utf16_decode( $str ) {
 		if( strlen($str) < 2 ){ return $str; }
 		$bom_be = true;

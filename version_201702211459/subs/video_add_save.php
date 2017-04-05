@@ -46,6 +46,8 @@
 						}elseif($chkVideoTypeLink=="redirect" && $urlVideoRedirect!=""){
 							$urlVideo=$urlVideoRedirect;
 						}elseif($chkVideoTypeLink=="local" && $urlVideoLocal!=""){
+							$filename = @basename(@$urlVideoLocal['name']);
+							$extension = @strtolower(@strrchr($filename,"."));
 							$error=@$urlVideoLocal['error'];
 							$size=@$urlVideoLocal['size'];
 							$type=@$urlVideoLocal['type'];
@@ -56,9 +58,9 @@
 							//$extension = explode("/", get_headers($urlVideoLocal['tmp_name'], 1)["Content-Type"])[1];
 							//print_r(pathinfo($urlVideoLocal['tmp_name']));
 							//print_r($urlVideoLocal);
-							$extension = explode("/", @$urlVideoLocal["type"])[1];
+							//$extension = explode("/", @$urlVideoLocal["type"])[1];
 							//$extension = pathinfo($urlVideoLocal['tmp_name'])['extension'];
-							$url=$upload_dir.md5($txtTitle).".".$extension;
+							$url=$upload_dir.md5($txtTitle).".".basename($extension);
 							
 							if($error==UPLOAD_ERR_INI_SIZE){
 								$aviso="[1] O tamanho o arquivo de vídeo é muito grande!";
@@ -92,12 +94,19 @@
 						}elseif($chkPosterTypeLink=="remote" && $urlPosterRemote!=""){
 							$urlPoster=$urlPosterRemote;
 						}elseif($chkPosterTypeLink=="local" && $urlPosterLocal!=""){
-							//$urlPoster="arquivo por upload!!!!";
+							//$urlPoster="arquivo por upload!!!!"
+							$filename = @basename(@$urlPosterLocal['name']);
+							$extension = @strtolower(@strrchr($filename,"."));
 							$error=@$urlPosterLocal['error'];
 							$size=@$urlPosterLocal['size'];
 							$type=@$urlPosterLocal['type'];
 							//$url=$upload_dir.basename($urlPosterLocal['tmp_name'])."_img";
-							$url=$upload_dir.md5($txtTitle)."_img"."_".basename($urlPosterLocal['tmp_name']);
+							//$url=$upload_dir.md5($txtTitle)."_img"."_".basename($urlPosterLocal['tmp_name']);
+							//$url=$upload_dir.md5($txtTitle)."_img"."_".basename($urlPosterLocal['tmp_name']);
+							//$extension = explode("/", @$type)[1];
+							$url=$upload_dir.md5($txtTitle).".".basename($extension);
+
+							
 							if($error==UPLOAD_ERR_INI_SIZE){
 								$aviso="[1] O tamanho o arquivo de poster é muito grande!";
 							}elseif($error==UPLOAD_ERR_FORM_SIZE){

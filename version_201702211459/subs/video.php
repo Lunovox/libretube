@@ -404,7 +404,18 @@
 					<?php if($Conteudo!=""){ ?>
 						<details>
 							<summary style="cursor:pointer; color:green;"><b>Descrição do vídeo...</b></summary>
-							<div><?=$Conteudo;?></div>
+							<div><?php
+								$Conteudo=str_replace("&#039;", "'", $Conteudo);
+								$hashtags = getHashtags($Conteudo);
+								for($H=0; $H<count($hashtags); $H++){
+									$Conteudo = str_replace(
+										"#".$hashtags[$H],
+										"<a href='?sub=search&q=%23".strtolower($hashtags[$H])."'>#".$hashtags[$H]."</a>",
+										$Conteudo
+									);
+								}
+								echo $Conteudo;
+							?></div>
 						</details>
 					<?php } ?>
 
