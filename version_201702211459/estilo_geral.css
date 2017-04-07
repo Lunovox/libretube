@@ -123,11 +123,19 @@ session .VideoListDesc{
 	padding:10px;/**/
 	max-width:260px; 
 	min-height:220px; /**/
-	background:rgba(255,255,255,0.3);/**/
+
+	/*background:rgba(196,256,196,0.5);/**/
+	/*background: linear-gradient(to left, #3FA952, rgba(196,256,196,0.5) 20%, rgba(196,256,196,0.5) 80%, #3FA952);/**/
+	/*background: linear-gradient(to left, rgba(196,256,196,0.5), #FFF 40%, #FFF 60%, rgba(196,256,196,0.5));/**/
+	/*background: linear-gradient(to left, #3FA952, #FFF 20%, #FFF 80%, #3FA952);/**/
+	background: radial-gradient(#FFF 30%, rgba(196,256,196,0.5), #3FA952); /**/
+	/*transition: 0.5s ease-in; /*Leva meio segundo para essa proprierdade surgir*/
 	
 	border-radius: 10px;
 	border:1px solid rgba(0,0,0,0.3);
-	
+	box-shadow: 5px 5px 5px #888888;
+	/*box-shadow: 0 3px 0 rgba(0, 0, 0, .3), 	0 2px 7px rgba(0, 0, 0, 0.2);/**/
+
 	font-size: 12px;/**/
 }
 
@@ -140,12 +148,17 @@ session .VideoList{
 	padding:10px;/**/
 	max-width:260px; 
 	min-height:220px; /**/
-	background:rgba(196,196,196,0.5);/**/
+	background:rgba(196,196,196,0.3);/**/
+	
 	
 	border-radius: 10px;
 	border:1px solid rgba(0,0,0,0.3);
+	box-shadow: 5px 5px 5px #888888;
+	/*box-shadow: 0 3px 0 rgba(0, 0, 0, .3), 	0 2px 7px rgba(0, 0, 0, 0.2);/**/
 	
 	font-size: 12px;/**/
+	
+	transition: 1.0s ease-out;
 }
 
 session .VideoList:hover{
@@ -157,8 +170,32 @@ session .VideoList:hover{
 	padding:10px;/**/
 	max-width:260px; 
 	min-height:220px; /**/
-	background:rgba(196,256,196,0.5);/**/
+	/*background:rgba(196,256,196,0.5);/**/
+	/*background: linear-gradient(to left, #3FA952, rgba(196,256,196,0.5) 20%, rgba(196,256,196,0.5) 80%, #3FA952);/**/
+	/*background: linear-gradient(to left, rgba(196,256,196,0.5), #FFF 40%, #FFF 60%, rgba(196,256,196,0.5));/**/
+	/*background: linear-gradient(to left, #3FA952, #FFF 20%, #FFF 80%, #3FA952);/**/
+	background: radial-gradient(#FFF 30%, rgba(196,256,196,0.5), #3FA952); /**/
+	/*transition: 0.5s ease-in; /*Leva meio segundo para essa proprierdade surgir*/
+}
+
+session .VideoList img, session .VideoListOff img {
 	border-radius: 10px;
+	opacity: 0.7;
+}
+
+session .VideoList img:hover, session .VideoListOff img:hover{
+	opacity: 1.0;
+}
+
+@media (max-width:380px) {
+	session .VideoList img, session .VideoListOff img{
+		border-radius: 10px;
+		opacity: 1.0;
+	}
+	
+	session .VideoList img:hover, session .VideoListOff img:hover{
+		opacity: 1.0;
+	}
 }
 
 session .VideoListOff{
@@ -189,7 +226,7 @@ session .VideoListOff:hover{
 	min-height:220px; /**/
 
 	background:rgba(196,196,196,0.8);/**/
-	border-radius: 10px;
+	/*background: linear-gradient(to left, #3FA952, rgba(196,256,196,0.5) 20%, rgba(196,256,196,0.5) 80%, #3FA952);/*
 }
 
 session a {

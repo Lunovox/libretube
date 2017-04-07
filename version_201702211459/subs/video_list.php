@@ -183,6 +183,7 @@
 			<div 
 				id="divFront<?=$Videos[$V]['ID'];?>" 
 				class="<?=(($Videos[$V]['videoTypeLink']!='redirect' && $Videos[$V]['timePublish']!='')?'VideoList':'VideoListOff');?>"
+				onmouseover="showFrontAll();"
 			>
 				<div>
 					<div onclick="<?php printLink($Videos[$V]); ?>">
