@@ -18,6 +18,17 @@
 			return $hashtags;
 		}
 	}
+	function getMakeLinks($Texto){
+		$hashtags = getHashtags($Texto);
+		for($H=0; $H<count($hashtags); $H++){
+			$Texto = str_replace(
+				"#".$hashtags[$H],
+				"<a href='?sub=video_list&order=search&q=%23".strtolower($hashtags[$H])."'>#".$hashtags[$H]."</a>",
+				$Texto
+			);
+		}
+		return $Texto;
+	}
 	function utf16_decode( $str ) {
 		if( strlen($str) < 2 ){ return $str; }
 		$bom_be = true;

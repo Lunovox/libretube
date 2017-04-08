@@ -101,7 +101,8 @@
 		<spam id="mnuBuscador">
 			<li>
 				<form autocomplete="on">
-					<input name="sub" type="hidden" value="search"/>
+					<input name="sub" type="hidden" value="video_list"/>
+					<input name="order" type="hidden" value="search"/>
 					Buscar <input id="txtQuery" name="q" type="text"/>
 					<button type="submit" formaction="index.php">Ok</button>
 					<button onclick="doToggleBuscador(); return false;">CANCELAR</button>

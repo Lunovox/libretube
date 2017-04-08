@@ -81,6 +81,10 @@ if(Propriedade("video")!=""){
 			title="<?=$txtChannelTitle;?> - Vídeos Mais Vistos" 
 		/>
 		
+		<link rel="search" type="application/opensearchdescription+xml" title="<?=$txtChannelTitle;?>" href="<?php
+			echo 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", $_SERVER['SCRIPT_NAME']).'search_engine.php?update='.uniqid("SearchEngine_");
+		?>">
+
 		<link rel='shortlink' href="<?=$urlLibretube;?>" />
 		
 		<meta name="viewport" content="width=300"/>

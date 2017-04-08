@@ -1,16 +1,43 @@
 <?php
 	$order = Propriedade("order");
+	$query = trim(strip_tags(Propriedade("q")));
 	$QtdPerPage = 12;
 	$page = intval(Propriedade("page"));
 	$QtdVideos = 0;
 	if($order=="mostviews"){
 		$QtdVideos=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "timePublish IS NOT NULL",  "views DESC", "COUNT(*) AS QTD")[0]['QTD'];
 		$Videos=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "timePublish IS NOT NULL",  "views DESC", null, $page*$QtdPerPage, $QtdPerPage);
-		$TitlePage = "MAIS VISTOS";
+		$TitlePage = "VÍDEOS MAIS VISTOS";
 	}elseif($order=="privates" && (getLogedType()=="owner" || getLogedType()=="moderator")){
 		$QtdVideos=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "timePublish IS NULL",  "timePublish DESC, timeUpdate DESC", "COUNT(*) AS QTD")[0]['QTD'];
 		$Videos=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "timePublish IS NULL",  "timePublish DESC, timeUpdate DESC", null, $page*$QtdPerPage, $QtdPerPage);
-		$TitlePage = "PRIVADOS";
+		$TitlePage = "VÍDEOS PRIVADOS";
+	}elseif($order=="search" && $query!=""){
+		$QtdVideos=0;
+		$search="";
+		if(strlen(trim($query))>=3){
+			$Partes = explode(" ",$query);
+			if(getLogedType()!="owner" && getLogedType()!="moderator"){$search.="(";}
+			for($P=0; $P<count($Partes); $P++){
+				if(strlen(trim($Partes[$P]))>=3){
+					$search.="Title LIKE '%".$Partes[$P]."%' OR Description LIKE '%".trim($Partes[$P])."%'";
+					if($P!=count($Partes)-1){$search.=" OR ";}
+				}
+			}
+			if(getLogedType()!="owner" && getLogedType()!="moderator"){$search.=") AND timePublish IS NOT NULL";}
+		}else{
+			if(getLogedType()!="owner" && getLogedType()!="moderator"){$search.="timePublish IS NOT NULL";}
+		}
+		if(strlen(trim($search))>=3){
+			$QtdVideos=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", $search,  "timePublish DESC, timeUpdate DESC", "COUNT(*) AS QTD")[0]['QTD'];
+			$Videos=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", $search,  "timePublish DESC, timeUpdate DESC", null, $page*$QtdPerPage, $QtdPerPage);
+		}
+		if($QtdVideos>=1){
+			$TitlePage = $QtdVideos." VÍDEOS COM '<a href='?sub=video_list&order=search&q=".$query."'>".$query."</a>'";
+			//$TitlePage.="<br/>\$search='".$search."'  size='".strlen(trim($query))."'";
+		}else{
+			$TitlePage =  "NENHUM VÍDEO COM '<a href='?sub=video_list&order=search&q=".$query."'>".$query."</a>'";
+		}
 	}else{
 		$QtdVideos=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "timePublish IS NOT NULL",  "timePublish DESC, timeUpdate DESC", "COUNT(*) AS QTD")[0]['QTD'];
 		//$Videos=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "timePublish IS NOT NULL",  "timePublish DESC, timeUpdate DESC", null, $page*$QtdPerPage, intval($page*$QtdPerPage)+$QtdPerPage);
@@ -37,7 +64,7 @@
 			<br/>
 		<?php } ?>
 
-		<h1>VÍDEOS <?=$TitlePage;?></h1>
+		<h1><?=$TitlePage;?></h1>
 		<div style="display:inline-block; padding:3px; background-color:rgba(128,128,128,0.8); border:1px solid #c0c0c0; border-radius:5px;">
 			<h2><?php 
 				if($page>0){ 
@@ -68,6 +95,7 @@
 				onclick="openPopupCenter('https://www.subtome.com/#/subscribe?feeds=<?=rawurlencode(getAtomLink('xml',$order));?>','_blank', 500, 370);"
 			/>  
 			<?php
+			if($order!="search"){
 				$urlShare = $urlLibretube.'?sub=video_list&order='.$order;
 				//$LinkDispora = "https://diasporabrazil.org/bookmarklet?title=".
 				$LinkDispora = "http://sharetodiaspora.github.io/?title=".
@@ -79,28 +107,27 @@
 						$txtChannelTitle.' - '.$TitlePage.
 					"](".$urlShare.")\n\n".
 					"Hashtags: ".(@$Config['ChannelName']!=''?'#'.str_replace(" ","",@$Config['ChannelName']).' ':'')." #Libretube"
-				)."&markdown=true&jump=doclose";
+				)."&markdown=true&jump=doclose"; ?>
+				<img src="imgs/icons/sbl_share_diaspora.png"
+					style="cursor:pointer;" align="absmiddle"
+					title="Compartilhe em sua Rede Social Diáspora a lista de vídeos mais vistos deste canal!"
+					onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 880, 600);"
+				/>
 			
-			;?>
-			<img src="imgs/icons/sbl_share_diaspora.png"
-				style="cursor:pointer;" align="absmiddle"
-				title="Compartilhe em sua Rede Social Diáspora a lista de vídeos mais vistos deste canal!"
-				onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 880, 600);"
-			/>
-		
-			<img src="imgs/icons/sbl_share_twitter.png"
-				style="cursor:pointer;" align="absmiddle"
-				title="Compartilhe em seu Twitter a lista de vídeos mais vistos deste canal!"
-				onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($urlShare);?>','_blank', 720, 450);"
-			/>
+				<img src="imgs/icons/sbl_share_twitter.png"
+					style="cursor:pointer;" align="absmiddle"
+					title="Compartilhe em seu Twitter a lista de vídeos mais vistos deste canal!"
+					onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($urlShare);?>','_blank', 720, 450);"
+				/>
 
-			<img src="imgs/icons/sbl_share_facebook.png"
-				style="cursor:pointer;" align="absmiddle"
-				title="Compartilhe em seu Facebook a lista de vídeos mais vistos deste canal!"
-				onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($urlShare);?>','_blank', 360, 300);"
-			/>
-			<br/><br/>
-		<?php } ?>
+				<img src="imgs/icons/sbl_share_facebook.png"
+					style="cursor:pointer;" align="absmiddle"
+					title="Compartilhe em seu Facebook a lista de vídeos mais vistos deste canal!"
+					onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($urlShare);?>','_blank', 360, 300);"
+				/>
+				<br/><br/><?php 
+			}
+		} ?>
 	</center>
 </div>
 
@@ -281,15 +308,7 @@
 					<?php
 						$Conteudo = $Videos[$V]['Description'];
 						$Conteudo=str_replace("&#039;", "'", $Conteudo);
-						$hashtags = getHashtags($Conteudo);
-						for($H=0; $H<count($hashtags); $H++){
-							$Conteudo = str_replace(
-								"#".$hashtags[$H],
-								"<a href='?sub=search&q=%23".strtolower($hashtags[$H])."'>#".$hashtags[$H]."</a>",
-								$Conteudo
-							);
-						}
-						echo $Conteudo;
+						echo getMakeLinks($Conteudo);
 					?>
 				</div>
 				
