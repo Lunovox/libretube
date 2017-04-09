@@ -18,7 +18,7 @@
 
 		?>
 			<center>
-				<div class="FormSession" align="left">
+				<div id="FormSession" class="FormSession" align="left">
 					<div id="TitleSession">
 						<h2>Adicionando Novo Vídeo</h2>
 					</div>
@@ -102,6 +102,7 @@
 								); 
 							}
 
+							//alert("FormSession.style.display="+document.getElementById('FormSession').style.display);
 							if(!condition) {
 								//alert("[ERRO]...");
 								if(evt.preventDefault){
@@ -112,12 +113,14 @@
 									evt.returnValue = false;
 								}
 								return condition;
+							}else{
+								document.getElementById('FormSession').style.display = 'none';
 							}
 						}
 					</script>
 					<form method="POST" enctype="multipart/form-data" action="./?sub=video_add_save" onsubmit="return doSubmit(event);">
 						<input type="hidden" name="sub" value="video_add_save"/>
-						<input type="hidden" name="MAX_FILE_SIZE" value="1073741824"/>
+						<input type="hidden" name="MAX_FILE_SIZE" value="<?=nomeParaBytes(ini_get('upload_max_filesize'));?>"/>
 						<table style="width:100%">
 							<?php if(Propriedade("aviso")!=""){ ?>
 								<tr>
@@ -273,7 +276,7 @@
 								<td colspan="2">
 									<script>
 										function onFileChange($obj){
-											if($obj.files[0].size>1073741824){
+											if($obj.files[0].size><?=nomeParaBytes(ini_get('upload_max_filesize'));?>){
 												alert('O vídeo está com um tamanho acima do tamanho permitido!');
 											}else{
 												var txtTitle = document.getElementById('txtTitle');
@@ -318,7 +321,7 @@
 									<input id="urlPosterLocal" name="urlPosterLocal" type="file" placeholder="Arquivo Local de Poster:" 
 										accept="image/png, image/jpeg, image/gif, image/*"
 										value="<?php if($chkPosterTypeLink=='local'){echo $urlPosterLocal;} ?>"
-										onchange="if(this.files[0].size>1073741824){alert('O poster está com um tamanho acima do tamanho permitido!');}"
+										onchange="if(this.files[0].size><?=nomeParaBytes(ini_get('upload_max_filesize'));?>){alert('O poster está com um tamanho acima do tamanho permitido!');}"
 									/>
 								</td>
 							</tr>
@@ -352,7 +355,7 @@
 									<input id="urlSubtitleLocal" name="urlSubtitleLocal" type="file" placeholder="Arquivo Local da Legenda WebVTT (.vtt):" 
 										accept="text/vtt, text/webvtt, .vtt, application/ttml+xml, .ttml"
 										value="<?php if($chkSubtitleTypeLink=='local'){echo $urlSubtitleLocal;} ?>"
-										onchange="if(this.files[0].size>1073741824){alert('A Legenda está com um tamanho acima do tamanho permitido!');}"
+										onchange="if(this.files[0].size><?=nomeParaBytes(ini_get('upload_max_filesize'));?>){alert('A Legenda está com um tamanho acima do tamanho permitido!');}"
 									/>
 								</td>
 							</tr>

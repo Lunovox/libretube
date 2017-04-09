@@ -8,7 +8,7 @@
 		/**/
 
 		$upload_dir="./vids/";
-		$upload_max_size=1073741824; //1*1024*1024*1024 = 1GB
+		$upload_max_size=nomeParaBytes(ini_get('upload_max_filesize'));
 
 		//$txtTitle=str_replace("'", "&#039;", urldecode(Propriedade("txtTitle")));
 		//$txtDescription=str_replace("'", "&#039;", urldecode(Propriedade("mce_0")));
@@ -199,7 +199,17 @@
 			}else{$aviso="Tipo de Link de Vídeo Inválido!";}
 		}else{$aviso="Favor digite o Título do Vídeo!";}
 		
-		if($aviso!=""){?>
+		if($aviso!=""){
+			if($chkVideoTypeLink=="local"){
+				@unlink($urlVideo);
+			}
+			if($chkPosterTypeLink=="auto" || $chkPosterTypeLink=="local"){
+				@unlink($urlPoster);
+			}
+			if($chkSubtitleTypeLink=="local"){
+				@unlink($urlSubtitle);
+			}
+		?>
 			window.location="?sub=video_add"
 			+"&txtTitle=<?=urlencode($txtTitle);?>"
 			+"&txtDescription=<?=urlencode($txtDescription);?>"

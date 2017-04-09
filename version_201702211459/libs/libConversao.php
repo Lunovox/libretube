@@ -1,5 +1,22 @@
 <?php
 //---------------------------------------------------------------------------------------------------------------------
+	function nomeParaBytes($val){
+
+		$val  = trim($val);
+		$last = strtolower($val[strlen($val)-1]);
+		$val  = substr($val, 0, -1); // necessary since PHP 7.1; otherwise optional
+		switch($last) {
+			// The 'G' modifier is available since PHP 5.1.0
+			case 'g':
+				$val *= 1024;
+			case 'm':
+				$val *= 1024;
+			case 'k':
+				$val *= 1024;
+		}
+		return $val;
+	}
+//---------------------------------------------------------------------------------------------------------------------
 	function InteiroParaTestoDeMoeda($Valor=0){
     $Valor=(int)$Valor;
 	  if(strlen($Valor)==1){
