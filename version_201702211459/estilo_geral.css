@@ -437,16 +437,17 @@ nav{
 	/*margin:25px;/**/
 }
 
-.frmLicense{
+.frmAbout { /*.frmLicense**/
 	width:100%; 
 }
-.frmLicense td{
-	background-color:#fff;
+
+.frmAbout td{
+	background-color:rgba(128,128,128,0.1);;
 	margin:0px; padding:5px;
 	border:1px solid; 
 }
 
-.frmLicense .cabecalho{
+.frmAbout .cabecalho{
 	background: linear-gradient(to top, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
 	
 	color:#000;

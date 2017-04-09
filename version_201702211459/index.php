@@ -151,7 +151,7 @@ if(Propriedade("video")!=""){
 		<br/><br/><!-- é necessário um espaço entre o session e o footer-->
 		
 		<footer>
-			<a href="?sub=license" rel="jslicense">Licença</a> | <!--a href="?sub=soucecode" >Código Fonte</a--> | 
+			<a href="?sub=about" rel="jslicense">Sobre</a> | 
 			<?php if(!isLoged()){ ?>
 				<a href="?sub=log" >Entrar</a>
 			<?php }else{ ?>
