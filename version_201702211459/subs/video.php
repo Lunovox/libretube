@@ -497,26 +497,75 @@
 								document.getElementById('divTinyMCE').style.display = 'inline';
 								tinyMCE.activeEditor.focus();
 							}
-							function doWCancelMessage(){
+							function doCancelMessage(){
 								if(tinyMCE.activeEditor.getContent()!=""){
 									if(!confirm("Deseja realmente descartar esta mensagem?")){return;}
 								}
 								document.getElementById('divTinyMCE').style.display = 'none';
 								tinyMCE.activeEditor.setContent("");
 							}
-							function getTxtcomentador(){
+							function getTxtComentador(){
 								//Essa função é para deixar o comentário com o formato mais enxuto possivel
-								return tinyMCE.activeEditor.getContent()
-								.replace(/\r\n/g, '') // retira "\n\r"
-								.replace(/\n/g, '') // retira "\n"
+								var $Comment = tinyMCE.activeEditor.getContent();
+								$Comment = $Comment.replace(/\r\n/g, ''); // retira "\n\r"
+								$Comment = $Comment.replace(/\n/g, ''); // retira "\n"
+								$Comment = $Comment.replace("'", '"'); // retira "\n"
+								//alert($Comment);
+								return $Comment;
 							}
-							
+							function sendComment($UserID, $video, $Token, $Comment) {
+								if($video!=null && $video>=0){
+									if($Comment!=null && $Comment!=""){
+										var xhttp = new XMLHttpRequest();
+										xhttp.onreadystatechange = function() {
+											if (xhttp.readyState == 4 && xhttp.status == 200) {
+												console.log(xhttp.responseText);
+												//alert(xhttp.responseText);
+
+												var newPost = "";
+												
+												newPost += "<div class='PostComment'>"
+												+"<username><?=getLogedUsername();?></username><br>"
+												+"<img size='16x16' src='imgs/icons/sbl_relogio.gif'> "
+												+"<timeformat>"+((new Date()).toLocaleFormat('%A, %d de %B de %Y as %H:%H:%S'))+"</timeformat>"
+												+"<br><br><code>"+$Comment+"</code>"
+												+"</div><br>";
+												
+												divComments = document.getElementById("divComments");
+												divTinyMCE = document.getElementById("divTinyMCE");
+												
+												divComments.innerHTML = newPost + divComments.innerHTML;
+												divTinyMCE.style.display = 'none';
+												tinyMCE.activeEditor.setContent("");
+												divComments.focus();
+											}
+										};
+		
+										xhttp.open("POST", "comment_add.php", true);
+										$params="u="+$UserID+"&t="+$Token+"&v="+$video+"&c="+encodeURIComponent($Comment);
+										//alert($params);
+										
+										xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+										//xhttp.setRequestHeader("Content-length", $params.length);
+										//xhttp.setRequestHeader("Connection", "close");
+										xhttp.send($params);
+									}else{
+										/*FIM de if($Comment!=null && $Comment!="")*/
+									}
+								}else{
+									/*FIM de if($video!=null && $video>=0)*/
+								}
+							} 
 						</script>
+						
 						<txtcomentador name="txtcomentador"></txtcomentador>
 						<br/>
 						<div align="right">
-							<input type="button" value="Postar" onclick="alert('Comentário=['+getTxtcomentador()+']');"/>
-							<input type="button" value="Cancelar" onclick="doWCancelMessage();"/>
+							<!--input type="button" value="Postar" onclick="alert('Comentário=['+getTxtComentador()+']');"/-->
+							<input type="button" value="Postar" 
+								onclick="sendComment('<?=getLogedUserID();?>', '<?=$Video[0]['ID'];?>', '<?=getLogedAuth();?>', getTxtComentador());"
+							/>
+							<input type="button" value="Cancelar" onclick="doCancelMessage();"/>
 						</div>
 					</div> <!-- Fim de divTinyMCE -->
 					<br/>
@@ -536,13 +585,13 @@
 										$NameUsers[$UserID] = $Users[0]['Username'];
 									}
 								}?>
-								<div class="PostComment">
+								<div class="PostComment" id="PostComment_<?=$CommentID;?>">
 									<username>
 										<?=$NameUsers[$UserID];?>
 									</username><br/>
 									<img size="16x16" src="imgs/icons/sbl_relogio.gif" /> 
 									<timeformat><?=strftime('%A, %d de %B de %Y as %H:%H:%S', strtotime($Quando	));?></timeformat>
-									<?php if(isLoged()){ ?>
+									<?php if(isLoged() && $UserID!=getLogedUserID()){ ?>
 										<a href="?sub=pvmessage_send&to==<?=$UserID;?>">
 											<img 
 												size="16x16" src="imgs/icons/sbl_carta.png"
@@ -560,7 +609,7 @@
 									<?php } ?>
 									<br/><br/>
 									<code><?=$Comment;?></code>
-								</div>
+								</div><br/>
 								<?php
 								//print_r($Comments[$C]);
 							}

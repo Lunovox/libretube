@@ -115,7 +115,7 @@ if(Propriedade("video")!=""){
 			for the JavaScript code in this page.
 			*/
 		</script>
-		<script language="JavaScript" src="libs/libDebug.js"></script>
+		<script language="JavaScript" src_="libs/libDebug.js"></script>
 		<script language="JavaScript" src="libs/functions.js"></script>
 		<script language="JavaScript" src="libs/libSearch.js"></script>
 	</head>

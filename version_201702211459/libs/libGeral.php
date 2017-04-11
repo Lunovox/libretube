@@ -52,6 +52,15 @@
 			return count($Users);
 		}
 	}
+	function getAuth($Email, $Pass, $Type){
+		if(
+			$Email!=null && $Email!="" 
+			&& $Type!=null && $Type!="" 
+			&& $Pass!=null && $Pass!="" 
+		){
+			return md5("auth:".$Email.":".$Pass.":".$Type.":".date("yyyy-mm-dd"));
+		}
+	}
 	function setLogin($Email="", $Senha=""){
 		$LunoMySQL = new LunoMySQL;
 		if($LunoMySQL->ifAllOk()){
@@ -60,10 +69,13 @@
 				if(count($Users)>=1){
 					$_SESSION["log-email"] = $Email;
 					$_SESSION["log-user-id"] = $Users[0]['ID'];
+					$_SESSION["log-user-name"] = $Users[0]['Username'];
 					$_SESSION["log-type"] = $Users[0]['NivelDeAcesso'];
-					$_SESSION["log-pass"] = md5($Senha);
+					$_SESSION["log-pass"] = md5($Users[0]['Senha']);
+					//$_SESSION["log-pass"] = md5($Senha);
 					//$_SESSION["log-auth"] = md5("auth:".$_SESSION["log-email"].$_SESSION["log-pass"].$_SESSION["log-type"].date("yyyy-mm-dd"));
-					$_SESSION["log-auth"] = md5("auth:".$_SESSION["log-email"].":".$_SESSION["log-pass"].":".$_SESSION["log-type"].":".date("yyyy-mm-dd"));
+					//$_SESSION["log-auth"] = md5("auth:".$_SESSION["log-email"].":".$_SESSION["log-pass"].":".$_SESSION["log-type"].":".date("yyyy-mm-dd"));
+					$_SESSION["log-auth"]=getAuth($_SESSION["log-email"], $_SESSION["log-pass"], $_SESSION["log-type"]);
  
  					$Comando="UPDATE ".$LunoMySQL->getConectedPrefix()."users SET LastLogin = NOW()	WHERE Email='$Email'";
 					//SQL_Consulta($Comando);
@@ -78,15 +90,18 @@
 	function setLogout(){
 		unset($_SESSION["log-email"]);
 		unset($_SESSION["log-user-id"]);
+		unset($_SESSION["log-user-name"]);
 		unset($_SESSION["log-type"]);
 		unset($_SESSION["log-pass"]);
 		unset($_SESSION["log-auth"]);
 	}
 	function isLoged(){
-		return (
-			isset($_SESSION["log-email"]) && isset($_SESSION["log-type"]) && isset($_SESSION["log-pass"]) && isset($_SESSION["log-auth"]) &&  
-			$_SESSION["log-auth"]==md5("auth:".$_SESSION["log-email"].":".$_SESSION["log-pass"].":".$_SESSION["log-type"].":".date("yyyy-mm-dd"))
-		);
+		if(isset($_SESSION["log-email"]) && isset($_SESSION["log-type"]) && isset($_SESSION["log-pass"]) && isset($_SESSION["log-auth"])){
+			$Auth = getAuth($_SESSION["log-email"], $_SESSION["log-pass"], $_SESSION["log-type"]);
+			//return $_SESSION["log-auth"]==md5("auth:".$_SESSION["log-email"].":".$_SESSION["log-pass"].":".$_SESSION["log-type"].":".date("yyyy-mm-dd"))
+			return $_SESSION["log-auth"]==$Auth;
+		}
+		return false;
 	}
 	function getLogedType(){
 		if(isLoged()){
@@ -100,9 +115,21 @@
 		}
 		return "";
 	}
+	function getLogedUsername(){
+		if(isLoged()){
+			return $_SESSION["log-user-name"];
+		}
+		return "";
+	}
 	function getLogedUserID(){
 		if(isLoged()){
 			return $_SESSION["log-user-id"];
+		}
+		return "";
+	}
+	function getLogedAuth(){
+		if(isLoged()){
+			return $_SESSION["log-auth"];
 		}
 		return "";
 	}
