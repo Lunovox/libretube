@@ -402,6 +402,7 @@
 						/**/
 					?>
 					<?php if($Conteudo!=""){ ?>
+						<br/>
 						<details>
 							<summary style="cursor:pointer; color:green;"><b>Descrição do vídeo...</b></summary>
 							<div><?php
@@ -454,9 +455,19 @@
 						<?php } ?> 
 	
 						<button 
-							<?php if(!isLoged()){ ?>disabled<?php } ?>
+							<?php /*if(!isLoged()){ ?>disabled<?php }/**/ ?>
 							title="Escreva um comentário" 
-							onclick="doWriteMessage();"
+							onclick='<?php 
+								if(isLoged()){ 
+									echo "doWriteMessage();"; 
+								}else{ 
+									echo "if(".
+										"confirm(\"Para comentar você precisa se identificar. \\nDeseja entrar com sua identificação?\")"
+									."){"
+										."window.location=\"?sub=log&redirect=".urlencode("sub=video&id=$ID")."\";"
+									."}";
+								}
+							?>'
 						>
 							<img 
 								src="imgs/icons/sbl_comentario.gif" 

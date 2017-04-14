@@ -221,7 +221,7 @@
 							poster="<?php echo $Videos[$V]['urlPoster']; ?>" 
 						><source src="<?=$Videos[$V]['urlVideo'];?>" type="video/ogg"></video>
 						-->
-						<img style="width:260px; height:168px" src="<?=$Videos[$V]['urlPoster'];?>"/>
+						<img type="poster" style="width:260px; height:168px" src="<?=$Videos[$V]['urlPoster'];?>"/>
 						<uppercase>
 							<b><?php echo $Videos[$V]['Title'];/**/ /*utf8_encode($Videos[$V]['Title']); /**/ ?></b>
 						</uppercase>

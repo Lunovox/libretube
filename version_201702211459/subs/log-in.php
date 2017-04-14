@@ -13,7 +13,7 @@
 	}else{
 		echo "window.location='?sub=log"
 		."&LogEmail=".$LogEmail
-		.($Redirect!=""?("&redirect=".$Redirect):"")
+		.($Redirect!=""?("&redirect=".urlencode($Redirect)):"")
 		."&aviso=".urlencode("Email ou Senha inválidos!")."';";
 		//setLogout();
 	}
