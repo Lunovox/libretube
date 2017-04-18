@@ -1,19 +1,6 @@
 <nav>
 	<ul class="menu" align="middle">
-		<spam id="mnuAssistir">
-			<li>
-				<a href="?sub=home" title="Vitrine"><img 
-					style="margin-top:-5px; margin-left:-10px;" 
-					hspace="0" src="imgs/icons/sbl_libretube.png"
-				/></a>
-				<?php if(getLogedType()=="owner" || getLogedType()=="moderator"){ ?>
-					<ul>
-						<li><a href="?sub=video_add" 
-							title="Adiciona novo vídeo ao Opentube."
-						>SUBIR VÍDEO</a></li>
-					</ul>
-				<?php } ?>
-			</li>
+		<spam id="mnuAssistir" <?=(Propriedade('q')!=""?"style='display:none;'":"");?>>
 			
 			<?php
 				$Playlists=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."playlist_head", "timePublish IS NOT NULL",  "timePublish DESC, timeUpdate DESC", null, 0, 10);
@@ -40,35 +27,42 @@
 			?>
 			
 			<li> 
-				<a>Assistir</a>
+				<img 
+					hspace="0" src="imgs/icons/sbl_libretube.png"
+				/>
 				<ul>
-					<li><a href="?sub=video_list&order=recents" 
+
+					<a href="?sub=video_list&order=recents" 
 						title="Vídeos lançados recentemente em ordem descrescente de lançamentos."
-					>Recentes</a></li>
-					<li><a href="?sub=video_list&order=mostviews"
+					><li>Recentes</li></a>
+					
+					<a href="?sub=video_list&order=mostviews"
 						title="Vídeos mais assistidos pela comunidade em ordem descrescente de visualização."
-					>Mais Vistos</a></li>
+					><li>Mais Vistos</li></a>
 					<?php 
-					/*
-					if(isLoged()){ ?>
-						<li><a href="?sub=video_list&order=favorites"
-							title="Vídeos que você marcou como 'gostei' em ordem descrescente de data de apreciação."
-						>Aprecisados</a></li><?php 
-					} 
-					/**/
 					if(getLogedType()=="owner" || getLogedType()=="moderator"){ ?>
-						<li><a href="?sub=video_list&order=privates"
+						<a href="?sub=video_list&order=privates"
 							title="Vídeos que você ainda não publicou para o mundo."
-						>Privados</a></li><?php 
+						><li>Privados</li></a><?php 
+					}
+					
+					if(getLogedType()=="owner" || getLogedType()=="moderator"){ ?>
+						<a href="?sub=video_add" 
+							title="Adiciona novo vídeo ao Opentube."
+						><li>SUBIR VÍDEO</li></a><?php 
 					} ?>
+
 				</ul>
 			</li>
-			<li style="display:block;">
-				<a onclick="doToggleBuscador();" title="Buscar"><img 
-					style="margin-top:-5px; margin-left:-10px;" 
-					hspace="0" src="imgs/icons/sbl_lupa.gif"
-				/></a>
-			</li>
+			
+			<a onclick="doToggleBuscador();" title="Buscar">
+				<li style="display:block;">
+					<img 
+						 
+						hspace="0" src="imgs/icons/sbl_lupa.gif"
+					/>
+				</li>
+			</a>
 			
 			<?php
 				/*if(isLoged()){ ?>
@@ -84,30 +78,35 @@
 			?>
 		
 			<?php if(!isLoged()){ ?>
-				<li><a id="btnLog" href="?sub=log" title="Entrar ou Registrar sua Conta"><img 
-					style="margin-top:-5px; margin-left:-10px;" 
+				<a id="btnLog" href="?sub=log" title="Entrar ou Registrar sua Conta"><li><img 
+					 
 					hspace="0" src="imgs/icons/sbl_cadeado.png"
-				/></a></li>
+				/></li></a>
 			<?php }else{ ?>
-				<li>
-					<a id="btnLog" href="?sub=log-out" title="Sair da sua Conta"><img 
-					style="margin-top:-5px; margin-left:-10px;" 
+				<a id="btnLog" href="?sub=log-out" title="Sair da sua Conta"><li><img 
+					 
 					hspace="0" src="imgs/icons/sbl_door.png"
-				/></a>
-				</li>
+				/></li></a>
 			<?php } /**/ ?>
 		</spam>
 
-		<spam id="mnuBuscador">
-			<li>
-				<form autocomplete="on">
-					<input name="sub" type="hidden" value="video_list"/>
-					<input name="order" type="hidden" value="search"/>
-					Buscar <input id="txtQuery" name="q" type="text"/>
-					<button type="submit" formaction="index.php">Ok</button>
-					<button onclick="doToggleBuscador(); return false;">CANCELAR</button>
-				</form>
-			</li>
-		</spam>
+		<li id="mnuBuscador" <?=(Propriedade('q')!=""?"style='display:block;'":"");?>>
+			<form id="frmBuscador" autocomplete="on" formaction="index.php">
+				<input name="sub" type="hidden" value="video_list"/>
+				<input name="order" type="hidden" value="search"/>
+				<input 
+					id="txtQuery" name="q" type="text" 
+					placeholder="Buscar:" value="<?=Propriedade('q');?>"
+				/>
+				<img size="16x16" style="cursor:pointer; margin-left:5px;"
+					src="imgs/icons/sbl_lupa.gif" 
+					onclick="document.forms['frmBuscador'].submit();"
+				/>
+				<img size="16x16" style="cursor:pointer; margin-left:0px;"
+					src="imgs/icons/sbl_negar.gif" 
+					onclick="doToggleBuscador(); return false;"
+				/>
+			</form>
+		</li>
 	</ul>
 </nav>

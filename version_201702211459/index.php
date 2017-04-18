@@ -123,7 +123,8 @@ if(Propriedade("video")!=""){
 
 		<header>
 			<!--a href="?sub=home"-->
-				<img src="<?=$imgLogotipo;?>" style="margin:10px"/>
+				<img src="<?=$imgLogotipo;?>" style="margin:10px; cursor:pointer;" 
+				onclick="window.location='./';"/>
 			<!--/a-->
 		</header>
 		

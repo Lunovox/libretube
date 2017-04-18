@@ -92,6 +92,7 @@
 			<img src="imgs/icons/sbl_file_rss.gif"
 				style="cursor:pointer;" align="absmiddle"
 				title="Assine o 'Feed RSS' a lista de vídeos deste canal!"
+				type="button"
 				onclick="openPopupCenter('https://www.subtome.com/#/subscribe?feeds=<?=rawurlencode(getAtomLink('xml',$order));?>','_blank', 500, 370);"
 			/>  
 			<?php
@@ -110,18 +111,21 @@
 				)."&markdown=true&jump=doclose"; ?>
 				<img src="imgs/icons/sbl_share_diaspora.png"
 					style="cursor:pointer;" align="absmiddle"
+					type="button"
 					title="Compartilhe em sua Rede Social Diáspora a lista de vídeos mais vistos deste canal!"
 					onclick="openPopupCenter('<?=$LinkDispora;?>','_blank', 880, 600);"
 				/>
 			
 				<img src="imgs/icons/sbl_share_twitter.png"
 					style="cursor:pointer;" align="absmiddle"
+					type="button"
 					title="Compartilhe em seu Twitter a lista de vídeos mais vistos deste canal!"
 					onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($urlShare);?>','_blank', 720, 450);"
 				/>
 
 				<img src="imgs/icons/sbl_share_facebook.png"
 					style="cursor:pointer;" align="absmiddle"
+					type="button"
 					title="Compartilhe em seu Facebook a lista de vídeos mais vistos deste canal!"
 					onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($urlShare);?>','_blank', 360, 300);"
 				/>
@@ -253,7 +257,7 @@
 							?>
 							<?php if($Videos[$V]['Description']!=""){ ?>
 							<img 
-								size='16x16' src='imgs/icons/sbl_lupa.gif' 
+								size='16x16' type="button" src='imgs/icons/sbl_lupa.gif' 
 								title="Exibir descrição de vídeo!"
 								onclick="showBack('divFront<?=$Videos[$V]['ID'];?>', 'divBack<?=$Videos[$V]['ID'];?>');"
 							/>
@@ -284,19 +288,19 @@
 					<hr/>
 					<center>
 						<img src="imgs/icons/sbl_share_diaspora.png"
-							style="cursor:pointer;" align="absmiddle"
+							style="cursor:pointer;" align="absmiddle" type="button"
 							title="Compartilhe em sua Rede Social Diáspora a lista de vídeos mais vistos deste canal!"
 							onclick="openPopupCenter('<?=$myLinks->getDiasporaLink();?>','_blank', 880, 600);"
 						/>
 
 						<img src="imgs/icons/sbl_share_twitter.png"
-							style="cursor:pointer;" align="absmiddle"
+							style="cursor:pointer;" align="absmiddle" type="button"
 							title="Compartilhe em seu Twitter a lista de vídeos mais vistos deste canal!"
 							onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 720, 450);"
 						/>
 
 						<img src="imgs/icons/sbl_share_facebook.png"
-							style="cursor:pointer;" align="absmiddle"
+							style="cursor:pointer;" align="absmiddle" type="button"
 							title="Compartilhe em seu Facebook a lista de vídeos mais vistos deste canal!"
 							onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 360, 300);"
 						/>

@@ -167,23 +167,23 @@
 							<?php if($Video[0]['timePublish']!=''){ ?>
 							<img 
 								src="imgs/icons/sbl_share.png" size="16x16" 
-								title="Compartilhe este Vídeo!"
+								title="Compartilhe este Vídeo!" type="button"
 								onclick="doShowFormVideo('divVideoShare');"
 							/>
 							<?php } ?>
 							<img 
 								src="imgs/icons/sbl_file_rss.gif" size="16x16" 
-								title="Assine o Canal!"
+								title="Assine o Canal!" type="button"
 								onclick="doShowFormVideo('divFeedReader');"
 							/>
 							<img 
 								src="imgs/icons/sbl_catraca.png" 
-								title="Configurações de Vídeo"
+								title="Configurações de Vídeo" type="button"
 								onclick="doShowFormVideo('divVideoTypePlay');"
 							/>
 							<img 
 								src="imgs/icons/sbl_informacao.gif" 
-								title="Informações sobre este Vídeo"
+								title="Informações sobre este Vídeo" type="button"
 								onclick="doShowFormVideo('divVideoInformation');"
 							/>
 							<br/><br/>
@@ -197,15 +197,15 @@
 
 								<img size="16x16"
 									title="Compartilhe este vídeo em sua Rede Social Diáspora!"
-									src="imgs/icons/sbl_share_diaspora.png"
+									src="imgs/icons/sbl_share_diaspora.png" type="button"
 									onclick="openPopupCenter('<?=$myLinks->getDiasporaLink();?>','_blank', 880, 600);"
 								/><img size="16x16"
 									title="Compartilhe este vídeo em seu Twitter!"
-									src="imgs/icons/sbl_share_twitter.png"
+									src="imgs/icons/sbl_share_twitter.png" type="button"
 									onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 720, 450);"
 								/><img size="16x16"
 									title="Compartilhe este vídeo em seu Facebook!"
-									src="imgs/icons/sbl_share_facebook.png"
+									src="imgs/icons/sbl_share_facebook.png" type="button"
 									onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 360, 300);"
 							/></div>
 							<div id="divFeedReader">
@@ -213,22 +213,22 @@
 									<img src="imgs/icons/sbl_file_rss.gif" size="16x16"/>
 									ASSINE E RECEBA NOTÍCIAS DESTE CANAL
 								</h2>
-								<img src="imgs/selos/sbl_add2feedreader_nextcloud.png"
+								<img src="imgs/selos/sbl_add2feedreader_nextcloud.png" type="button"
 									title="Assine e Receba notícias periódicas deste canal no NextCloud do Disroot!"
 									onclick="window.open('https://cloud.disroot.org/apps/news/?subscribe_to=<?=rawurlencode(getAtomLink('xml'));?>');"
 								/>
-								<img src="imgs/selos/sbl_add2feedreader_theoldreader.png"
+								<img src="imgs/selos/sbl_add2feedreader_theoldreader.png" type="button"
 									title="Assine e Receba notícias periódicas deste canal no TheOldReader!"
 									onclick="window.open('http://theoldreader.com/feeds/subscribe?url=<?=rawurlencode(getAtomLink('xml'));?>');"
 								/>
-								<img src="imgs/selos/sbl_add2feedreader_anybrowser.png" 
+								<img src="imgs/selos/sbl_add2feedreader_anybrowser.png"  type="button"
 									title="Assine e Receba notícias periódicas deste canal em diversos outros agregadores!"
 									onclick="openPopupCenter('https://www.subtome.com/#/subscribe?feeds=<?=rawurlencode(getAtomLink('xml'));?>','_blank', 500, 370);"
 								/><br/>
 
 								<code><?=getAtomLink('xml');?></code><br/>
 
-								<img src="imgs/selos/sbl_feed_atom.png"
+								<img src="imgs/selos/sbl_feed_atom.png" type="button"
 									title="Assine e Receba notícias periódicas deste canal no seu Navegador!"
 									onclick="window.open('<?=getAtomLink('xml');?>');"
 								/>
@@ -342,31 +342,6 @@
 								></menuitem><?php 
 							} ?>
 						</menu>
-						
-						<?php 
-							/*
-							if($Video[0]['timePublish']!=''){?>
-								<br/>
-								<img src="imgs/icons/sbl_share_diaspora.png"
-									style="cursor:pointer;" align="absmiddle"
-									title="Compartilhe em sua Rede Social Diáspora a lista de vídeos mais vistos deste canal!"
-									onclick="openPopupCenter('<?=$myLinks->getDiasporaLink();?>','_blank', 880, 600);"
-								/>
-
-								<img src="imgs/icons/sbl_share_twitter.png"
-									style="cursor:pointer;" align="absmiddle"
-									title="Compartilhe em seu Twitter a lista de vídeos mais vistos deste canal!"
-									onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 720, 450);"
-								/>
-
-								<img src="imgs/icons/sbl_share_facebook.png"
-									style="cursor:pointer;" align="absmiddle"
-									title="Compartilhe em seu Facebook a lista de vídeos mais vistos deste canal!"
-									onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 360, 300);"
-								/><?php 
-							} 
-							/**/
-						?>
 	 				</center>
 
 					<script> document.getElementsByTagName("title")[0].innerHTML = "<?="Assistindo '" . $Video[0]['Title'] ."' - " . $txtChannelTitle; ?>"; </script>
@@ -605,7 +580,7 @@
 									<?php if(isLoged() && $UserID!=getLogedUserID()){ ?>
 										<a href="?sub=pvmessage_send&to==<?=$UserID;?>">
 											<img 
-												size="16x16" src="imgs/icons/sbl_carta.png"
+												size="16x16" src="imgs/icons/sbl_carta.png" type="button"
 												title="Envia uma emnsagem privada para <?=$NameUsers[$UserID];?>!"
 											/>
 										</a>
@@ -613,7 +588,7 @@
 									<?php if($UserID==getLogedUserID() || getLogedType()=="owner" || getLogedType()=="moderator"){ ?>
 										<a href="?sub=comment_delete&id==<?=$CommentID;?>">
 											<img 
-												size="16x16" src="imgs/icons/sbl_negar.gif"
+												size="16x16" src="imgs/icons/sbl_negar.gif" type="button"
 												title="Apage este comentário!"
 											/>
 										</a>
