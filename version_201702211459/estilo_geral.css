@@ -333,6 +333,7 @@ nav{
 	height:35px;/**/
 
 
+
 	background: linear-gradient(to bottom, #E0E0E0, #F9F9F9 70%);
 	border: 1px solid #CCCCCE;
 	border-radius: 3px;
@@ -438,22 +439,30 @@ nav{
 
 }
 
+.menu li ul a li img{
+	/*margin-top:-5px; margin-left:-10px;/**/
+	vertical-align:middle;
+	padding: 5px 5px 0px 5px;/**/
+	height: 18px;
+}
+
+
 .frmAbout { /*.frmLicense**/
 	width:100%; 
 }
 
 .frmAbout td{
-	background-color:rgba(128,128,128,0.1);;
+	background-color:rgba(128,128,128,0.1);
 	margin:0px; padding:5px;
 	border:1px solid; 
 }
 
 .frmAbout .cabecalho{
-	background: linear-gradient(to top, #3FA952, #FFF 40%, #FFF 60%, #3FA952);
-	
-	color:#000;
+	background: linear-gradient(to top, #3FA952, #008800 40%, #008800 60%, #3FA952);/**/
+	color:#FFF;
+	font-weight: bold;
 	margin:0px; padding:5px;
-	border:1px solid; 
+	border:1px solid #000; 
 }
 
 img[rotate="180"]{

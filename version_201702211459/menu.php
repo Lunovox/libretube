@@ -46,15 +46,11 @@
 						><li>Privados</li></a><?php 
 					}
 					
-					if(getLogedType()=="owner" || getLogedType()=="moderator"){ ?>
-						<a href="?sub=video_add" 
-							title="Adiciona novo vídeo ao Opentube."
-						><li>SUBIR VÍDEO</li></a><?php 
-					} ?>
+					?>
 
 				</ul>
 			</li>
-			
+
 			<a onclick="doToggleBuscador();" title="Buscar">
 				<li style="display:block;">
 					<img 
@@ -76,6 +72,32 @@
 				</li>
 				<?php }/**/ 
 			?>
+
+			<?php if(getLogedType()=="owner" || getLogedType()=="moderator"){ ?>
+			<li> 
+				<img 
+					hspace="0" src="imgs/icons/sbl_catraca.png"
+				/>
+				<ul>
+					<a href="?sub=video_add" 
+						title="Adiciona novo vídeo ao Opentube."
+					><li>
+						<img hspace="0" align="absmidle" src="imgs/icons/sbl_file_upload.gif"	/>
+						SUBIR VÍDEO
+					</li></a>
+					
+					<?php if(getLogedType()=="owner"){ ?>
+						<a href="?sub=users_list" 
+							title="Lista todos os usuários."
+						><li>
+							<img hspace="0" align="absmidle" src="imgs/icons/sbl_pessoa.gif"	/>
+							INSCRITOS
+						</li></a>
+					<?php } ?>
+				</ul>
+			</li>
+			<?php } ?>
+
 		
 			<?php if(!isLoged()){ ?>
 				<a id="btnLog" href="?sub=log" title="Entrar ou Registrar sua Conta"><li><img 
