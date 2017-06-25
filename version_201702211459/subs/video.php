@@ -60,12 +60,10 @@
 	 						oncontextmenu_="return false;"
 	 					>
 							<source src='<?=$myLinks->getVídeoLink();?>' type="<?=$myLinks->getVídeoMimetype();?>">
-							<?php if($myLinks->getVídeoLink()!=""){
-								/*
-								<track src="<?=$Video[0]['urlSubtitle'];?>" kind="subtitles" srclang="pt" label="Português" default />	
-								/**/
-							?>
-							<track src="<?=$myLinks->getSubtitleLink();?>" kind="subtitles" default />
+							<?php 
+							/*<track src="<?=$Video[0]['urlSubtitle'];?>" kind="subtitles" srclang="pt" label="Português" default />	/**/
+							if($myLinks->getVídeoLink()!=""){ ?>
+								<track src="<?=$myLinks->getSubtitleLink();?>#.vtt" kind="subtitles" label="Português" srclang="pt" default />
 							<?php } ?>
 							Infelizmente seu navegador não suporta a tag "VIDEO".
 						</video> 
