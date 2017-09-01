@@ -69,6 +69,26 @@
 						</video> 
 
 	 					<script>
+	 						function onLoadTypePlay(){
+ 								var chkTypePlays = document.getElementsByName('chkTypePlay');
+	 							if(localStorage.length>=1){
+	 								//myKey = localStorage.key(i);
+									//myValue = localStorage.getItem(myKey);
+	 								chkTypePlays[localStorage.getItem("chkTypePlay")].checked = true;
+	 							}else{
+	 								 //0 = Repeat; 1 = Foward; 2 = Stop (exibe sugestões)
+	 								chkTypePlays[0].checked = true;
+	 							}
+	 						}
+	 						function onChangeTypePlay(){
+	 							var chkTypePlays = document.getElementsByName('chkTypePlay');
+	 							for (var i = 0; i < chkTypePlays.length; i++) {
+	 								if(chkTypePlays[i].checked){
+	 									localStorage.setItem("chkTypePlay", i);
+	 									break;
+	 								}
+	 							}
+	 						}
 							function doHideAllFormsVideo(){
 								var divVideoControl = document.getElementById('divVideoControl');
 								var divVideoShare = document.getElementById('divVideoShare');
@@ -151,6 +171,8 @@
 								document.getElementById('VideoPlayer').addEventListener('pause',function(){
 									document.getElementById('divVideoControl').style.display = "block";
 								},false);
+								
+								onLoadTypePlay();
 							},false);
 						</script>
 	 					
@@ -236,13 +258,13 @@
 									<img src="imgs/icons/sbl_catraca.png" />
 									QUANDO FINALIZAR ESTE VÍDEO
 								</h2><br/>
-								<input id="chkVideoRepeat" type="radio" name="chkTypePlay" value="repeat" checked/> 
+								<input id="chkVideoRepeat" type="radio" name="chkTypePlay" value="repeat" onclick="onChangeTypePlay()"/> 
 								<label for="chkVideoRepeat">Repetir</label> 
 								
-								<input id="chkVideoForward" type="radio" name="chkTypePlay" value="forward"/> 
+								<input id="chkVideoForward" type="radio" name="chkTypePlay" value="forward" onclick="onChangeTypePlay()"/> 
 								<label for="chkVideoForward">Progredir</label> 
 								
-								<input id="chkVideoStop" type="radio" name="chkTypePlay" value="stop"/> 
+								<input id="chkVideoStop" type="radio" name="chkTypePlay" value="stop" onclick="onChangeTypePlay()"/> 
 								<label for="chkVideoStop">Parar</label>
 							</div>
 							<div id="divVideoInformation">
