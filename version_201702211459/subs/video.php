@@ -91,12 +91,16 @@
 	 						}
 							function doHideAllFormsVideo(){
 								var divVideoControl = document.getElementById('divVideoControl');
+								var divVideoControl = document.getElementById('divVideoControl');
 								var divVideoShare = document.getElementById('divVideoShare');
 								var divFeedReader = document.getElementById('divFeedReader');
 								var divVideoTypePlay = document.getElementById('divVideoTypePlay');
 								var divVideoInformation = document.getElementById('divVideoInformation');
 								
-								divVideoControl.style.display = "none";
+								//alert(screen.width);
+								if(screen.width>760){ /* se ate la for de celulat ele nao esconde a principal /**/
+									divVideoControl.style.display = "none";
+								}
 								divVideoShare.style.display = "none";
 								divFeedReader.style.display = "none";
 								divVideoTypePlay.style.display = "none";
@@ -178,7 +182,7 @@
 	 					
 						<div id="divVideoControl">
 							<div id="divVideoTitle" 
-								title="<?=$myLinks->getRedirectShortLink();?>"
+								title="<?=$Video[0]['Title']; /*$myLinks->getRedirectShortLink();/**/ ?>"
 								onclick="window.open('<?=$myLinks->getRedirectShortLink();?>');"
 							>
 								<big><b><?php echo $Video[0]['Title']; ?></b></big>
@@ -364,8 +368,10 @@
 						</menu>
 	 				</center>
 
-					<script> document.getElementsByTagName("title")[0].innerHTML = "<?="Assistindo '" . $Video[0]['Title'] ."' - " . $txtChannelTitle; ?>"; </script>
- 					<h2><?php echo $Video[0]['Title']; ?></h2>
+					<script> 
+						document.getElementsByTagName("title")[0].innerHTML = "<?="Assistindo '" . $Video[0]['Title'] ."' - " . $txtChannelTitle; ?>"; 
+					</script>
+ 					<h2 class="fixTitle"><?php echo $Video[0]['Title']; ?></h2>
 
 
 					<?php 
