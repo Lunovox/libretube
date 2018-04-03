@@ -1,3 +1,5 @@
+[![](https://raw.githubusercontent.com/Lunovox/libretube/master/version_201702211459/imgs/banners/banner_libretube.png)](http://libretube.tuatec.com.br)
+
 # LIBRETUBE
 via televido libera (LGPL3.0 - 2015-08-08)
 
