@@ -73,30 +73,38 @@
 				<?php }/**/ 
 			?>
 
-			<?php if(getLogedType()=="owner" || getLogedType()=="moderator"){ ?>
 			<li> 
 				<img 
 					hspace="0" src="imgs/icons/sbl_catraca.png"
 				/>
 				<ul>
-					<a href="?sub=video_add" 
-						title="Adiciona novo vídeo ao Opentube."
+					<?php if(getLogedType()=="owner" || getLogedType()=="moderator"){ ?>
+						<a href="?sub=video_add" 
+							title="Adiciona novo vídeo ao Opentube."
+						><li>
+							<img hspace="0" align="absmidle" src="imgs/icons/sbl_file_upload.gif"	/>
+							SUBIR VÍDEO
+						</li></a>
+					
+						<?php if(getLogedType()=="owner"){ ?>
+							<a href="?sub=users_list" 
+								title="Lista todos os usuários."
+							><li>
+								<img hspace="0" align="absmidle" src="imgs/icons/sbl_pessoa.gif"	/>
+								INSCRITOS
+							</li></a>
+						<?php } ?>
+					<?php } ?>
+					
+					<a href="?sub=about" rel="jslicense"
+						title="Exibe detalhes sobre o libretube."
 					><li>
-						<img hspace="0" align="absmidle" src="imgs/icons/sbl_file_upload.gif"	/>
-						SUBIR VÍDEO
+						<img hspace="0" align="absmidle" src="imgs/icons/sbl_about.png"	/>
+						SOBRE
 					</li></a>
 					
-					<?php if(getLogedType()=="owner"){ ?>
-						<a href="?sub=users_list" 
-							title="Lista todos os usuários."
-						><li>
-							<img hspace="0" align="absmidle" src="imgs/icons/sbl_pessoa.gif"	/>
-							INSCRITOS
-						</li></a>
-					<?php } ?>
 				</ul>
 			</li>
-			<?php } ?>
 
 		
 			<?php if(!isLoged()){ ?>
