@@ -65,6 +65,7 @@
 					<ul>
 						<li><a target="_blank" href="https://libreplanet.org/wiki/User:Lunovox"><b>Lunovox Heavenfinder</b></a></li>
 						<li><a target="_blank" href="https://libreplanet.org/wiki/User:Adfeno"><b>Adonay Felipe Nogueira</b></a></li>
+						<li><a target="_blank" href="https://www.youtube.com/watch?v=mUW3IqpAtH0"><b>Jeterson Lordano</b></a></li>
 					</ul>
 				</td>
 			</tr>		

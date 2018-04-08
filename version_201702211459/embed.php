@@ -1,4 +1,8 @@
 <?php
+	/**************************************************************************
+	* Código inspirado no tutorial https://www.youtube.com/watch?v=mUW3IqpAtH0
+	* de Jeterson Lordano
+	****************************************************************************/
 	ini_set('display_errors', 'On'); 
 	//error_reporting(E_ALL | E_STRICT);
 	error_reporting(E_ERROR | E_STRICT | E_WARNING | E_PARSE);
@@ -23,6 +27,30 @@
 		<link rel="stylesheet" href="libs/estilo_embed.css" type="text/css" /> 
 		<script src="libs/lib_embed.js"></script>
 		<script src="libs/functions.js"></script>
+		<script>
+			/*
+			@licstart The following is the entire license notice for the
+			JavaScript code in this page.
+
+			Copyright (C) 2015 Lunovox ( ͡° ͜ʖ ͡°)
+
+			The JavaScript code in this page is free software: you can
+			redistribute it and/or modify it under the terms of the GNU
+			General Public License (GNU GPL) as published by the Free Software
+			Foundation. The code is distributed WITHOUT ANY WARRANTY;
+			without even the implied warranty of MERCHANTABILITY or FITNESS
+			FOR A PARTICULAR PURPOSE. See the GNU GPL for more details.
+
+			As additional permission under GNU GPL version 3 section 7, you
+			may distribute non-source (e.g., minimized or compacted) forms of
+			that code without the copy of the GNU GPL normally required by
+			section 4, provided you include this license notice and a URL
+			through which recipients can access the Corresponding Source.
+
+			@licend The above is the entire license notice
+			for the JavaScript code in this page.
+			*/
+		</script>
 	</head>
 	<body oncontextmenu="return false;">
 		<div id="idVideo" class="player-video" onmousemove="prepare(this)">
