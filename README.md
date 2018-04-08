@@ -1,7 +1,7 @@
 [![](https://raw.githubusercontent.com/Lunovox/libretube/master/version_201702211459/imgs/banners/banner_libretube.png)](http://libretube.tuatec.com.br)
 
 # LIBRETUBE
-via televido libera (LGPL3.0 - 2015-08-08)
+via televido libera (GPL-3.0-or-later - 2015-08-08)
 
 O Libretube é uma **plataforma federada de publicações de vídeo** sobre servidor apache instalado no computador pessoal (como um Raspberry Pi) do usuário publicador de vídeo. Permitindo que o usuário produtor de vídeo possa seguir as regras e leis de publicação de conteúdo que acredita ser ético, sem depender da prévia permissão institucional. Igual ocorre quando alguém quer publicar um vídeo em um servidor de vídeos terceirizado como o youtube, twitter tv, facebook tv, vimeo, viki, Media Goblin e etc.
 
