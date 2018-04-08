@@ -89,7 +89,7 @@ if(Propriedade("video")!=""){
 		
 		<meta name="viewport" content="width=300"/>
 		<!-- link_ rel="stylesheet" href="estilo_mobile.css?update=<?=date('Y-m-d H:i:s');?>" media="(max-width:380px)" -->
-		<link rel="stylesheet" href="estilo_geral.css?update=<?=date('Y-m-d H:i:s');?>" media="screen"/>
+		<link rel="stylesheet" href="libs/estilo_geral.css?update=<?=date('Y-m-d H:i:s');?>" media="screen"/>
 		
 		<script>
 			/*

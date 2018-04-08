@@ -32,9 +32,9 @@
 
 	function getAtomLink($format='xml', $order='recents'){
 		if(!isset($order) || $order=="mostviews"){
-			return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", $_SERVER['SCRIPT_NAME'])."atom.php?order=$order".($format=='xml'?"":"&format=$format");
+			return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."atom.php?order=$order".($format=='xml'?"":"&format=$format");
 		}else{
-			return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", $_SERVER['SCRIPT_NAME'])."atom.php".($format=='xml'?"":"?format=$format");
+			return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."atom.php".($format=='xml'?"":"?format=$format");
 		}
 	}
 
@@ -108,11 +108,14 @@
 			if($V['videoTypeLink']=="remote"){
 				return $V['urlVideo'];
 			}elseif($V['videoTypeLink']=="local"){
-				return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", $_SERVER['SCRIPT_NAME'])."download.php?type=video&id=".$V['ID'];
+				return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."download.php?type=video&id=".$V['ID'];
 			}
 		}
 		function getRedirectShortLink(){
-			return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", $_SERVER['SCRIPT_NAME'])."?video=".$this->getID();
+			return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."?video=".$this->getID();
+		}
+		function getEmbedLink(){
+			return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."embed.php?video=".$this->getID();
 		}
 		function getVídeoBase(){
 			$V = $this->getVídeo();
@@ -144,7 +147,7 @@
 			if($V['posterTypeLink']=="remote"){
 				return $V['urlPoster'];
 			}elseif($V['posterTypeLink']=="auto" || $V['posterTypeLink']=="local"){
-				return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", $_SERVER['SCRIPT_NAME'])."download.php?type=poster&id=".$V['ID'];
+				return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."download.php?type=poster&id=".$V['ID'];
 			}
 		}
 		function getPosterBase(){
@@ -164,7 +167,7 @@
 			if($V['subtitleTypeLink']=="remote"){
 				return $V['urlSubtitle'];
 			}elseif($V['subtitleTypeLink']=="local"){
-				return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", $_SERVER['SCRIPT_NAME'])."download.php?type=subtitle&id=".$V['ID'];
+				return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."download.php?type=subtitle&id=".$V['ID'];
 			}else{ // $V['subtitleTypeLink']=="none"
 				return "";
 			}
@@ -194,6 +197,42 @@
 				." #Libretube"
 			)."&markdown=true&jump=doclose"; 
 			return $LinkDispora;
+		}
+		function getVideoTitle(){
+			$V = $this->getVídeo();
+			return $V['Title'];
+		}
+		function getVideoDescription(){
+			$V = $this->getVídeo();
+			return $V['Description'];
+		}
+		function getVideoTypeLink(){
+			$V = $this->getVídeo();
+			return $V['videoTypeLink'];
+		}
+		function getPosterTypeLink(){
+			$V = $this->getVídeo();
+			return $V['posterTypeLink'];
+		}
+		function getSubtitleTypeLink(){
+			$V = $this->getVídeo();
+			return $V['subtitleTypeLink'];
+		}
+		function getVideoViews(){
+			$V = $this->getVídeo();
+			return $V['views'];
+		}
+		function getVideoTimeRegistration(){
+			$V = $this->getVídeo();
+			return $V['timeRegistration'];
+		}
+		function getVideoTimePublish(){
+			$V = $this->getVídeo();
+			return $V['timePublish'];
+		}
+		function getVideoTimeUpdate(){
+			$V = $this->getVídeo();
+			return $V['timeUpdate'];
 		}
 	}
 
