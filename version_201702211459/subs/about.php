@@ -29,21 +29,21 @@
 			</li>
 		</ul><br/><br/>
 
-		<h2>Licença LGPLv3</h2>
+		<h2>Licença GPL-3.0-or-later</h2>
 		<p>
-			Este projeto (LibreTube) está licenciada sob <b>GNU LGPL v3</b> (GNU Lesser General Public License versão 3). Isto permite que você use, estude, adapte, redistribua (comercialmente ou não) tanto a obra original quanto as adaptações. Porém, você deve atribuir a obra todas as vezes que usá-la, indicando o detentor dos direitos autorais (a quem esta obra pertence), o nome dela, como ela foi adquirida (ou onde ela pode ser adquirida, seja um endereço, e-mail, telefone, ou qualquer outro meio em que ela possa ser transferida), além de ter a obrigação de informar a licença da obra, e um endereço ou documento com a licença completa (ou seja, contendo o código legal). Além disso, caso você faça adaptações do projeto, deve manter a mesma licença, ou uma licença completamente compatível, conforme avaliada pela Free Software Foundation.
+			Este projeto (LibreTube) está licenciada sob <b>GNU Lesser General Public License versão 3, como publicado pela Free Software Foundation, ou (à sua escolha), qualquer versão posterior</b> (GNU GPL-3.0-or-later). Isto permite que você use, estude, adapte, redistribua (comercialmente ou não) tanto a obra original quanto as adaptações. Porém, você deve atribuir a obra todas as vezes que usá-la, indicando o detentor dos direitos autorais (a quem esta obra pertence), o nome dela, como ela foi adquirida (ou onde ela pode ser adquirida, seja um endereço, e-mail, telefone, ou qualquer outro meio em que ela possa ser transferida), além de ter a obrigação de informar a licença da obra, e um endereço ou documento com a licença completa (ou seja, contendo o código legal). Além disso, caso você faça adaptações do projeto, deve manter a mesma licença, ou uma licença completamente compatível, conforme avaliada pela Free Software Foundation.
 		</p><br/>
 		<p>
 			<ul>
 				<li>
 					Para mais informações, consulte a <a target="_blank" 
-					href="http://www.gnu.org/licenses/lgpl-3.0.html"
+					href="http://www.gnu.org/licenses/gpl-3.0.html"
 					>licença completa (código legal)</a>.
 				</li>
 			</ul>
 		</p><br/>
 		<p>
-			Como uma permissão adicional sob <b>GNU LGPL</b> versão 3 seção 7, você pode distribuir códigos objetos que não são a fonte (e.g., por estarem minimizados ou compacotados) sem a cópia da <b>GNU LGPL</b> normalmente requerida pela seção 4, desde que você inclua esta notificação de licença e um URL pelo qual os recipientes/leitores possam acessar a Fonte Correspondente.
+			Como uma permissão adicional sob <b>GNU GPL</b> versão 3 seção 7, você pode distribuir códigos objetos que não são a fonte (e.g., por estarem minimizados ou compacotados) sem a cópia da <b>GNU GPL</b> normalmente requerida pela seção 4, desde que você inclua esta notificação de licença e um URL pelo qual os recipientes/leitores possam acessar a Fonte Correspondente.
 		</p><br/><br/>
 
 		<h2>IDIOMAS SUPORTADOS:</h2>
