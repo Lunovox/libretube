@@ -53,7 +53,7 @@
 		</script>
 	</head>
 	<body oncontextmenu="return false;">
-		<div id="idVideo" class="player-video" onmousemove="prepare(this)">
+		<div id="idVideo" class="player-video" onmousemove="prepare(this)" onload="prepare(this)">
 			<video 
 				class="video-view" 
 				<?=($autoplay?"autoplay":"");?> 
@@ -195,7 +195,8 @@
 				</center>
 				<br/>
 				<p align="justify">
-					<?=$myLinks->getVideoDescription();?>
+					<?=$myLinks->getVideoDescription();?><br/>
+					<br/>
 				</p>
 			</div> <!-- Fim de div video-download-->
 			
@@ -213,6 +214,8 @@
 					<b>Ctrl + Direita</b> → Avança 10 segundos. <br/>
 					<b>Ctrl + Shift + Esqueda</b> → Volta 30 segundos. <br/>
 					<b>Ctrl + Shift + Direita</b> → Avança 30 segundos. <br/>
+					<b>[ + ]</b> → Uncrementa o volume. <br/>
+					<b>[ &ndash; ]</b> → Decrementa o volume. <br/>
 					<br/>
 					
 					<b>F1</b> → Tela de Atalhos (Essa que você está vendo!). <br/>
@@ -221,6 +224,7 @@
 					<b>Ctrl + F1</b> → Informações sobre o arquivo de vídeo. <br/>
 					<b>Ctrl + F2</b> → Descrição sobre o conteudo exibido vídeo. <br/>
 					<b>Ctrl + F3</b> → Tela de Assinatura do Canal. <br/>
+					<br/>
 				</p>
 			</div> <!-- Fim de div video-help-->
 			
@@ -236,7 +240,7 @@
 					Copie e cole este código abaixo em seu site/blog para exibir este vídeo gratuitamente em seu site/blog:<br/>
 					<br/>
 					<div class="video-code">
-						&lt;iframe src=&quot;<?=$myLinks->getEmbedLink();?>&quot; style=&quot;width:720px; height:405px; border:0px; margin:0; padding:0px; overflow-y:hide;&quot; &gt;&lt;/iframe&gt;
+						&lt;iframe allowtransparency=&quot;true&quot; allowfullscreen=&quot;true&quot; src=&quot;<?=$myLinks->getEmbedLink();?>&quot; style=&quot;width:760px; height:427px; border:0px;&quot;&gt;&lt;/iframe&gt;
 					</div><br/>
 				</p>
 			</div> <!-- Fim de div video-embed-->
@@ -249,6 +253,7 @@
 				</div>
 				
 				<div class="video-play float-left video-btn"></div>
+				<div class="video-screens float-left video-btn"></div>
 				<div class="video-volume float-left video-btn"></div>
 				<div class="slider float-left">
 					<div class="slider-vol"></div>
@@ -260,7 +265,6 @@
 					<?=$autoplay?"style='display:none;' ":'';?>
 					href="<?=$myLinks->getRedirectShortLink();?>"
 				></div>
-				<div class="video-screens float-right video-btn"></div>
 				<div class="video-embed-btn float-right video-btn"></div>
 				<div class="video_share-btn float-right video-btn"></div>
 				<div class="video_feed-btn float-right video-btn"></div>

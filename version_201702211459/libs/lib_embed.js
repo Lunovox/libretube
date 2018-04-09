@@ -33,7 +33,7 @@ var intervalTimer;
 var barProgress, videoLoader, progress;
 var pctSeek;
 var slider,sliderVol, drag=false;
-var tela;
+var tela, palco;
 var timeShowControls, maxTimeToHide=3;
 var icon_playpause = [
 	"imgs/icons/sbl_embed_play.png",
@@ -93,21 +93,24 @@ function prepare(elem){
 		btnDownload.addEventListener("click", showDownload);
 		btnDescription.addEventListener("click", showDescription);
 		btnEmbed.addEventListener("click", showEmbed);
-		document.body.addEventListener("keyup", keyPress);
+		document.body.addEventListener("keyup", onKey);
+		parent.document.body.addEventListener("keyup", onKey);
 
 		intervalTimer = setInterval(updateTimer, 100);
 		
 	}
+	showControls();
+}
+function showControls(){
 	timeShowControls = view.currentTime;
 	videoControls.style.display = "block";
-	printVolume();
-
+	printVolume();	
 }
-function keyPress(event){
-	if(event.keyCode == 32){ /*BARRA DE ESPAÇO*/
+function onKey(event){
+	playerVideo.focus();
+	if(!event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 32){ /* BARRA DE ESPAÇO */
 		play();
-	}
-	if(event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 37){ /* CTRL + LEFT */
+	}else if(event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 37){ /* CTRL + LEFT */
 		var newTime = view.currentTime-10;
 		if(newTime<0){newTime=0;}
 		view.currentTime =newTime;
@@ -148,17 +151,19 @@ function keyPress(event){
 	}else if(event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 114){ /* CRTL + F3 */
 		showFeeds();
 		return false;
-	}else if(!event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 38){ /* UP */
+	}else if(!event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 107){ /* Botão de + */
 		var newVolume = view.volume+0.1;
 		if(newVolume>1){newVolume=1;}
 		view.volume =newVolume;
 		printVolume();
+		showControls();
 		return false;
-	}else if(!event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 40){ /* DOWN */
+	}else if(!event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 109){ /* Botão de - */
 		var newVolume = view.volume-0.1;
 		if(newVolume<0){newVolume=0;}
 		view.volume =newVolume;
 		printVolume();
+		showControls();
 		return false;
 	}
 	//document.title = event.keyCode;
@@ -226,39 +231,33 @@ function toLibretube(){
 	open(btnLibretube.getAttribute("href"));
 }
 function fullScreen(){
-	var palco;
-	palco = playerVideo;
-	//palco = document;
-	//palco = view;
+	var isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
+		(document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
+		(document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+		(document.msFullscreenElement && document.msFullscreenElement !== null);
+
+	//palco = document.documentElement;
 	
-	
-	//if(!palco.fullscreenElement){
-	if(!document.fullscreenElement){
-	//if(!tela){
-		if (palco.requestFullscreen) {
-			tela = palco.requestFullscreen();
-		} else if (palco.mozRequestFullScreen) {
-			tela = palco.mozRequestFullScreen();
-		} else if (palco.webkitRequestFullscreen) {
-			tela = palco.webkitRequestFullscreen();
+	if(!isInFullScreen){
+		if (playerVideo.requestFullscreen) {
+			playerVideo.requestFullscreen();
+		} else if (playerVideo.mozRequestFullScreen) {
+			playerVideo.mozRequestFullScreen();
+		} else if (playerVideo.webkitRequestFullscreen) {
+			playerVideo.webkitRequestFullscreen();
+		}else if (playerVideo.msRequestFullscreen) {
+			playerVideo.msRequestFullscreen();
 		}
-		//alert("telacheia");
-		//timer.innerHTML = tela;
-		//timer.innerHTML = document.fullscreenElement;
-		//document.title = timer.innerHTML;
 	}else{
-		/*
-		//alert(document.fullscreenElement);
-		
-		//timer.innerHTML = "#######################"+document.fullscreenElement	;
-		
 		if (document.exitFullscreen) {
 			document.exitFullscreen();
-		} else if (document.mozRequestFullScreen) {
-			document.mozCancelFullScreen();
-		} else if (document.webkitRequestFullscreen) {
+		} else if (document.webkitExitFullscreen) {
 			document.webkitExitFullscreen();
-		}/**/
+		} else if (document.mozCancelFullScreen) {
+			document.mozCancelFullScreen();
+		} else if (document.msExitFullscreen) {
+			document.msExitFullscreen();
+		}
 	}
 }
 function loader(event){

@@ -21,9 +21,8 @@
 			<center>
 				<div class="FormSession" align="justify">
 	 				<center>
-	 					<iframe 
+	 					<iframe id="VideoPlayer" allowtransparency="true" allowfullscreen="true"
 	 						src="embed.php?video=<?=$ID;?>&autoplay=true" 
-	 						style="width:720px; height:405px; border:0px;"
 	 					></iframe>
 	 				</center>
 
@@ -67,8 +66,73 @@
 							?></div>
 						</details>
 					<?php } ?>
-				</div>
+					
+					
+					<br/>
+					<center>
+						<?php if(getLogedType()=="owner" || getLogedType()=="moderator"){ ?>
+						
+						<script>
+							function btnEditar(){
+								window.location='?sub=video_edit&id=<?=$ID;?>';
+							}
+							function btnApagar(){
+								if(confirm('Deseja realmente apagar este vídeo?')){
+									window.location='?sub=video_delete&id=<?=$ID;?>';
+								}
+							}
+							function btnPublicacao(){
+								if(confirm('Deseja realmente <?=($Video[0]['timePublish']!=''?'privatizar':'publicar');?> este vídeo?')){
+									window.location='?sub=video_access&set=<?=($Video[0]['timePublish']!=''?'private':'public');?>&id=<?=$ID;?>';
+								}
+							}
+						</script>
+						<button onclick="btnEditar();" >
+							<img src="imgs/icons/sbl_lapis.gif" align="absmiddle"	/> Editar
+						</button>
+						<button onclick="btnApagar();">
+							<img src="imgs/icons/sbl_negar.gif" align="absmiddle" /> Apagar
+						</button>
+						<!--button
+							title="Adicione este vídeo a uma Lista!"
+							onclick="openPopupCenter('playlist_form.php?id=<?=$ID;?>','_blank', 330, 330);"
+						>
+							<img src="imgs/icons/sbl_percevejo.gif" align="absmiddle" /> Adicionar a Lista
+						</button-->
+						<button onclick="btnPublicacao();">
+							<img src="imgs/icons/<?=($Video[0]['timePublish']!=''?'sbl_cadeado_preto.gif':'sbl_planeta.gif');?>" align="absmiddle" />
+							<?=($Video[0]['timePublish']!=''?'Privatizar':'Publicar');?>
+							
+						</button>
+					<?php } ?> 
+						
+					<?php /* ?>
+						<button 
+							title="Escreva um comentário" 
+							onclick='<?php 
+								if(isLoged()){ 
+									echo "doWriteMessage();"; 
+								}else{ 
+									echo "if(".
+										"confirm(\"Para comentar você precisa se identificar. \\nDeseja entrar com sua identificação?\")"
+									."){"
+										."window.location=\"?sub=log&redirect=".urlencode("sub=video&id=$ID")."\";"
+									."}";
+								}
+							?>'
+						>
+							<img 
+								src="imgs/icons/sbl_comentario.gif" 
+								align="absmiddle"
+							/> Comentar
+						</button>
+					<?php /**/ ?>
+						
+					</center>
+					
+				</div> <!-- Fim de DIV FormSession -->
 			</center>
+			
 		<?php
 		}else{require_once "subs/forbidden.php";}
 	}

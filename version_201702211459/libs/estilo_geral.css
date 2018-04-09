@@ -277,9 +277,11 @@ session #TitleThumbnails{
 }
 
 session #VideoPlayer{
-	max-width: 100%; 
-	border-radius: 10px
+	border-radius: 15px;/**/
+	border: 0px;
+	min-width: 100%; 
 	width:100%; 
+	height: calc(760px * 0.5625);
 	/*max-height:213px; /**/  
 	text-align: center center;
 }
@@ -294,10 +296,13 @@ session #VideoPlayer{
 		width:100%; 
 	}
 	session #VideoPlayer{
-		max-width:740px; 
-		max-height:213px; /**/  
+		/*max-width: 720px; /**/
+		/*max-height:213px; /**/
+		max-height:56vw; /**/    
 		width:100%; 
 		text-align: center center;
+		border-radius: 0px;/**/
+		border: 0px;
 	}
 	session .VideoList{
 		/*list-style:none;/**/
@@ -627,9 +632,9 @@ code{
 		top:0px; 
 		display: block;
 	}
-	.fixTitle{
+	/*.fixTitle{
 		display: none;
-	}
+	}/**/
 }
 
 @media (max-aspect-ratio: 16/9) { /*Para quando o video estiver em fullscreen*/

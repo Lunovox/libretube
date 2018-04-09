@@ -33,6 +33,7 @@
 	/*background-color: #000;/**/
 	border:0px;
 	overflow:hidden;
+	background:none transparent;
 }
 
 .float-left{
@@ -100,10 +101,11 @@
 	display:none;
 	position: absolute;
 	background-color: rgba(0,0,0,0.7); /*cor cinza*/
-	border: solid 2px rgba(0,255,0,0.5);;
-	width: 87.5vw;
+	border: solid 2px rgba(0,255,0,0.5);
+	width: 87.5%; /*87.5vw;/**/
+	max-width: 87.5%; /*87.5vw;/**/
 	max-height: 70vh;/**/
-	left: 3.75%;
+	left: 3.75vw; /*3.75%;/**/
 	top: 5%;
 	padding: 20px;
 	
@@ -114,6 +116,17 @@
 	vertical-align: text-top;
 	color: #FFF;
 	overflow: auto;
+}
+@media screen and (max-width:600px) { /*Para quando a tela for menor que 380px*/
+	.player-video .video-share, 
+	.player-video .video-feed, 
+	.player-video .video-download, 
+	.player-video .video-description, 
+	.player-video .video-embed, 
+	.player-video .video-help{
+		width: 83.5%; /*87.5vw;/**/
+		max-width: 83.5%; /*87.5vw;/**/
+	}
 }
 .video-download a{
 	color: rgb(128, 255, 128);
@@ -159,7 +172,6 @@
 .video-controls .video-screens{
 	background: url(../imgs/icons/sbl_embed_screen.png) center center no-repeat;
 	background-size: auto 80%;
-	display: none;
 }
 .video-libretube_link{
 	background: url(../imgs/icons/sbl_libretube3.png) center center no-repeat;
