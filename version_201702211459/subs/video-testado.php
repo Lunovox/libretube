@@ -59,7 +59,7 @@
 	 						contextmenu="mnuVideo" 
 	 						oncontextmenu_="return false;"
 	 					>
-							<source src='<?=$myLinks->getVídeoLink();?>' type="<?=$myLinks->getVídeoMimetype();?>">
+							<source src="<?=$myLinks->getVídeoLink();?>" type="<?=$myLinks->getVídeoMimetype();?>">
 							<?php 
 							/*<track src="<?=$Video[0]['urlSubtitle'];?>" kind="subtitles" srclang="pt" label="Português" default />	/**/
 							if(trim($myLinks->getSubtitleLink())!=""){ ?>

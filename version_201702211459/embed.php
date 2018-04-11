@@ -59,7 +59,6 @@
 				<?=($autoplay?"autoplay":"");?> 
 				poster="<?=$myLinks->getPosterLink();?>" 
 			>
-				<!--source src="../vids/3b70cdbd9a823575bab4d50861cdaa5d.mp4" type="video/mp4" /-->
 				<source src='<?=$myLinks->getVídeoLink();?>' type="<?=$myLinks->getVídeoMimetype();?>">
 				<?php 
 				if(trim($myLinks->getSubtitleLink())!=""){ ?>
