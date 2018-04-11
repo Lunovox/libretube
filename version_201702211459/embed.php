@@ -1,14 +1,29 @@
 <?php
-	/**************************************************************************
-	* Código inspirado no tutorial https://www.youtube.com/watch?v=mUW3IqpAtH0
-	* de Jeterson Lordano
-	****************************************************************************/
+	//session_cache_limiter('private'); 	/* Define o limitador de cache para 'private' */
+	session_cache_expire(360); /* Define o limite de tempo do cache em 6 horas (360 minutos) */
+	// Allow script to work long enough to upload big files (in seconds, 2 days by default)
+	@set_time_limit(172800);
 	ini_set('display_errors', 'On'); 
-	//error_reporting(E_ALL | E_STRICT);
-	error_reporting(E_ERROR | E_STRICT | E_WARNING | E_PARSE);
-	//ini_set('default_charset','utf-8');
+	error_reporting(E_ALL | E_STRICT);
+	//error_reporting(E_ERROR | E_STRICT | E_WARNING | E_PARSE);
+	ini_set('default_charset',"UTF-8");
+	//ini_set('default_charset',"ISO-8859-15");
+	ini_set('upload_max_filesize',"2G");
+	ini_set('post_max_size',"2G");
+	ini_set('max_input_time',"86400");
+	//ini_set('log_errors', false); 
+	//ini_set('error_log', 'php_debug.txt'); 
 	
-	date_default_timezone_set("America/Recife"); //-0300
+	/*	FONTE dos atributos alteráveis por ini_set(): 
+			* http://php.net/manual/en/ini.list.php
+			* http://php.net/manual/en/configuration.changes.modes.php
+	/**/
+	
+	//http://wbruno.com.br/php/imprimir-data-atual-em-portugues-php/
+	setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese'); //<== Só funciona para formatação por "strftime()" e não por "date()"
+	date_default_timezone_set("America/Recife");
+	header("content-type: text/html");
+
 	
 	require_once "libs/libGeral.php";
 	require_once "libs/libDownloadLink.php";
@@ -17,6 +32,11 @@
 	$autoplay = Propriedade("autoplay")=="true";
 	
 	$myLinks = new DownLoadLink($id); 
+
+	/**************************************************************************
+	* Código inspirado no tutorial https://www.youtube.com/watch?v=mUW3IqpAtH0
+	* de Jeterson Lordano
+	****************************************************************************/
 ?>
 
 <!DOCTYPE html>

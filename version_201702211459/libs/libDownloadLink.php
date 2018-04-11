@@ -68,11 +68,14 @@
 			$LunoMySQL = new LunoMySQL;
 			if($LunoMySQL->ifAllOk()){
 				$V=null;
+				/*
 				if(getLogedType()=="owner" || getLogedType()=="moderator"){
 					$V = $LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "ID = $VideoID");
 				}else{
 					$V = $LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "ID = $VideoID AND timePublish IS NOT NULL");
 				}
+				/**/
+				$V = $LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "ID = $VideoID");
 				if(count($V)==1){
 					$this->video = $V[0];
 					return true;
