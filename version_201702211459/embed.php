@@ -96,19 +96,26 @@
 						<img src="imgs/icons/sbl_share.png" class="icon-title"/>
 						COMPARTILHE ESTE VÍDEO
 					</h2>
-					<img class="icon-btn"
-						title="Compartilhe este vídeo em sua Rede Social Diáspora!"
-						src="imgs/icons/sbl_share_diaspora.png" type="button"
-						onclick="openPopupCenter('<?=$myLinks->getDiasporaLink();?>','_blank', 880, 600);"
-					/><img class="icon-btn"
-						title="Compartilhe este vídeo em seu Twitter!"
-						src="imgs/icons/sbl_share_twitter.png" type="button"
-						onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 720, 450);"
-					/><img class="icon-btn"
-						title="Compartilhe este vídeo em seu Facebook!"
-						src="imgs/icons/sbl_share_facebook.png" type="button"
-						onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 360, 300);"
-					/>
+					<br/>
+					<?php 
+						if(($myLinks->getVideoTimePublish() !=NULL && $myLinks->getVideoTimePublish()!="") || Propriedade("auth")==$myLinks->getEmbedAuth()){
+					?>
+						<img class="icon-btn"
+							title="Compartilhe este vídeo em sua Rede Social Diáspora!"
+							src="imgs/icons/sbl_share_diaspora.png" type="button"
+							onclick="openPopupCenter('<?=$myLinks->getDiasporaLink();?>','_blank', 880, 600);"
+						/><img class="icon-btn"
+							title="Compartilhe este vídeo em seu Twitter!"
+							src="imgs/icons/sbl_share_twitter.png" type="button"
+							onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 720, 450);"
+						/><img class="icon-btn"
+							title="Compartilhe este vídeo em seu Facebook!"
+							src="imgs/icons/sbl_share_facebook.png" type="button"
+							onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 360, 300);"
+						/>
+					<?php }else{ ?>
+						Você não tem permissão para compartilhar publicamente este [<b>Vídeo Privado</b>]!
+					<?php } ?>
 				<center>
 			</div>
 			
@@ -180,27 +187,31 @@
 								</nobr>
 							</td>
 						</tr>
-						<tr>
-							<td align="right"><nobr><b>Vídeo (<?=$myLinks->getVideoTypeLink();?>):</b></nobr></td>
-							<td style="padding:0px 3px  0px  3px; text-align:left;">
-								<a target="_blank" <?="href='".$myLinks->getVídeoLink()."'";?>><?=$myLinks->getVídeoBase();?></a>
-								
-							</td> 
-						</tr>
-						<tr>
-							<td align="right"><nobr><b>Poster (<?=$myLinks->getPosterTypeLink();?>):</b> </nobr></td>
-							<td style="padding:0px 3px  0px  3px; text-align:left;">
-								<a target="_blank" href="<?=$myLinks->getPosterLink();?>"><?=$myLinks->getPosterBase();?></a>
-							</td> 
-						</tr>
-						<?php if($myLinks->getSubtitleTypeLink()!="none"){ ?>
+						<?php 
+							if(($myLinks->getVideoTimePublish() !=NULL && $myLinks->getVideoTimePublish()!="") || Propriedade("auth")==$myLinks->getEmbedAuth()){
+						?>
 							<tr>
-								<td align="right"><nobr><b>Legenda (<?=$myLinks->getSubtitleTypeLink();?>):</b> </nobr></td>
+								<td align="right"><nobr><b>Vídeo (<?=$myLinks->getVideoTypeLink();?>):</b></nobr></td>
 								<td style="padding:0px 3px  0px  3px; text-align:left;">
-									<a target="_blank" href="<?=$myLinks->getSubtitleLink();?>"><?=$myLinks->getSubtitleBase();?></a>
+									<a target="_blank" <?="href='".$myLinks->getVídeoLink()."'";?>><?=$myLinks->getVídeoBase();?></a>
+								
 								</td> 
 							</tr>
-						<?php } ?>
+							<tr>
+								<td align="right"><nobr><b>Poster (<?=$myLinks->getPosterTypeLink();?>):</b> </nobr></td>
+								<td style="padding:0px 3px  0px  3px; text-align:left;">
+									<a target="_blank" href="<?=$myLinks->getPosterLink();?>"><?=$myLinks->getPosterBase();?></a>
+								</td> 
+							</tr>
+							<?php if($myLinks->getSubtitleTypeLink()!="none"){ ?>
+								<tr>
+									<td align="right"><nobr><b>Legenda (<?=$myLinks->getSubtitleTypeLink();?>):</b> </nobr></td>
+									<td style="padding:0px 3px  0px  3px; text-align:left;">
+										<a target="_blank" href="<?=$myLinks->getSubtitleLink();?>"><?=$myLinks->getSubtitleBase();?></a>
+									</td> 
+								</tr>
+							<?php } 
+						} ?>
 					</table>
 				</center>
 			</div> <!-- Fim de div video-download-->
@@ -214,7 +225,11 @@
 				</center>
 				<br/>
 				<p align="justify">
-					<?=$myLinks->getVideoDescription();?><br/>
+					<?php
+						$Conteudo=$myLinks->getVideoDescription();
+						$Conteudo=str_replace("&#039;", "'", $Conteudo);
+						echo getMakeLinks($Conteudo);
+					?><br/>
 					<br/>
 				</p>
 			</div> <!-- Fim de div video-download-->
@@ -228,22 +243,22 @@
 				</center>
 				<br/>
 				<p align="justify">
+					<b>F1</b> → Tela de Atalhos (Essa que você está observando!). <br/>
+					<b>F2</b> → Descrição sobre o conteudo exibido vídeo. <br/>
+					<b>F8</b> → Tela de Anexar Vídeo Externamente. <br/>
+					<b>Ctrl + F1</b> → Informações sobre o arquivo de vídeo. <br/>
+					<b>Ctrl + F2</b> → Tela de Compartilhamento. <br/>
+					<b>Ctrl + F3</b> → Tela de Assinatura do Canal. <br/>
+					<br/>
+
 					<b>Barra de Espaço</b> → Play ou Pause. <br/>
+					<b>[ + ]</b> → Uncrementa o volume. <br/>
+					<b>[ &ndash; ]</b> → Decrementa o volume. <br/>
 					<b>Ctrl + Esqueda</b> → Volta 10 segundos. <br/>
 					<b>Ctrl + Direita</b> → Avança 10 segundos. <br/>
 					<b>Ctrl + Shift + Esqueda</b> → Volta 30 segundos. <br/>
 					<b>Ctrl + Shift + Direita</b> → Avança 30 segundos. <br/>
-					<b>[ + ]</b> → Uncrementa o volume. <br/>
-					<b>[ &ndash; ]</b> → Decrementa o volume. <br/>
-					<br/>
-					
-					<b>F1</b> → Tela de Atalhos (Essa que você está vendo!). <br/>
-					<b>F2</b> → Tela de Compartilhamento. <br/>
-					<b>F8</b> → Tela de Anexar Vídeo Externamente. <br/>
-					<b>Ctrl + F1</b> → Informações sobre o arquivo de vídeo. <br/>
-					<b>Ctrl + F2</b> → Descrição sobre o conteudo exibido vídeo. <br/>
-					<b>Ctrl + F3</b> → Tela de Assinatura do Canal. <br/>
-					<br/>
+					<br/>					
 				</p>
 			</div> <!-- Fim de div video-help-->
 			
@@ -255,13 +270,21 @@
 					</h2>
 				</center>
 				<br/>
-				<p align="justify">
-					Copie e cole este código abaixo em seu site/blog para exibir este vídeo gratuitamente em seu site/blog:<br/>
-					<br/>
-					<div class="video-code">
-						&lt;iframe allowtransparency=&quot;true&quot; allowfullscreen=&quot;true&quot; src=&quot;<?=$myLinks->getEmbedLink();?>&quot; style=&quot;width:760px; height:427px; border:0px;&quot;&gt;&lt;/iframe&gt;
-					</div><br/>
-				</p>
+				<?php 
+					if(($myLinks->getVideoTimePublish() !=NULL && $myLinks->getVideoTimePublish()!="") || Propriedade("auth")==$myLinks->getEmbedAuth()){
+				?>
+					<p align="justify">
+						Copie e cole este código abaixo em seu site/blog para exibir este vídeo gratuitamente em seu site/blog:<br/>
+						<br/>
+						<div class="video-code">
+							&lt;iframe allowtransparency=&quot;true&quot; allowfullscreen=&quot;true&quot; src=&quot;<a target="_blank" href="<?=$myLinks->getEmbedLink();?>"><?=$myLinks->getEmbedLink();?></a>&quot; style=&quot;width:760px; height:427px; border:0px;&quot;&gt;&lt;/iframe&gt;
+						</div><br/>
+					</p>
+				<?php }else{ ?>
+					<center>
+						Você não tem permissão para anexar publicamente este [<b>Vídeo Privado</b>]!
+					</center>
+				<?php } ?>
 			</div> <!-- Fim de div video-embed-->
 
 			<div class="video-controls">
@@ -284,8 +307,20 @@
 					<?=$autoplay?"style='display:none;' ":'';?>
 					href="<?=$myLinks->getRedirectShortLink();?>"
 				></div>
-				<div class="video-embed-btn float-right video-btn"></div>
-				<div class="video_share-btn float-right video-btn"></div>
+				<div class='video-embed-btn float-right video-btn' <?php 
+					echo (
+						($myLinks->getVideoTimePublish()==NULL 
+						|| $myLinks->getVideoTimePublish()=="")
+						&& Propriedade("auth")!=$myLinks->getEmbedAuth()
+					)?"style='display:none;' ":"";
+				?>></div>
+				<div class="video_share-btn float-right video-btn" <?php 
+					echo (
+						$myLinks->getVideoTimePublish()==NULL 
+						|| $myLinks->getVideoTimePublish()==""
+						|| Propriedade("auth")!=$myLinks->getEmbedAuth()
+					)?"style='display:none;' ":"";
+				?>></div>
 				<div class="video_feed-btn float-right video-btn"></div>
 				<div class="video-download-btn float-right video-btn"></div>
 				<div 

@@ -98,6 +98,7 @@
 		
 		
 		public function getTable($Tabela=NULL, $Teste=NULL, $Ordem=NULL, $CamposDeRetorno=NULL, $LimiteMinimo=0, $LimiteMaximo=9999){
+			//print_r($Teste);
 			if(empty($CamposDeRetorno) || $CamposDeRetorno==""){$CamposDeRetorno="*";}
 			if(isset($Tabela) && $Tabela!="" && isset($Teste) && $Teste!=""){
 				$SQL="SELECT $CamposDeRetorno FROM $Tabela WHERE $Teste";
@@ -107,6 +108,7 @@
 			if(isset($SQL) && $SQL!=""){
 				if(isset($Ordem) && $Ordem!=""){$SQL.=" ORDER BY ".$Ordem;}
 				$SQL.=" LIMIT ".(INT)$LimiteMinimo.", ".(INT)$LimiteMaximo;
+				//print_r($SQL);
 				$Consulta=$this->getResult($SQL);
 				//print_r($Consulta);
 				if(count($Consulta)>=1){$Campos=(int)@mysql_num_fields($Consulta);}else{$Campos=0;}

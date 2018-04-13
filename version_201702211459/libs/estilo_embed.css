@@ -128,18 +128,24 @@
 		max-width: 83.5%; /*87.5vw;/**/
 	}
 }
-.video-download a{
+.video-download a, 
+.video-description a, 
+.video-embed a{
+	text-decoration: none ;
 	color: rgb(128, 255, 128);
 }
-.video-download a:hover{
+.video-download a:hover, 
+.video-description a:hover, 
+.video-embed a:hover{
 	color: rgb(192, 255, 192);
 }
-.video-description a{
-	color: rgb(128, 255, 128);
+.video-download a:hover, 
+.video-description a:hover, 
+.video-embed a:visited{
+	text-decoration: none !important;
+	color: rgb(192, 255, 128);
 }
-.video-description a:hover{
-	color: rgb(192, 255, 192);
-}
+
 .player-video .video-controls{
 	display: none;
 	position: absolute;

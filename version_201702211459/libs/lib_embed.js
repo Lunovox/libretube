@@ -137,7 +137,7 @@ function onKey(event){
 		btnPlay.style.backgroundImage = "url("+icon_playpause[0]+")";
 		return false;
 	}else if(!event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 113){ /* F2 */
-		showShares();
+		showDescription();
 		return false;
 	}else if(!event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 119){ /* F8 */
 		showEmbed();
@@ -146,7 +146,7 @@ function onKey(event){
 		showDownload();
 		return false;
 	}else if(event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 113){ /* CRTL + F2 */
-		showDescription();
+		showShares();
 		return false;
 	}else if(event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 114){ /* CRTL + F3 */
 		showFeeds();

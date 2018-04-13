@@ -49,7 +49,9 @@
 				$resp = $this->setID($VideoID);
 				if($resp==true){
 					$resp = $this->setVídeo($VideoID);
-					if($resp!=true){echo("$resp");}
+					if($resp!=true){
+						echo $resp;
+					}
 				}else{echo("$resp");}
 			}else{echo("$resp");}
 		}
@@ -67,26 +69,26 @@
 		function setVídeo($VideoID){
 			$LunoMySQL = new LunoMySQL;
 			if($LunoMySQL->ifAllOk()){
-				$V=null;
-				/*
-				if(getLogedType()=="owner" || getLogedType()=="moderator"){
-					$V = $LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "ID = $VideoID");
-				}else{
-					$V = $LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "ID = $VideoID AND timePublish IS NOT NULL");
-				}
-				/**/
-				$V = $LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "ID = $VideoID");
-				if(count($V)==1){
-					$this->video = $V[0];
-					return true;
-				}else{
-					return "[ERRO:DownLoadLink->setVídeo()] Não existe vídeo com ID='$VideoID'!";
-				}
+				//echo "aaaaaaaaaaaaaa".var_export($this->getVideoTimePublish(), TRUE);
+				//echo Propriedade("auth")."==".$this->getEmbedAuth()."\n";
+				//if(($this->getVideoTimePublish()!=NULL && $this->getVideoTimePublish()!="") || Propriedade("auth")==$this->getEmbedAuth()){
+					$V=null;
+					$V = $LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "ID = '$VideoID'");
+					if(count($V)==1){
+						$this->video = $V[0];
+						return true;
+					}else{
+						return "[ERRO:DownLoadLink->setVídeo()] Não existe vídeo com ID='$VideoID'!";
+					}
+				/*}else{
+					return "[ERRO:DownLoadLink->setVídeo()] Sem permissão para e vídeo com ID='$VideoID'!";
+				}/**/
 			}else{
 				return "[ERRO:DownLoadLink->setVídeo()] \$LunoMySQL->ifAllOk() == false;";
 			}
 			return false;
 		}
+		
 		function getVídeo(){
 			return $this->video;
 		}
@@ -108,17 +110,43 @@
 // ########### RESULTADO FINAL ########################################################################################################
 		function getVídeoLink(){
 			$V = $this->getVídeo();
-			if($V['videoTypeLink']=="remote"){
-				return $V['urlVideo'];
-			}elseif($V['videoTypeLink']=="local"){
-				return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."download.php?type=video&id=".$V['ID'];
+			if(
+				($this->getVideoTimePublish() !=NULL && $this->getVideoTimePublish()!="") 
+				|| Propriedade("auth")==$this->getEmbedAuth()
+			){
+				if($V['videoTypeLink']=="remote"){
+					return $V['urlVideo'];
+				}elseif($V['videoTypeLink']=="local"){
+					return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."download.php?type=video&id=".$V['ID'];
+				}
+			}else{
+				return "Sem permissão para e vídeo com ID=".$V['ID']."!";
 			}
 		}
 		function getRedirectShortLink(){
 			return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."?video=".$this->getID();
 		}
+		function getEmbedAuth(){
+			$timeRegistration = $this->getVideoTimeRegistration();
+			$trueAuth = getAdler32("LIBRETUBE: ".$timeRegistration);
+			return $trueAuth;
+		}
 		function getEmbedLink(){
-			return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."embed.php?video=".$this->getID();
+			$V = $this->getVídeo();
+			if(
+				($this->getVideoTimePublish() !=NULL && $this->getVideoTimePublish()!="") 
+				|| Propriedade("auth")==$this->getEmbedAuth()
+			){
+				return 'http://'.$_SERVER['HTTP_HOST'].
+				str_replace("index.php", "", 
+					str_replace("embed.php", "", $_SERVER['SCRIPT_NAME'])
+				).
+				"embed.php".
+				"?video=".$this->getID().
+				($this->getVideoTimePublish()==""?"&auth=".$this->getEmbedAuth():"");
+			}else{
+				return "Sem permissão para e Embed com ID=".$V['ID']."!";
+			}
 		}
 		function getVídeoBase(){
 			$V = $this->getVídeo();
@@ -147,10 +175,17 @@
 		}
 		function getPosterLink(){
 			$V = $this->getVídeo();
-			if($V['posterTypeLink']=="remote"){
-				return $V['urlPoster'];
-			}elseif($V['posterTypeLink']=="auto" || $V['posterTypeLink']=="local"){
-				return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."download.php?type=poster&id=".$V['ID'];
+			if(
+				($this->getVideoTimePublish() !=NULL && $this->getVideoTimePublish()!="") 
+				|| Propriedade("auth")==$this->getEmbedAuth()
+			){
+				if($V['posterTypeLink']=="remote"){
+					return $V['urlPoster'];
+				}elseif($V['posterTypeLink']=="auto" || $V['posterTypeLink']=="local"){
+					return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."download.php?type=poster&id=".$V['ID'];
+				}
+			}else{
+				return "Sem permissão para e poster com ID=".$V['ID']."!";
 			}
 		}
 		function getPosterBase(){
@@ -167,12 +202,19 @@
 		}
 		function getSubtitleLink(){
 			$V = $this->getVídeo();
-			if($V['subtitleTypeLink']=="remote"){
-				return $V['urlSubtitle'];
-			}elseif($V['subtitleTypeLink']=="local"){
-				return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."download.php?type=subtitle&id=".$V['ID'];
-			}else{ // $V['subtitleTypeLink']=="none"
-				return "";
+			if(
+				($this->getVideoTimePublish() !=NULL && $this->getVideoTimePublish()!="") 
+				|| Propriedade("auth")==$this->getEmbedAuth()
+			){
+				if($V['subtitleTypeLink']=="remote"){
+					return $V['urlSubtitle'];
+				}elseif($V['subtitleTypeLink']=="local"){
+					return 'http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."download.php?type=subtitle&id=".$V['ID'];
+				}else{ // $V['subtitleTypeLink']=="none"
+					return "";
+				}
+			}else{
+				return "Sem permissão para e Subtitle com ID=".$V['ID']."!";
 			}
 		}
 		function getSubtitleBase(){

@@ -1,12 +1,12 @@
 <?php
 	$ID=Propriedade("id");
-	$Video=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "ID = $ID");
+	$Video=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "ID = '$ID'");
 	//print_r($Video);
 	if(count($Video)==1){
 		if($Video[0]['timePublish']!='' || getLogedType()=="owner" || getLogedType()=="moderator"){ 
 			$external_ip = @exec('curl http://ipecho.net/plain; echo'); //fonte: http://stackoverflow.com/questions/4420468/php-display-server-ip-address
 			if($external_ip!=$_SERVER['REMOTE_ADDR']){
-				$LunoMySQL->getResult("UPDATE ".$LunoMySQL->getConectedPrefix()."videos SET views='".(++$Video[0]['views'])."' WHERE ID=$ID");
+				$LunoMySQL->getResult("UPDATE ".$LunoMySQL->getConectedPrefix()."videos SET views='".(++$Video[0]['views'])."' WHERE ID='$ID'");
 			}
 			
 			$myLinks = new DownLoadLink($ID); 
@@ -22,7 +22,12 @@
 				<div class="FormSession" align="justify">
 	 				<center>
 	 					<iframe id="VideoPlayer" allowtransparency="true" allowfullscreen="true"
-	 						src="embed.php?video=<?=$ID;?>&autoplay=true" 
+	 						src='embed.php?video=<?=$ID;?><?php
+	 							$timeRegistration = $Video[0]['timeRegistration'];
+	 							$timePublish = $Video[0]['timePublish'];
+								$trueAuth = getAdler32("LIBRETUBE: ".$timeRegistration);
+								echo (($timePublish==NULL && $timePublish=="")?"&auth=".$trueAuth:"");
+	 						?>&autoplay=true' 
 	 					></iframe>
 	 				</center>
 
@@ -82,7 +87,9 @@
 								}
 							}
 							function btnPublicacao(){
-								if(confirm('Deseja realmente <?=($Video[0]['timePublish']!=''?'privatizar':'publicar');?> este vídeo?')){
+								if(confirm('Deseja realmente <?php 
+										echo ($Video[0]['timePublish']!=''?'privatizar':'publicar');
+									?> este vídeo?')){
 									window.location='?sub=video_access&set=<?=($Video[0]['timePublish']!=''?'private':'public');?>&id=<?=$ID;?>';
 								}
 							}

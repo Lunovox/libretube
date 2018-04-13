@@ -11,6 +11,10 @@
 			if(isset($Conteudo)){return $Conteudo;}
 		}
 	}
+	
+	function getAdler32($myTexto=""){
+		return strtoupper(hash("adler32", $myTexto, FALSE));
+	}
 	function getHashtags($Texto){
 		preg_match_all('/#([^\s]+)/', strip_tags($Texto), $matches);
 		$hashtags = @$matches[1];
@@ -21,9 +25,10 @@
 	function getMakeLinks($Texto){
 		$hashtags = getHashtags($Texto);
 		for($H=0; $H<count($hashtags); $H++){
+			$link='http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."?sub=video_list&order=search&q=%23".strtolower($hashtags[$H]);
 			$Texto = str_replace(
 				"#".$hashtags[$H],
-				"<a href='?sub=video_list&order=search&q=%23".strtolower($hashtags[$H])."'>#".$hashtags[$H]."</a>",
+				"<a target='_blank' href='$link'>#".$hashtags[$H]."</a>",
 				$Texto
 			);
 		}
