@@ -28,7 +28,7 @@
 			$link='http://'.$_SERVER['HTTP_HOST'].str_replace("index.php", "", str_replace("embed.php", "", $_SERVER['SCRIPT_NAME']))."?sub=video_list&order=search&q=%23".strtolower($hashtags[$H]);
 			$Texto = str_replace(
 				"#".$hashtags[$H],
-				"<a target='_blank' href='$link'>#".$hashtags[$H]."</a>",
+				"<a target='_parent' href='$link'>#".$hashtags[$H]."</a>",
 				$Texto
 			);
 		}

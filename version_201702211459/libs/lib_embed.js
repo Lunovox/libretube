@@ -28,13 +28,14 @@
 
 
 var videoControls, playerVideo, view, timer, videoPreloader;
-var btnPlay, btnVol, full;
+var btnPlay, btnVol, btnEndEvent, full;
 var intervalTimer;
 var barProgress, videoLoader, progress;
 var pctSeek;
 var slider,sliderVol, drag=false;
 var tela, palco;
 var timeShowControls, maxTimeToHide=3;
+var typePlay="next";
 var icon_playpause = [
 	"imgs/icons/sbl_embed_play.png",
 	"imgs/icons/sbl_embed_pause.png"
@@ -46,6 +47,14 @@ var icon_volume = [
 	"imgs/icons/sbl_embed_volume_high.png",
 ];
 
+/*
+window.addEventListener('load', function() {
+	playerVideo = document.querySelector(".player-video");
+	view = playerVideo.querySelector(".video-view");
+	prepare(playerVideo);
+	onLoadTypePlay();
+}, true);
+/**/
 
 function prepare(elem){
 	if(playerVideo!=elem){
@@ -57,6 +66,7 @@ function prepare(elem){
 		videoLoader = playerVideo.querySelector(".video-loader"); 
 		progress = playerVideo.querySelector(".video-progress"); 
 		btnPlay = playerVideo.querySelector(".video-play");
+		btnEndEvent = playerVideo.querySelector(".video-end-event");
 		btnVol = playerVideo.querySelector(".video-volume");
 		slider = playerVideo.querySelector(".slider");
 		sliderVol = playerVideo.querySelector(".slider-vol");
@@ -78,10 +88,12 @@ function prepare(elem){
 		
 		view.addEventListener("waiting", loader);
 		view.addEventListener("playing", loader);
+		view.addEventListener('ended',onEnded);
 		view.addEventListener("click", play);
 		barProgress.addEventListener("click", seeker); 
 		btnPlay.addEventListener("click", play);
 		btnPlay.addEventListener("click", loader);
+		btnEndEvent.addEventListener("click", btnEventEnd);
 		btnVol.addEventListener("click", mute);
 		slider.addEventListener("mousedown", startDrag);
 		slider.addEventListener("mouseup", startDrag);
@@ -99,12 +111,63 @@ function prepare(elem){
 		intervalTimer = setInterval(updateTimer, 100);
 		
 	}
+	onLoadTypePlay();
 	showControls();
 }
+function onEnded(){
+	if(typePlay=="next"){
+		alert(
+			"Desculpe! a função 'Avançar vídeo' ainda não foi implantada.\n"+
+			"Selecione manualmente o próximo vídeo para assistir!"
+		);
+	}else if(view && typePlay=="repeat"){
+		view.currentTime = 0;
+		view.play();
+	}else if(view && typePlay=="stop"){
+		view.currentTime = 0;
+		//view.stop();
+	}
+}
+function onLoadTypePlay(){
+	if(localStorage.length>=1){
+		typePlay = localStorage.getItem("typePlay");
+	}else{
+		typePlay = "next";
+	}
+	//alert(typePlay);
+	changeImgEndEvent();
+}
+function changeImgEndEvent(){
+	if(btnEndEvent){
+		if(typePlay=="next"){
+			btnEndEvent.style.backgroundImage = "url(imgs/icons/sbl_embed_end_next.png)";
+			btnEndEvent.title = "Exibir próxima mídea ao final desta.";
+		}else if(typePlay=="repeat"){
+			btnEndEvent.style.backgroundImage = "url(imgs/icons/sbl_embed_end_repeat.png)";
+			btnEndEvent.title = "Repetir a execução ao final da média.";
+		}else if(typePlay=="stop"){
+			btnEndEvent.style.backgroundImage = "url(imgs/icons/sbl_embed_end_stop.png)";
+			btnEndEvent.title = "Parar de executar ao final da média.";
+		}
+	}
+}
+function btnEventEnd(){
+	if(typePlay=="next"){
+		typePlay="repeat";
+	}else if(typePlay=="repeat"){
+		typePlay="stop";	
+	}else if(typePlay=="stop"){
+		typePlay="next";
+	}
+	localStorage.setItem("typePlay", typePlay);
+	changeImgEndEvent();
+}
 function showControls(){
-	timeShowControls = view.currentTime;
-	videoControls.style.display = "block";
-	printVolume();	
+	if(view){
+		timeShowControls = view.currentTime;
+		videoControls.style.display = "block";
+		printVolume();	
+	}
 }
 function onKey(event){
 	playerVideo.focus();

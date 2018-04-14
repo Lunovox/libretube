@@ -73,7 +73,7 @@
 		</script>
 	</head>
 	<body oncontextmenu="return false;">
-		<div id="idVideo" class="player-video" onmousemove="prepare(this)" onload="prepare(this)">
+		<div id="idVideo" class="player-video" onmousemove="prepare(this)">
 			<video 
 				class="video-view" 
 				<?=($autoplay?"autoplay":"");?> 
@@ -296,6 +296,10 @@
 				
 				<div class="video-play float-left video-btn"></div>
 				<div class="video-screens float-left video-btn"></div>
+				<div 
+					class="video-end-event float-left video-btn"
+					title="Exibir próxima mídea ao final desta."
+				></div>
 				<div class="video-volume float-left video-btn"></div>
 				<div class="slider float-left">
 					<div class="slider-vol"></div>

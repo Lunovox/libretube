@@ -169,7 +169,10 @@
 	background: url(../imgs/icons/sbl_embed_play.png) center center no-repeat;
 	background-size: auto 100%;
 }
-
+.video-controls .video-end-event{
+	background: url(../imgs/icons/sbl_embed_end_next.png) center center no-repeat;
+	background-size: auto 80%;	
+}
 .video-controls .video-volume{
 	background: url(../imgs/icons/sbl_embed_volume_high.png) center center no-repeat;
 	background-size: auto 80%;
@@ -233,6 +236,7 @@
 	font-size: 5vh; /* 4% da altura de tela*/
 	color: #FFF;
 	padding: 5px;
+	margin: 0.6vh 0%;
 }
 .video-code{
 	background-color: rgba(255,255,255,0.3);
