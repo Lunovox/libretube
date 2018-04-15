@@ -191,10 +191,7 @@ function onKey(event){
 		view.currentTime =newTime;
 		return false;
 	}else if(!event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 112){ /* F1 */
-		hideAllForms();
-		frmHelp.style.display = "block";
-		view.pause();
-		btnPlay.style.backgroundImage = "url("+icon_playpause[0]+")";
+		showAtalhos();
 		return false;
 	}else if(!event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 113){ /* F2 */
 		showDescription();
@@ -258,11 +255,22 @@ function tongleDebug(){
 	}
 }
 function hideAllForms(){
+	frmHelp.style.display = "none";
 	frmShare.style.display = "none";
 	frmFeed.style.display = "none";
 	frmDescription.style.display = "none";
 	frmEmbed.style.display = "none";
 	frmHelp.style.display = "none";
+}
+function showAtalhos(){
+	if(frmHelp.style.display == "block"){
+		hideAllForms();
+	}else{
+		hideAllForms();
+		frmHelp.style.display = "block";
+		view.pause();
+		btnPlay.style.backgroundImage = "url("+icon_playpause[0]+")";
+	}
 }
 function showEmbed(){
 	if(frmEmbed.style.display == "block"){
