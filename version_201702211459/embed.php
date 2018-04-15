@@ -74,9 +74,18 @@
 	</head>
 	<body oncontextmenu="return false;">
 		<div id="idVideo" class="player-video" onmousemove="prepare(this)">
+			<!--video 
+				id="video_1523811481639" 
+				style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px;" 
+				playsinline="playsinline" 
+				webkit-playsinline="webkit-playsinline" 
+				src="blob:https://www.nytimes.com/caaa06fb-872e-42e5-a1a4-74123dede24a"></video-->
 			<video 
 				class="video-view" 
 				<?=($autoplay?"autoplay":"");?> 
+				preload="auto" 
+				x-webkit-airplay="allow" 
+				playsinline="playsinline" 
 				poster="<?=$myLinks->getPosterLink();?>" 
 			>
 				<source src='<?=$myLinks->getVídeoLink();?>' type="<?=$myLinks->getVídeoMimetype();?>">
@@ -94,22 +103,25 @@
 				<center>
 					<h2>
 						<img src="imgs/icons/sbl_share.png" class="icon-title"/>
-						COMPARTILHE ESTE VÍDEO
+						COMPARTILHAMENTO DE MÍDIA
 					</h2>
 					<br/>
+					
 					<?php 
 						if(($myLinks->getVideoTimePublish() !=NULL && $myLinks->getVideoTimePublish()!="") || Propriedade("auth")==$myLinks->getEmbedAuth()){
 					?>
+						Compartilhe esta mídia em sua rede social preferida:<br/>
+						<br/>
 						<img class="icon-btn"
-							title="Compartilhe este vídeo em sua Rede Social Diáspora!"
-							src="imgs/icons/sbl_share_diaspora.png" type="button"
+							title="Diáspora!"
+							src="imgs/icons/sbl_share_diaspora2.png" type="button"
 							onclick="openPopupCenter('<?=$myLinks->getDiasporaLink();?>','_blank', 880, 600);"
 						/><img class="icon-btn"
-							title="Compartilhe este vídeo em seu Twitter!"
+							title="Twitter!"
 							src="imgs/icons/sbl_share_twitter.png" type="button"
 							onclick="openPopupCenter('//twitter.com/intent/tweet?text=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 720, 450);"
 						/><img class="icon-btn"
-							title="Compartilhe este vídeo em seu Facebook!"
+							title="Facebook!"
 							src="imgs/icons/sbl_share_facebook.png" type="button"
 							onclick="openPopupCenter('//facebook.com/sharer/sharer.php?u=<?=urlencode($myLinks->getRedirectShortLink());?>','_blank', 360, 300);"
 						/>
@@ -123,8 +135,24 @@
 				<center>
 					<h2>
 						<img src="imgs/icons/sbl_file_rss.gif" class="icon-title"/>
-						ASSINE E RECEBA NOTÍCIAS DESTE CANAL
+						ASSINATURA DO CANAL
 					</h2>
+					<br/>
+
+					Assine este canal e receba notícias de novas publicações:<br/>
+					<br/>
+
+					<div class="video-code">
+						<center>
+							<img src="imgs/selos/sbl_feed_atom.png" type="button" class="selo-btn"
+								title="Assine e Receba notícias periódicas deste canal no seu Navegador!"
+								onclick="window.open('<?=getAtomLink('xml');?>');"
+							/> 
+							<a target="_blank" href="<?=getAtomLink('xml');?>"><?=getAtomLink('xml');?></a>
+						</center>
+					</div><br/>
+					
+					Sugestão de agregadores: 
 					<img src="imgs/selos/sbl_add2feedreader_nextcloud.png" type="button" class="selo-btn"
 						title="Assine e Receba notícias periódicas deste canal no NextCloud do Disroot!"
 						onclick="window.open('https://cloud.disroot.org/apps/news/?subscribe_to=<?=rawurlencode(getAtomLink('xml'));?>');"
@@ -137,23 +165,37 @@
 						title="Assine e Receba notícias periódicas deste canal em diversos outros agregadores!"
 						onclick="openPopupCenter('https://www.subtome.com/#/subscribe?feeds=<?=rawurlencode(getAtomLink('xml'));?>','_blank', 500, 370);"
 					/><br/>
-
-					<code><?=getAtomLink('xml');?></code><br/>
-
-					<img src="imgs/selos/sbl_feed_atom.png" type="button" class="selo-btn"
-						title="Assine e Receba notícias periódicas deste canal no seu Navegador!"
-						onclick="window.open('<?=getAtomLink('xml');?>');"
-					/>
+					<br/>
+					
 				</center>
 			</div>
 			
-			<div class="video-download">
+			<div class="video-description">
 				<center>
 					<h2>
-						<img src="imgs/icons/sbl_file_download.gif" class="icon-title" /> 
-						SOBRE ESTE VÍDEO
+						<img src="imgs/icons/sbl_libretube3.png" class="icon-title" /> 
+						<?=strtoupper($myLinks->getVideoTitle());?><br/>
 					</h2>
-					
+				</center>
+				<br/>
+
+				<p align="justify">
+					<?php
+						$Conteudo=$myLinks->getVideoDescription();
+						$Conteudo=str_replace("&#039;", "'", $Conteudo);
+						echo getMakeLinks($Conteudo);
+					?><br/>
+					<br/>
+				</p>
+				
+				
+				<div class="video-block">
+					<h3>
+						<img src="imgs/icons/sbl_file_download.gif" style="width: 3vw;"/>
+						Informações desta mídia:
+					</h3>
+					<br/>
+				
 					<table>
 						<tr>
 							<td align="right"><b><nobr>Visualizações:</nobr></b></td>
@@ -194,7 +236,7 @@
 								<td align="right"><nobr><b>Vídeo (<?=$myLinks->getVideoTypeLink();?>):</b></nobr></td>
 								<td style="padding:0px 3px  0px  3px; text-align:left;">
 									<a target="_blank" <?="href='".$myLinks->getVídeoLink()."'";?>><?=$myLinks->getVídeoBase();?></a>
-								
+							
 								</td> 
 							</tr>
 							<tr>
@@ -213,42 +255,29 @@
 							<?php } 
 						} ?>
 					</table>
-				</center>
-			</div> <!-- Fim de div video-download-->
-			
-			<div class="video-description">
-				<center>
-					<h2>
-						<img src="imgs/icons/sbl_informacao.gif" class="icon-title" /> 
-						<?=strtoupper($myLinks->getVideoTitle());?><br/>
-					</h2>
-				</center>
+				</div>
 				<br/>
-				<p align="justify">
-					<?php
-						$Conteudo=$myLinks->getVideoDescription();
-						$Conteudo=str_replace("&#039;", "'", $Conteudo);
-						echo getMakeLinks($Conteudo);
-					?><br/>
-					<br/>
-				</p>
+
 			</div> <!-- Fim de div video-download-->
 			
 			<div class="video-help">
 				<center>
 					<h2>
-						<img src="imgs/icons/sbl_about.png" class="icon-title" /> 
-						ATALHOS<br/>
+						<img src="imgs/icons/sbl_embed_keyboard.png" class="icon-title" /> 
+						ATALHOS DE TECLADO<br/>
 					</h2>
 				</center>
 				<br/>
+				
 				<p align="justify">
 					<b>F1</b> → Tela de Atalhos (Essa que você está observando!). <br/>
 					<b>F2</b> → Descrição sobre o conteudo exibido vídeo. <br/>
 					<b>F8</b> → Tela de Anexar Vídeo Externamente. <br/>
-					<b>Ctrl + F1</b> → Informações sobre o arquivo de vídeo. <br/>
+					<b>F9</b> → Escolhe o evento (próximo, repetir ou parar) do final de execução de mídia. <br/>
+					<b>Ctrl + F1</b> → Tela de Assinatura do Canal. <br/>
 					<b>Ctrl + F2</b> → Tela de Compartilhamento. <br/>
-					<b>Ctrl + F3</b> → Tela de Assinatura do Canal. <br/>
+					<b>Ctrl + Shift + D</b> → Ativa e Desativa o modo DEBUG de teclas de atalho. <br/>
+					<b>Ctrl + Shift + F</b> → Ativa e Desativa tela cheia. <br/>
 					<br/>
 
 					<b>Barra de Espaço</b> → Play ou Pause. <br/>
@@ -294,42 +323,57 @@
 					<div class="video-progress"></div>
 				</div>
 				
-				<div class="video-play float-left video-btn"></div>
-				<div class="video-screens float-left video-btn"></div>
-				<div 
-					class="video-end-event float-left video-btn"
-					title="Exibir próxima mídea ao final desta."
+				<!-- Botão Play--><div 
+					class="video-play float-left video-btn"
+					title="Botão de execução de mídia  [bARRA DE ESPAÇO]."
 				></div>
-				<div class="video-volume float-left video-btn"></div>
-				<div class="slider float-left">
+				<!-- Botão Fullscreen--><div 
+					class="video-screens float-left video-btn"
+					title="Alternar entre Tela Cheia e Tela Limitada [CTRL + SHIFT + F]."
+				></div>
+				<!-- Botão End-Evento--><div 
+					class="video-end-event float-left video-btn"
+					title="Exibir próxima mídea ao final desta (F9)."
+				></div>
+				<!-- Botão Volume--><div 
+					class="video-volume float-left video-btn"
+					title="Alterna entre modo de áudio 'Mudo' e 'Percentual' [+] ou [&ndash;]."
+				></div>
+				<!-- Barra de Volume--><div class="slider float-left">
 					<div class="slider-vol"></div>
 				</div>
-				<div class="video-time float-left">LIBRETUBE</div>
+				<!-- Display de Tempo--><div class="video-time float-left">LIBRETUBE</div>
 
-				<div 
+				<!-- Botão Link de Libretube --><div 
 					class="video-libretube_link float-right video-btn"
 					<?=$autoplay?"style='display:none;' ":'';?>
 					href="<?=$myLinks->getRedirectShortLink();?>"
+					title="Acessa a página do canal."
 				></div>
-				<div class='video-embed-btn float-right video-btn' <?php 
-					echo (
-						($myLinks->getVideoTimePublish()==NULL 
-						|| $myLinks->getVideoTimePublish()=="")
-						&& Propriedade("auth")!=$myLinks->getEmbedAuth()
-					)?"style='display:none;' ":"";
-				?>></div>
-				<div class="video_share-btn float-right video-btn" <?php 
+				<!-- Botão Embed--><div 
+					class='video-embed-btn float-right video-btn' 
+					<?php 
+						echo (
+							($myLinks->getVideoTimePublish()==NULL 
+							|| $myLinks->getVideoTimePublish()=="")
+							&& Propriedade("auth")!=$myLinks->getEmbedAuth()
+						)?"style='display:none;' ":"";
+					?>
+					title="Exibe código de 'Anexar Mídea Externamente' [F8]."
+				></div>
+				<!-- Botão Compartilhar --><div class="video_share-btn float-right video-btn" <?php 
 					echo (
 						$myLinks->getVideoTimePublish()==NULL 
 						|| $myLinks->getVideoTimePublish()==""
-						|| Propriedade("auth")!=$myLinks->getEmbedAuth()
 					)?"style='display:none;' ":"";
 				?>></div>
-				<div class="video_feed-btn float-right video-btn"></div>
-				<div class="video-download-btn float-right video-btn"></div>
-				<div 
+				<!-- Botão Assinatura --><div 
+					class="video_feed-btn float-right video-btn"
+					title="Exibe botões de assinatura do canal [Ctrl+F3]."
+				></div>
+				<!-- Botão Descrição de Vídeo --><div 
 					class="video-description-btn float-right video-btn" 
-					<?=$autoplay?"style='display:none;' ":'';?>
+					title="Exibe informações sobre o conteudo da mídia [F2]."
 				></div>
 			</div>
 			

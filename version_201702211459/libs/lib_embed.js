@@ -32,7 +32,7 @@ var btnPlay, btnVol, btnEndEvent, full;
 var intervalTimer;
 var barProgress, videoLoader, progress;
 var pctSeek;
-var slider,sliderVol, drag=false;
+var slider,sliderVol, drag=false, debugMode=false;
 var tela, palco;
 var timeShowControls, maxTimeToHide=3;
 var typePlay="next";
@@ -78,8 +78,6 @@ function prepare(elem){
 		frmShare = playerVideo.querySelector(".video-share");
 		btnFeed = playerVideo.querySelector(".video_feed-btn");
 		frmFeed = playerVideo.querySelector(".video-feed");
-		btnDownload = playerVideo.querySelector(".video-download-btn");
-		frmDownload = playerVideo.querySelector(".video-download");
 		btnDescription = playerVideo.querySelector(".video-description-btn");
 		frmDescription = playerVideo.querySelector(".video-description");
 		btnEmbed = playerVideo.querySelector(".video-embed-btn");
@@ -102,7 +100,6 @@ function prepare(elem){
 		btnLibretube.addEventListener("click", toLibretube);
 		btnShare.addEventListener("click", showShares);
 		btnFeed.addEventListener("click", showFeeds);
-		btnDownload.addEventListener("click", showDownload);
 		btnDescription.addEventListener("click", showDescription);
 		btnEmbed.addEventListener("click", showEmbed);
 		document.body.addEventListener("keyup", onKey);
@@ -205,14 +202,21 @@ function onKey(event){
 	}else if(!event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 119){ /* F8 */
 		showEmbed();
 		return false;
+	}else if(!event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 120){ /* F9 */
+		showControls();
+		btnEventEnd();
+		return false;
 	}else if(event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 112){ /* CRTL + F1 */
-		showDownload();
+		showFeeds();
 		return false;
 	}else if(event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 113){ /* CRTL + F2 */
 		showShares();
 		return false;
-	}else if(event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 114){ /* CRTL + F3 */
-		showFeeds();
+	}else if(event.ctrlKey && event.shiftKey && !event.altKey && event.keyCode == 70){ /* CTRL + SHIFT + "F" */
+		fullScreen();
+		return false;
+	}else if(event.ctrlKey && event.shiftKey && !event.altKey && event.keyCode == 68){ /* CTRL + SHIFT + "D" */
+		tongleDebug();
 		return false;
 	}else if(!event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 107){ /* Botão de + */
 		var newVolume = view.volume+0.1;
@@ -229,13 +233,33 @@ function onKey(event){
 		showControls();
 		return false;
 	}
-	//document.title = event.keyCode;
-	//document.title = view.volume;
+	if(debugMode){
+		alert(
+			"Botão: " + 
+			(event.ctrlKey?"CTRL + ":"") +
+			(event.shiftKey?"SHIFT + ":"") + 
+			(event.altKey?"ALT + ":"") +
+			"CHAR_KEY(" + event.keyCode + ")"
+		,"FFF");
+		//document.title = event.keyCode;
+		//document.title = view.volume;
+	}
+}
+function tongleDebug(){
+	var question = false;
+	if(!debugMode){
+		question = confirm("Deseja Realmente ativar o modo DEBUG para as teclas de atalho?");
+		if(question){
+			debugMode=!debugMode;
+		}
+	}else{
+		debugMode=!debugMode;
+		alert("Modo DEBUG desativado!");
+	}
 }
 function hideAllForms(){
 	frmShare.style.display = "none";
 	frmFeed.style.display = "none";
-	frmDownload.style.display = "none";
 	frmDescription.style.display = "none";
 	frmEmbed.style.display = "none";
 	frmHelp.style.display = "none";
@@ -251,21 +275,11 @@ function showEmbed(){
 	}
 }
 function showDescription(){
-	if(frmDownload.style.display == "block"){
+	if(frmDescription.style.display == "block"){
 		hideAllForms();
 	}else{
 		hideAllForms();
 		frmDescription.style.display = "block";
-		view.pause();
-		btnPlay.style.backgroundImage = "url("+icon_playpause[0]+")";
-	}
-}
-function showDownload(){
-	if(frmDownload.style.display == "block"){
-		hideAllForms();
-	}else{
-		hideAllForms();
-		frmDownload.style.display = "block";
 		view.pause();
 		btnPlay.style.backgroundImage = "url("+icon_playpause[0]+")";
 	}
@@ -423,6 +437,7 @@ function play(){
 			btnPlay.style.backgroundImage = "url("+icon_playpause[0]+")"; //"url(skinPlayer/btn-play.png)";
 			//alert(convertTimer(view.duration));
 		}else{
+			playerVideo.focus();
 			hideAllForms();
 			view.play();
 			btnPlay.style.backgroundImage = "url("+icon_playpause[1]+")"; //"url(skinPlayer/btn-pause.png)";
