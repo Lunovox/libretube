@@ -60,12 +60,13 @@
 .video-preloader{
 	display: none;
 	position: absolute;
-	width: 80px;
-	height: 80px;
-	left: 45%;
-	top: 35%;
-	background: url(../imgs/icons/sbl_embed_loading.gif) center center no-repeat;
-	background-size: auto 40%; 
+	width: 20vw;
+	height: 20vw;
+	left: calc((100vw - 20vw)/2);
+	top: calc((100vh - 20vw)/2);
+	background: url(../imgs/icons/sbl_embed_loading.gif) center center no-repeat, url(../imgs/banners/simbol_libretube.png) center center	 no-repeat;
+	opacity: 0.5;
+	background-size: auto 50%, auto 20%; 
 }
 .icon-title{
 	width: 9vh; /*10% da altura de tela*/

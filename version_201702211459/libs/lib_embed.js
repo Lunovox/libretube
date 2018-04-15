@@ -421,10 +421,6 @@ function seeker(event){
 }
 function updateTimer(){
 	if(view.duration){
-		if(view.currentTime - timeShowControls > maxTimeToHide){
-		
-		}
-		
 		timer.innerHTML = convertTimer(view.currentTime) + " | " + convertTimer(view.duration);
 
 		var bufferedEnd = view.buffered.end(view.buffered.length - 1);
