@@ -22,7 +22,7 @@
 */
 
 	/**************************************************************************
-	* Código inspirado no tutorial https://www.youtube.com/watch?v=mUW3IqpAtH0
+	* Código inspirado no tutorial https://youtu.be/mUW3IqpAtH0
 	* de Jeterson Lordano
 	****************************************************************************/
 

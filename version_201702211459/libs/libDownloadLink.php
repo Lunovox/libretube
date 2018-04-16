@@ -1,9 +1,10 @@
 <?php
-	/*
+
+/*
 	@licstart The following is the entire license notice for the
 	JavaScript code in this page.
 
-	Copyright (C) 2015 Lunovox ( ͡° ͜ʖ ͡°)
+	Copyright (C) 2015 Lunovox
 
 	The JavaScript code in this page is free software: you can
 	redistribute it and/or modify it under the terms of the GNU
@@ -20,7 +21,7 @@
 
 	@licend The above is the entire license notice
 	for the JavaScript code in this page.
-	*/
+*/
 
 	ini_set('display_errors', 'On'); 
 	//error_reporting(E_ERROR | E_STRICT | E_WARNING | E_PARSE);
