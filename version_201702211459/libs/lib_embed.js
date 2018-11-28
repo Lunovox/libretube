@@ -435,8 +435,11 @@ function updateTimer(){
 	}	
 }
 function play(){
+	
+	//alert('view.played.length='+view.played.length+" view.paused="+view.paused);
 	if(view.played.length != 0 && !view.paused){
-		if(view.played.start(0) == 0){
+		//alert('view.played.start(0)='+view.played.start(0));
+		if(view.played.start(0) == 1){
 			view.pause();
 			btnPlay.style.backgroundImage = "url("+icon_playpause[0]+")"; //"url(skinPlayer/btn-play.png)";
 			//alert(convertTimer(view.duration));
