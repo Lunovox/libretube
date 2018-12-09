@@ -87,9 +87,9 @@ function prepare(elem){
 		view.addEventListener("waiting", loader);
 		view.addEventListener("playing", loader);
 		view.addEventListener('ended',onEnded);
-		view.addEventListener("click", play);
+		view.addEventListener("click", doPlay);
 		barProgress.addEventListener("click", seeker); 
-		btnPlay.addEventListener("click", play);
+		btnPlay.addEventListener("click", doPlay);
 		btnPlay.addEventListener("click", loader);
 		btnEndEvent.addEventListener("click", btnEventEnd);
 		btnVol.addEventListener("click", mute);
@@ -123,6 +123,11 @@ function onEnded(){
 	}else if(view && typePlay=="stop"){
 		view.currentTime = 0;
 		//view.stop();
+	}else{
+		alert(
+			"ERRO[onEnded()]: Ocorreu um erro inesperado!"
+		);
+		return false;
 	}
 }
 function onLoadTypePlay(){
@@ -169,7 +174,7 @@ function showControls(){
 function onKey(event){
 	playerVideo.focus();
 	if(!event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 32){ /* BARRA DE ESPAÇO */
-		play();
+		doPlay();
 	}else if(event.ctrlKey && !event.shiftKey && !event.altKey && event.keyCode == 37){ /* CTRL + LEFT */
 		var newTime = view.currentTime-10;
 		if(newTime<0){newTime=0;}
@@ -434,15 +439,15 @@ function updateTimer(){
 		}
 	}	
 }
-function play(){
-	
-	//alert('view.played.length='+view.played.length+" view.paused="+view.paused);
+function doPlay(){
+
+	//alert('view.played.length='+view.played.length+"' view.paused='"+view.paused+"'");
 	if(view.played.length != 0 && !view.paused){
-		//alert('view.played.start(0)='+view.played.start(0));
-		if(view.played.start(0) == 1){
+		//alert("view.played.start(0)='"+view.played.start(0)+"'");
+		if(view.paused==false){ //if(view.played.start(0) == 0){
 			view.pause();
 			btnPlay.style.backgroundImage = "url("+icon_playpause[0]+")"; //"url(skinPlayer/btn-play.png)";
-			//alert(convertTimer(view.duration));
+			//alert("convertTimer(view.duration)='"+convertTimer(view.duration)+"'");
 		}else{
 			playerVideo.focus();
 			hideAllForms();
