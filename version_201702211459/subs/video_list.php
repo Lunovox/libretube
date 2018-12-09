@@ -65,7 +65,7 @@
 		<?php } ?>
 
 		<h1><?=$TitlePage;?></h1>
-		<div style="display:inline-block; padding:3px; background-color:rgba(128,128,128,0.8); border:1px solid #c0c0c0; border-radius:5px;">
+		<div id="divPageBottom" style="display:inline-block; padding:3px; background-color:rgba(128,128,128,0.8); border:1px solid #c0c0c0; border-radius:5px;">
 			<h2><?php 
 				if($page>0){ 
 					?><button align="top" style="border-radius:5px;"
@@ -377,3 +377,15 @@
 	?>
 </center>
 
+<div>
+	<br/>
+	<center>
+		<div id="divPageBottom2" style="display:inline-block; padding:3px; background-color:rgba(128,128,128,0.8); border:1px solid #c0c0c0; border-radius:5px;">
+			<script language="JavaScript">
+				var divPageBottom = document.getElementById("divPageBottom");
+				var divPageBottom2 = document.getElementById("divPageBottom2");
+				divPageBottom2.innerHTML = divPageBottom.innerHTML;
+			</script>
+		</div>
+	</center>
+</div>
