@@ -68,9 +68,9 @@
 		<div id="divPageBottom" style="display:inline-block; padding:3px; background-color:rgba(128,128,128,0.8); border:1px solid #c0c0c0; border-radius:5px;">
 			<h2><?php 
 				if($page>0){ 
-					?><button align="top" style="border-radius:5px;"
+					?><button class="btnPage" title="Primeira Página"
 					onclick="window.location='?sub=video_list&order=<?=$order;?>&page=0';"
-					> << </button><button align="top" style="border-radius:5px;"
+					> << </button><button class="btnPage" title="Voltar Página"
 					onclick="window.location='?sub=video_list&order=<?=$order;?>&page=<?=$page-1;?>';"
 					> < </button><?php 
 				} 
@@ -79,9 +79,9 @@
 					//($page*$QtdPerPage)+$QtdPerPage<$QtdVideos
 					$page < ceil($QtdVideos/$QtdPerPage)-1
 				){ 
-					?><button align="top" style="border-radius:5px;"
+					?><button class="btnPage" title="Avançar Página"
 					onclick="window.location='?sub=video_list&order=<?=$order;?>&page=<?=$page+1;?>';"
-					> > </button><button align="top" style="border-radius:5px;"
+					> > </button><button class="btnPage" title="Última Página"
 					onclick="window.location='?sub=video_list&order=<?=$order;?>&page=<?=(ceil($QtdVideos/$QtdPerPage)-1);?>';"
 					> >> </button><?php 
 				} 
