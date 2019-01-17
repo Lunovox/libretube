@@ -31,7 +31,7 @@
 
 		<h2>Licença GPL-3.0-or-later</h2>
 		<p>
-			Este projeto (LibreTube) está licenciada sob <b>GNU Lesser General Public License versão 3, como publicado pela Free Software Foundation, ou (à sua escolha), qualquer versão posterior</b> (GNU GPL-3.0-or-later). Isto permite que você use, estude, adapte, redistribua (comercialmente ou não) tanto a obra original quanto as adaptações. Porém, você deve atribuir a obra todas as vezes que usá-la, indicando o detentor dos direitos autorais (a quem esta obra pertence), o nome dela, como ela foi adquirida (ou onde ela pode ser adquirida, seja um endereço, e-mail, telefone, ou qualquer outro meio em que ela possa ser transferida), além de ter a obrigação de informar a licença da obra, e um endereço ou documento com a licença completa (ou seja, contendo o código legal). Além disso, caso você faça adaptações do projeto, deve manter a mesma licença, ou uma licença completamente compatível, conforme avaliada pela Free Software Foundation.
+			Este projeto (LibreTube) está licenciada sob <b>GNU General Public License versão 3, como publicado pela Free Software Foundation, ou (à sua escolha), qualquer versão posterior</b> (GNU GPL-3.0-or-later). Isto permite que você use, estude, adapte, redistribua (comercialmente ou não) tanto a obra original quanto as adaptações. Porém, você deve atribuir a obra todas as vezes que usá-la, indicando o detentor dos direitos autorais (a quem esta obra pertence), o nome dela, como ela foi adquirida (ou onde ela pode ser adquirida, seja um endereço, e-mail, telefone, ou qualquer outro meio em que ela possa ser transferida), além de ter a obrigação de informar a licença da obra, e um endereço ou documento com a licença completa (ou seja, contendo o código legal). Além disso, caso você faça adaptações do projeto, deve manter a mesma licença, ou uma licença completamente compatível, conforme avaliada pela Free Software Foundation.
 		</p><br/>
 		<p>
 			<ul>
@@ -63,9 +63,15 @@
 			<tr>
 				<td>
 					<ul>
-						<li><a target="_blank" href="https://libreplanet.org/wiki/User:Lunovox"><b>Lunovox Heavenfinder</b></a></li>
-						<li><a target="_blank" href="https://libreplanet.org/wiki/User:Adfeno"><b>Adonay Felipe Nogueira</b></a></li>
-						<li><a target="_blank" href="https://www.youtube.com/watch?v=mUW3IqpAtH0"><b>Jeterson Lordano</b></a></li>
+						<li>
+							<a target="_blank" href="https://libreplanet.org/wiki/User:Lunovox"><b>Lunovox Heavenfinder</b></a> (por <a target="_blank" href="https://github.com/Lunovox/libretube">Código Fonte</a>)
+						</li>
+						<li>
+							<a target="_blank" href="https://libreplanet.org/wiki/User:Adfeno"><b>Adonay Felipe Nogueira</b></a> (por Detalhes da Licença)
+						</li>
+						<li>
+							<a target="_blank" href="https://www.youtube.com/channel/UCCNcpAaReCIELrQnsXX11kw"><b>Jeterson Lordano</b></a> (por script de <a target="_blank" href="https://www.youtube.com/watch?v=mUW3IqpAtH0">Embed de Vídeo</a>)
+						</li>
 					</ul>
 				</td>
 			</tr>		
