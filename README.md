@@ -9,8 +9,9 @@ ____
 
 ## DESENVOLVEDORES ( ͡° ͜ʖ ͡°)
 
-* [Lunovox Heavenfinder](https://libreplanet.org/wiki/User:Lunovox)
-* [Adonay Felipe Nogueira](https://libreplanet.org/wiki/User:Adfeno)
+* **[Lunovox Heavenfinder](https://libreplanet.org/wiki/User:Lunovox)** (por [Código Fonte](https://github.com/Lunovox/libretube))
+* **[Adonay Felipe Nogueira](https://libreplanet.org/wiki/User:Adfeno)** (por detalhes da Licença)
+* **[Jeterson Lordano](https://www.youtube.com/channel/UCCNcpAaReCIELrQnsXX11kw)** (por script de [Embed de Vídeo](https://www.youtube.com/watch?v=mUW3IqpAtH0))
 
 _____
 
