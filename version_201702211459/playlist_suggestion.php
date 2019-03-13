@@ -1,7 +1,6 @@
 <?php
 	/*
-		Este feed foi feito no padrão Atom (e não por RSS que é proprietário)
-		FONTE: https://pt.wikipedia.org/wiki/Atom
+		Esse código foi criado para selecionar sugestões de próximos vídeos para assistir.
 	*/
 	
 	ini_set('display_errors', 'On'); 
@@ -17,40 +16,73 @@
 	
 	
 	
-	$thisURL = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'];
+	//$thisURL = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'];
 	
 	require_once "libs/libMySQL2.php";
 	
 	$LunoMySQL = new LunoMySQL;
-    echo "{\n";
 	if($LunoMySQL->ifAllOk()){
         $v = urldecode(Propriedade("v"));
         $q = urldecode(Propriedade("q"));
         $o = urldecode(Propriedade("o")); //order
-		
+		$Suggestions={};
+		$Suggestion="";
         if($o=="mostviews"){
             if(getLogedType()=="owner" || getLogedType()=="moderator"){
-                $Suggestion=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "",  "Title DESC", null, 0, 5);
+                $Suggestions=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "",  "Title DESC", null, 0, 5);
             }else
-                $Suggestion=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "timePublish IS NOT NULL",  "Title DESC", null, 0, 5);
+                $Suggestions=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "timePublish IS NOT NULL",  "Title DESC", null, 0, 5);
             }
         }elseif($o=="privates" && (getLogedType()=="owner" || getLogedType()=="moderator")){
 
         }elseif($o=="search" && $q!=""){
-            $Suggestion=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", 
-                "timePublish IS NOT NULL AND Title LIKE '%$q%'",  
-            "Title ASC", null, 0, 5);
+			$search="";
+			if(strlen(trim($q))>=3){
+				$Partes = explode(" ",$query);
+				if(getLogedType()!="owner" && getLogedType()!="moderator"){$search.="(";}
+				for($P=0; $P<count($Partes); $P++){
+					if(strlen(trim($Partes[$P]))>=3){
+						$search.="Title LIKE '%".$Partes[$P]."%' OR Description LIKE '%".trim($Partes[$P])."%'";
+						if($P!=count($Partes)-1){$search.=" OR ";}
+					}
+				}
+				if(getLogedType()!="owner" && getLogedType()!="moderator"){$search.=") AND timePublish IS NOT NULL";}
+			}else{
+				if(getLogedType()!="owner" && getLogedType()!="moderator"){$search.="timePublish IS NOT NULL";}
+			}
+			if(strlen(trim($search))>=3){
+				$Suggestions=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", $search,  "timePublish DESC, timeUpdate DESC", null, 0, 5);
+			}else{
+				
+			}
         }else{ //Ordem = Recentes
             if(getLogedType()=="owner" || getLogedType()=="moderator"){
-                $Suggestion=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "",  "timeUpdate  DESC", null, 0, 5);
+                $Suggestions=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "",  "timeUpdate  DESC", null, 0, 5);
             }else
-                $Suggestion=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "timePublish IS NOT NULL",  "timeUpdate  DESC", null, 0, 5);
-                $LunoMySQL->getConectedPrefix()."videos"
+                $Suggestions=$LunoMySQL->getTable($LunoMySQL->getConectedPrefix()."videos", "timePublish IS NOT NULL",  "timeUpdate  DESC", null, 0, 5);
             }
         }
-        for($S=0; $S<count($Suggestion); $S++){ ?>
-        
+        for($S=0; $S<count($Suggestions); $S++){
+			if($v==""){
+				$Suggestion=0;
+			}else{
+				if($S!=count($Suggestions)-1){
+					if($Suggestions[$S]['ID']==$v){
+						$Suggestion=$S;
+						unset($Suggestions[$S]);
+						break;
+					}
+				}else{
+					if($Suggestions[$S]['ID']==$v){
+						$Suggestion=$S;
+						unset($Suggestions[$S]);
+						break;
+					}else{
+						$Suggestion=0;
+					}
+				}
+			}        
         }
-            //window.location='?sub=video_delete&id=<?=$ID;?>';
+            //window.location='?sub=video_delete&id=0';
     }
 ?>
